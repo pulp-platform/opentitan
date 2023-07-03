@@ -1,13 +1,13 @@
 # See LICENSE.SiFive for license details
 
-debug_rom = debug_rom.sv debug_rom_one_scratch.sv
+debug_ot_rom = debug_ot_rom.sv debug_ot_rom_one_scratch.sv
 
 GCC?=riscv64-unknown-elf-gcc
 OBJCOPY?=riscv64-unknown-elf-objcopy
 OBJDUMP?=riscv64-unknown-elf-objdump
 PYTHON?=python
 
-all: $(debug_rom)
+all: $(debug_ot_rom)
 
 %.sv: %.img
 	$(PYTHON) gen_rom.py $<
@@ -18,7 +18,7 @@ all: $(debug_rom)
 %.bin: %.elf
 	$(OBJCOPY) -O binary $< $@
 
-%.elf: $(findstring debug_rom, $(debug_rom)).S link.ld
+%.elf: $(findstring debug_ot_rom, $(debug_ot_rom)).S link.ld
 	$(GCC) $(if  $(findstring one_scratch,$@),,-DSND_SCRATCH=1) -I$(RISCV)/include -Tlink.ld $< -nostdlib -fPIC -static -Wl,--no-gc-sections -o $@
 
 %.dump: %.elf

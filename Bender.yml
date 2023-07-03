@@ -18,8 +18,8 @@ sources:
 
 ###### dbg_rv
 
-      - hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom.sv
-      - hw/vendor/pulp_riscv_dbg/debug_rom/debug_rom_one_scratch.sv
+      - hw/vendor/pulp_riscv_dbg/debug_rom/debug_ot_rom.sv
+      - hw/vendor/pulp_riscv_dbg/debug_rom/debug_ot_rom_one_scratch.sv
       - hw/vendor/pulp_riscv_dbg/src/dm_pkg.sv
       - hw/vendor/pulp_riscv_dbg/src/dm_sba.sv
       - hw/vendor/pulp_riscv_dbg/src/dmi_cdc.sv

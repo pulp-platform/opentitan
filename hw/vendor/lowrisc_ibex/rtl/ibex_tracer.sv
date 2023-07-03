@@ -115,7 +115,7 @@ module ibex_tracer (
       void'($value$plusargs("ibex_tracer_file_base=%s", file_name_base));
       $sformat(file_name, "%s_%h.log", file_name_base, hart_id_i);
 
-      $display("%m: Writing execution trace to %s", file_name);
+      $display("[Tracer OT] Writing execution trace to %s", file_name);
       file_handle = $fopen(file_name, "w");
       $fwrite(file_handle,
               "Time\tCycle\tPC\tInsn\tDecoded instruction\tRegister and memory contents\n");

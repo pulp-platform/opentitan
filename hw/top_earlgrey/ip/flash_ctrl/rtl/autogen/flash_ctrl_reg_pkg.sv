@@ -8,9 +8,9 @@ package flash_ctrl_reg_pkg;
 
   // Param list
   parameter int RegNumBanks = 2;
-  parameter int RegPagesPerBank = 256;
+  parameter int RegPagesPerBank = 128;
   parameter int RegBusPgmResBytes = 64;
-  parameter int RegPageWidth = 8;
+  parameter int RegPageWidth = 7;
   parameter int RegBankWidth = 1;
   parameter int NumRegions = 8;
   parameter int NumInfoTypes = 3;
@@ -20,7 +20,7 @@ package flash_ctrl_reg_pkg;
   parameter int WordsPerPage = 256;
   parameter int BytesPerWord = 8;
   parameter int BytesPerPage = 2048;
-  parameter int BytesPerBank = 524288;
+  parameter int BytesPerBank = 262144;
   parameter int unsigned ExecEn = 32'ha26a38f7;
   parameter int MaxFifoDepth = 16;
   parameter int MaxFifoWidth = 5;
@@ -164,7 +164,7 @@ package flash_ctrl_reg_pkg;
   } flash_ctrl_reg2hw_control_reg_t;
 
   typedef struct packed {
-    logic [19:0] q;
+    logic [18:0] q;
   } flash_ctrl_reg2hw_addr_reg_t;
 
   typedef struct packed {
@@ -206,10 +206,10 @@ package flash_ctrl_reg_pkg;
 
   typedef struct packed {
     struct packed {
-      logic [8:0]  q;
+      logic [7:0]  q;
     } base;
     struct packed {
-      logic [9:0] q;
+      logic [8:0]  q;
     } size;
   } flash_ctrl_reg2hw_mp_region_mreg_t;
 
@@ -688,7 +688,7 @@ package flash_ctrl_reg_pkg;
   } flash_ctrl_hw2reg_fault_status_reg_t;
 
   typedef struct packed {
-    logic [19:0] d;
+    logic [18:0] d;
     logic        de;
   } flash_ctrl_hw2reg_err_addr_reg_t;
 
@@ -698,7 +698,7 @@ package flash_ctrl_reg_pkg;
   } flash_ctrl_hw2reg_ecc_single_err_cnt_mreg_t;
 
   typedef struct packed {
-    logic [19:0] d;
+    logic [18:0] d;
     logic        de;
   } flash_ctrl_hw2reg_ecc_single_err_addr_mreg_t;
 
@@ -728,19 +728,19 @@ package flash_ctrl_reg_pkg;
 
   // Register -> HW type for core interface
   typedef struct packed {
-    flash_ctrl_reg2hw_intr_state_reg_t intr_state; // [1325:1320]
-    flash_ctrl_reg2hw_intr_enable_reg_t intr_enable; // [1319:1314]
-    flash_ctrl_reg2hw_intr_test_reg_t intr_test; // [1313:1302]
-    flash_ctrl_reg2hw_alert_test_reg_t alert_test; // [1301:1292]
-    flash_ctrl_reg2hw_dis_reg_t dis; // [1291:1288]
-    flash_ctrl_reg2hw_exec_reg_t exec; // [1287:1256]
-    flash_ctrl_reg2hw_init_reg_t init; // [1255:1255]
-    flash_ctrl_reg2hw_control_reg_t control; // [1254:1235]
-    flash_ctrl_reg2hw_addr_reg_t addr; // [1234:1215]
-    flash_ctrl_reg2hw_prog_type_en_reg_t prog_type_en; // [1214:1213]
-    flash_ctrl_reg2hw_erase_suspend_reg_t erase_suspend; // [1212:1212]
-    flash_ctrl_reg2hw_mp_region_cfg_mreg_t [7:0] mp_region_cfg; // [1211:988]
-    flash_ctrl_reg2hw_mp_region_mreg_t [7:0] mp_region; // [987:836]
+    flash_ctrl_reg2hw_intr_state_reg_t intr_state; // [1308:1303]
+    flash_ctrl_reg2hw_intr_enable_reg_t intr_enable; // [1302:1297]
+    flash_ctrl_reg2hw_intr_test_reg_t intr_test; // [1296:1285]
+    flash_ctrl_reg2hw_alert_test_reg_t alert_test; // [1284:1275]
+    flash_ctrl_reg2hw_dis_reg_t dis; // [1274:1271]
+    flash_ctrl_reg2hw_exec_reg_t exec; // [1270:1239]
+    flash_ctrl_reg2hw_init_reg_t init; // [1238:1238]
+    flash_ctrl_reg2hw_control_reg_t control; // [1237:1218]
+    flash_ctrl_reg2hw_addr_reg_t addr; // [1217:1199]
+    flash_ctrl_reg2hw_prog_type_en_reg_t prog_type_en; // [1198:1197]
+    flash_ctrl_reg2hw_erase_suspend_reg_t erase_suspend; // [1196:1196]
+    flash_ctrl_reg2hw_mp_region_cfg_mreg_t [7:0] mp_region_cfg; // [1195:972]
+    flash_ctrl_reg2hw_mp_region_mreg_t [7:0] mp_region; // [971:836]
     flash_ctrl_reg2hw_default_region_reg_t default_region; // [835:812]
     flash_ctrl_reg2hw_bank0_info0_page_cfg_mreg_t [9:0] bank0_info0_page_cfg; // [811:532]
     flash_ctrl_reg2hw_bank0_info1_page_cfg_mreg_t [0:0] bank0_info1_page_cfg; // [531:504]
@@ -760,19 +760,19 @@ package flash_ctrl_reg_pkg;
 
   // HW -> register type for core interface
   typedef struct packed {
-    flash_ctrl_hw2reg_intr_state_reg_t intr_state; // [196:185]
-    flash_ctrl_hw2reg_ctrl_regwen_reg_t ctrl_regwen; // [184:184]
-    flash_ctrl_hw2reg_control_reg_t control; // [183:182]
-    flash_ctrl_hw2reg_erase_suspend_reg_t erase_suspend; // [181:180]
-    flash_ctrl_hw2reg_op_status_reg_t op_status; // [179:176]
-    flash_ctrl_hw2reg_status_reg_t status; // [175:166]
-    flash_ctrl_hw2reg_debug_state_reg_t debug_state; // [165:155]
-    flash_ctrl_hw2reg_err_code_reg_t err_code; // [154:139]
-    flash_ctrl_hw2reg_std_fault_status_reg_t std_fault_status; // [138:121]
-    flash_ctrl_hw2reg_fault_status_reg_t fault_status; // [120:97]
-    flash_ctrl_hw2reg_err_addr_reg_t err_addr; // [96:76]
-    flash_ctrl_hw2reg_ecc_single_err_cnt_mreg_t [1:0] ecc_single_err_cnt; // [75:58]
-    flash_ctrl_hw2reg_ecc_single_err_addr_mreg_t [1:0] ecc_single_err_addr; // [57:16]
+    flash_ctrl_hw2reg_intr_state_reg_t intr_state; // [193:182]
+    flash_ctrl_hw2reg_ctrl_regwen_reg_t ctrl_regwen; // [181:181]
+    flash_ctrl_hw2reg_control_reg_t control; // [180:179]
+    flash_ctrl_hw2reg_erase_suspend_reg_t erase_suspend; // [178:177]
+    flash_ctrl_hw2reg_op_status_reg_t op_status; // [176:173]
+    flash_ctrl_hw2reg_status_reg_t status; // [172:163]
+    flash_ctrl_hw2reg_debug_state_reg_t debug_state; // [162:152]
+    flash_ctrl_hw2reg_err_code_reg_t err_code; // [151:136]
+    flash_ctrl_hw2reg_std_fault_status_reg_t std_fault_status; // [135:118]
+    flash_ctrl_hw2reg_fault_status_reg_t fault_status; // [117:94]
+    flash_ctrl_hw2reg_err_addr_reg_t err_addr; // [93:74]
+    flash_ctrl_hw2reg_ecc_single_err_cnt_mreg_t [1:0] ecc_single_err_cnt; // [73:56]
+    flash_ctrl_hw2reg_ecc_single_err_addr_mreg_t [1:0] ecc_single_err_addr; // [55:16]
     flash_ctrl_hw2reg_phy_status_reg_t phy_status; // [15:10]
     flash_ctrl_hw2reg_curr_fifo_lvl_reg_t curr_fifo_lvl; // [9:0]
   } flash_ctrl_core_hw2reg_t;

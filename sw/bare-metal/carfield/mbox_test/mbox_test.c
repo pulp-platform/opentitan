@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
  *plic_en    = 0x80000000;          // Enable interrupt
 
   // dummy check on read/write on mbox before waiting for host to raise mbox IRQ
-  p_reg = (int *) 0x40000000;
+  p_reg = (int *) 0x40000B40;
  *p_reg = 0xdeadc0de;
   a = *p_reg;
   if(a == 0xdeadc0de)
@@ -59,32 +59,32 @@ void external_irq_handler(void)  {
 
   //init pointer to check memory
   
-  p_reg1 = (int *) 0x40000008;
-  p_reg2 = (int *) 0x40000010;
-  p_reg3 = (int *) 0x40000014;
-  p_reg4 = (int *) 0x40000018;
-  p_reg5 = (int *) 0x4000001C;
+  p_reg1 = (int *) 0x40000B80;
 
   // start of """Interrupt Service Routine"""
   
   plic_check = (int *) 0xC8200004;
   while(*plic_check != mbox_id);   //check wether the intr is the correct one
   
-  p_reg = (int *) 0x40000020;
- *p_reg = 0x00000000;              //clearing the pending interrupt signal
+  p_reg = (int *) 0x40000B04;
+ *p_reg = 0x00000000; //clearing the pending interrupt signal
+
+  p_reg = (int *) 0x40000B0C;
+ *p_reg = 0x00000000; 
+
+  p_reg = (int *) 0x40000B08;
+ *p_reg = 0x00000001;
  
  *plic_check = mbox_id;            //completing interrupt
 
   // check mbox content
   a = *p_reg1;
-  b = *p_reg2;
-  c = *p_reg3;
-  d = *p_reg4;
-  e = *p_reg5;
   
   
-  if( a == 0xBAADC0DE &&  b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
-      p_reg = (int *) 0x40000024; // completion interrupt to ariane agent if msg = expected msg
+  if( a == 0xBAADC0DE){
+      p_reg = (int *) 0x40000B4C; // completion interrupt to ariane agent if msg = expected msg
+     *p_reg = 0x00000001;
+      p_reg = (int *) 0x40000B44; // completion interrupt to ariane agent if msg = expected msg
      *p_reg = 0x00000001;
   }
   
