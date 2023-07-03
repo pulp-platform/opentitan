@@ -14,7 +14,7 @@ Program Header:
          filesz 0x000000a4 memsz 0x000001e0 flags rw-
     LOAD off    0x000001a4 vaddr 0xe00021a4 paddr 0xf000411c align 2**12
          filesz 0x00000000 memsz 0x00008000 flags rw-
-    LOAD off    0x00000000 vaddr 0xf0079000 paddr 0xf0079000 align 2**12
+    LOAD off    0x00000000 vaddr 0xf0039000 paddr 0xf0039000 align 2**12
          filesz 0x00000000 memsz 0x00007000 flags rw-
    STACK off    0x00000000 vaddr 0x00000000 paddr 0x00000000 align 2**4
          filesz 0x00000000 memsz 0x00000000 flags rw-
@@ -32,11 +32,11 @@ Idx Name                    Size      VMA       LMA       File off  Algn  Flags
   8 .data                   000000a4  e0001fc4  f0004078  00005fc4  2**2  CONTENTS, ALLOC, LOAD, DATA
   9 .bss                    0000013c  e0002068  f000411c  00006068  2**2  ALLOC
  10 .freertos.heap          00008000  e00021a4  f000411c  000061a4  2**2  ALLOC
- 11 .non_volatile_scratch   00005000  f007b000  f007b000  00007000  2**11  ALLOC
- 12 .non_volatile_counter_0 00000800  f007a800  f007a800  00007000  2**11  ALLOC
- 13 .non_volatile_counter_1 00000800  f007a000  f007a000  00007000  2**11  ALLOC
- 14 .non_volatile_counter_2 00000800  f0079800  f0079800  00007000  2**11  ALLOC
- 15 .non_volatile_counter_3 00000800  f0079000  f0079000  00007000  2**11  ALLOC
+ 11 .non_volatile_scratch   00005000  f003b000  f003b000  00007000  2**11  ALLOC
+ 12 .non_volatile_counter_0 00000800  f003a800  f003a800  00007000  2**11  ALLOC
+ 13 .non_volatile_counter_1 00000800  f003a000  f003a000  00007000  2**11  ALLOC
+ 14 .non_volatile_counter_2 00000800  f0039800  f0039800  00007000  2**11  ALLOC
+ 15 .non_volatile_counter_3 00000800  f0039000  f0039000  00007000  2**11  ALLOC
  16 .logs.fields            000002bc  00010000  00010000  00006068  2**2  CONTENTS, READONLY
  17 .riscv.attributes       00000026  00000000  00000000  00006324  2**0  CONTENTS, READONLY
  18 .debug_info             0000c05f  00000000  00000000  0000634a  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -59,11 +59,11 @@ e0000000 l    d  .static_critical       00000000 .static_critical
 e0001fc4 l    d  .data  00000000 .data
 e0002068 l    d  .bss   00000000 .bss
 e00021a4 l    d  .freertos.heap 00000000 .freertos.heap
-f007b000 l    d  .non_volatile_scratch  00000000 .non_volatile_scratch
-f007a800 l    d  .non_volatile_counter_0        00000000 .non_volatile_counter_0
-f007a000 l    d  .non_volatile_counter_1        00000000 .non_volatile_counter_1
-f0079800 l    d  .non_volatile_counter_2        00000000 .non_volatile_counter_2
-f0079000 l    d  .non_volatile_counter_3        00000000 .non_volatile_counter_3
+f003b000 l    d  .non_volatile_scratch  00000000 .non_volatile_scratch
+f003a800 l    d  .non_volatile_counter_0        00000000 .non_volatile_counter_0
+f003a000 l    d  .non_volatile_counter_1        00000000 .non_volatile_counter_1
+f0039800 l    d  .non_volatile_counter_2        00000000 .non_volatile_counter_2
+f0039000 l    d  .non_volatile_counter_3        00000000 .non_volatile_counter_3
 00010000 l    d  .logs.fields   00000000 .logs.fields
 00000000 l    d  .riscv.attributes      00000000 .riscv.attributes
 00000000 l    d  .debug_info    00000000 .debug_info
@@ -6006,9 +6006,9 @@ f0002c88 l       .text  00000000
 00000503 l       .debug_str     00000000 
 0000024e l       .debug_str     00000000 
 f00017fa g     F .text  0000008a rand_testutils_init
-f007b000 g       *ABS*  00000000 _non_volatile_scratch_start
-f0079800 g       *ABS*  00000000 _non_volatile_counter_3_end
-f0079000 g       *ABS*  00000000 _non_volatile_counter_3_start
+f003b000 g       *ABS*  00000000 _non_volatile_scratch_start
+f0039800 g       *ABS*  00000000 _non_volatile_counter_3_end
+f0039000 g       *ABS*  00000000 _non_volatile_counter_3_start
 f0001658  w    F .text  0000001c ottf_instr_misaligned_fault_handler
 f000176c  w    F .text  00000014 ottf_external_nmi_handler
 e00027c4 g       .data  00000000 __global_pointer$
@@ -6043,7 +6043,7 @@ f0001578 g     F .text  00000016 irq_timer_ctrl
 00000400 g       *ABS*  00000000 _manifest_code_start
 00000000 g       *ABS*  00000000 __DYNAMIC
 f0001952 g     F .text  00000006 ibex_mepc_read
-f007b000 g       *ABS*  00000000 _non_volatile_counter_0_end
+f003b000 g       *ABS*  00000000 _non_volatile_counter_0_end
 f0000400 g       .vectors       00000000 _text_start
 f0001658  w    F .text  0000001c ottf_load_store_fault_handler
 f0002bd4 g     F .text  00000006 vListInitialiseItem
@@ -6075,16 +6075,16 @@ f0004068 g     O .rodata        00000008 kUartBaudrate
 f00023ba g     F .text  000000ae memchr
 f00014be g     F .text  00000002 test_coverage_send_buffer
 00000800 g       *ABS*  00000000 _non_volatile_counter_size
-00080000 g       *ABS*  00000000 _ottf_size
+00040000 g       *ABS*  00000000 _ottf_size
 f0001688  w    F .text  00000014 ottf_timer_isr
 f000293c g     F .text  00000010 vTaskSuspendAll
 e0001fc4 g       .data  00000000 _data_start
-f007a800 g       *ABS*  00000000 _non_volatile_counter_0_start
+f003a800 g       *ABS*  00000000 _non_volatile_counter_0_start
 f0002bda g     F .text  00000022 uxListRemove
-f0080000 g       .freertos.heap 00000000 _non_volatile_scratch_end
-f007a000 g       *ABS*  00000000 _non_volatile_counter_2_end
+f0040000 g       .freertos.heap 00000000 _non_volatile_scratch_end
+f003a000 g       *ABS*  00000000 _non_volatile_counter_2_end
 f000176c  w    F .text  00000014 ottf_load_integrity_error_handler
-f0079800 g       *ABS*  00000000 _non_volatile_counter_2_start
+f0039800 g       *ABS*  00000000 _non_volatile_counter_2_start
 f0002768 g     F .text  000000ec vTaskSwitchContext
 f0001658  w    F .text  0000001c ottf_breakpoint_handler
 00004000 g       *ABS*  00000000 _stack_size
@@ -6132,7 +6132,7 @@ f0004074 g     O .rodata        00000004 kDeviceLogBypassUartAddress
 f0002528 g     F .text  00000210 xTaskCreate
 f0004054 g     O .rodata        00000004 kDeviceType
 f000194c g     F .text  00000006 ibex_mtval_read
-f007a800 g       *ABS*  00000000 _non_volatile_counter_1_end
+f003a800 g       *ABS*  00000000 _non_volatile_counter_1_end
 00000480 g       *ABS*  00000000 _manifest_entry_point
 f0001230 g     F .text  0000012e _ottf_main
 00000080 g       *ABS*  00000000 _chip_info_size
@@ -6143,7 +6143,7 @@ f00020c4 g     F .text  00000072 status_extract
 f000117c g     F .text  00000014 dif_hmac_process
 00000100 g       *ABS*  00000000 _non_volatile_counter_flash_words
 f0002136 g     F .text  0000000e dif_uart_init
-f007a000 g       *ABS*  00000000 _non_volatile_counter_1_start
+f003a000 g       *ABS*  00000000 _non_volatile_counter_1_start
 f0000000 g       .manifest      00000000 _ottf_start_address
 f0000548 g       .init_array    00000000 _init_array_start
 f0001892 g     F .text  000000ae test_status_set
@@ -7422,7 +7422,7 @@ f000081c:                 85c50513              addi    a0,a0,-1956 # f0004074 <
 f0000820:                 4100                  lw      s0,0(a0)
 f0000822:             /-- c809                  beqz    s0,f0000834 <test_main+0x24>
 f0000824:             |   1000f517              auipc   a0,0x1000f
-f0000828:             |   7dc50513              addi    a0,a0,2012 # 10000 <_non_volatile_scratch_end+0xff90000>
+f0000828:             |   7dc50513              addi    a0,a0,2012 # 10000 <_non_volatile_scratch_end+0xffd0000>
 f000082c:             |   4581                  li      a1,0
 f000082e:             |   1cc010ef              jal     ra,f00019fa <base_log_internal_dv>
 f0000832:          /--|-- a821                  j       f000084a <test_main+0x3a>
@@ -7444,7 +7444,7 @@ f0000858:       /-------- cd0d                  beqz    a0,f0000892 <test_main+0
 f000085a:       |         842a                  mv      s0,a0
 f000085c:       |     /-- e891                  bnez    s1,f0000870 <test_main+0x60>
 f000085e:       |     |   10010517              auipc   a0,0x10010
-f0000862:       |     |   80650513              addi    a0,a0,-2042 # 10064 <_non_volatile_scratch_end+0xff90064>
+f0000862:       |     |   80650513              addi    a0,a0,-2042 # 10064 <_non_volatile_scratch_end+0xffd0064>
 f0000866:       |     |   4585                  li      a1,1
 f0000868:       |     |   8622                  mv      a2,s0
 f000086a:       |     |   190010ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -7469,7 +7469,7 @@ test_main():
   LOG_INFO("Running test SHA256 pass 1...");
 f0000892:       \-----/-X e4a5                  bnez    s1,f00008fa <test_main+0xea>
 f0000894:             |   1000f517              auipc   a0,0x1000f
-f0000898:             |   78050513              addi    a0,a0,1920 # 10014 <_non_volatile_scratch_end+0xff90014>
+f0000898:             |   78050513              addi    a0,a0,1920 # 10014 <_non_volatile_scratch_end+0xffd0014>
 f000089c:             |   4581                  li      a1,0
 f000089e:             |   15c010ef              jal     ra,f00019fa <base_log_internal_dv>
 /proc/self/cwd/sw/device/tests/hmac_smoketest.c:107
@@ -7484,7 +7484,7 @@ f00008b0:             |   20fd                  jal     f000099e <run_test>
 
   LOG_INFO("Running test SHA256 pass 2...");
 f00008b2:             |   1000f517              auipc   a0,0x1000f
-f00008b6:             |   77650513              addi    a0,a0,1910 # 10028 <_non_volatile_scratch_end+0xff90028>
+f00008b6:             |   77650513              addi    a0,a0,1910 # 10028 <_non_volatile_scratch_end+0xffd0028>
 f00008ba:             |   4581                  li      a1,0
 f00008bc:             |   13e010ef              jal     ra,f00019fa <base_log_internal_dv>
 /proc/self/cwd/sw/device/tests/hmac_smoketest.c:110
@@ -7497,7 +7497,7 @@ f00008c6:             |   28e1                  jal     f000099e <run_test>
 
   LOG_INFO("Running test HMAC pass 1...");
 f00008c8:             |   1000f517              auipc   a0,0x1000f
-f00008cc:             |   77450513              addi    a0,a0,1908 # 1003c <_non_volatile_scratch_end+0xff9003c>
+f00008cc:             |   77450513              addi    a0,a0,1908 # 1003c <_non_volatile_scratch_end+0xffd003c>
 f00008d0:             |   4581                  li      a1,0
 f00008d2:             |   128010ef              jal     ra,f00019fa <base_log_internal_dv>
 /proc/self/cwd/sw/device/tests/hmac_smoketest.c:113
@@ -7513,7 +7513,7 @@ f00008e8:             |   285d                  jal     f000099e <run_test>
 
   LOG_INFO("Running test HMAC pass 2...");
 f00008ea:             |   1000f517              auipc   a0,0x1000f
-f00008ee:             |   76650513              addi    a0,a0,1894 # 10050 <_non_volatile_scratch_end+0xff90050>
+f00008ee:             |   76650513              addi    a0,a0,1894 # 10050 <_non_volatile_scratch_end+0xffd0050>
 f00008f2:             |   4581                  li      a1,0
 f00008f4:             |   106010ef              jal     ra,f00019fa <base_log_internal_dv>
 f00008f8:          /--|-- a059                  j       f000097e <test_main+0x16e>
@@ -7623,7 +7623,7 @@ f00009c2:       |        |      842a                    mv      s0,a0
 f00009c4:       |        |      0009a503                lw      a0,0(s3)
 f00009c8:       |  /-----|----- c905                    beqz    a0,f00009f8 <run_test+0x5a>
 f00009ca:       |  |     |      1000f517                auipc   a0,0x1000f
-f00009ce:       |  |     |      6c250513                addi    a0,a0,1730 # 1008c <_non_volatile_scratch_end+0xff9008c>
+f00009ce:       |  |     |      6c250513                addi    a0,a0,1730 # 1008c <_non_volatile_scratch_end+0xffd008c>
 f00009d2:       |  |     |  /-- a831                    j       f00009ee <run_test+0x50>
 /proc/self/cwd/sw/device/tests/hmac_smoketest.c:76
     CHECK_DIF_OK(dif_hmac_mode_sha256_start(hmac, kHmacTransactionConfig));
@@ -7636,7 +7636,7 @@ f00009de:       |  |        |   842a                    mv      s0,a0
 f00009e0:       |  |        |   0009a503                lw      a0,0(s3)
 f00009e4:       |  |     /--|-- cd19                    beqz    a0,f0000a02 <run_test+0x64>
 f00009e6:       |  |     |  |   1000f517                auipc   a0,0x1000f
-f00009ea:       |  |     |  |   69250513                addi    a0,a0,1682 # 10078 <_non_volatile_scratch_end+0xff90078>
+f00009ea:       |  |     |  |   69250513                addi    a0,a0,1682 # 10078 <_non_volatile_scratch_end+0xffd0078>
 f00009ee:       |  |     |  \-> 4585                    li      a1,1
 f00009f0:       |  |     |      8622                    mv      a2,s0
 f00009f2:       |  |     |      008010ef                jal     ra,f00019fa <base_log_internal_dv>
@@ -7687,7 +7687,7 @@ f0000a4a:             |         842a                    mv      s0,a0
 f0000a4c:             |         0009a503                lw      a0,0(s3)
 f0000a50:             |     /-- c911                    beqz    a0,f0000a64 <run_test+0xc6>
 f0000a52:             |     |   1000f517                auipc   a0,0x1000f
-f0000a56:             |     |   64e50513                addi    a0,a0,1614 # 100a0 <_non_volatile_scratch_end+0xff900a0>
+f0000a56:             |     |   64e50513                addi    a0,a0,1614 # 100a0 <_non_volatile_scratch_end+0xffd00a0>
 f0000a5a:             |     |   4585                    li      a1,1
 f0000a5c:             |     |   8622                    mv      a2,s0
 f0000a5e:             |     |   79d000ef                jal     ra,f00019fa <base_log_internal_dv>
@@ -7749,7 +7749,7 @@ f0000aba:       |         842a                  mv      s0,a0
 f0000abc:       |         000a2503              lw      a0,0(s4)
 f0000ac0:       |     /-- c911                  beqz    a0,f0000ad4 <hmac_testutils_check_message_length+0x3a>
 f0000ac2:       |     |   1000f517              auipc   a0,0x1000f
-f0000ac6:       |     |   5f250513              addi    a0,a0,1522 # 100b4 <_non_volatile_scratch_end+0xff900b4>
+f0000ac6:       |     |   5f250513              addi    a0,a0,1522 # 100b4 <_non_volatile_scratch_end+0xffd00b4>
 f0000aca:       |     |   4585                  li      a1,1
 f0000acc:       |     |   8622                  mv      a2,s0
 f0000ace:       |     |   72d000ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -7779,7 +7779,7 @@ f0000b04:       /-------- c521                  beqz    a0,f0000b4c <hmac_testut
 f0000b06:       |         000a2503              lw      a0,0(s4)
 f0000b0a:       |     /-- cd09                  beqz    a0,f0000b24 <hmac_testutils_check_message_length+0x8a>
 f0000b0c:       |     |   1000f517              auipc   a0,0x1000f
-f0000b10:       |     |   5bc50513              addi    a0,a0,1468 # 100c8 <_non_volatile_scratch_end+0xff900c8>
+f0000b10:       |     |   5bc50513              addi    a0,a0,1468 # 100c8 <_non_volatile_scratch_end+0xffd00c8>
 f0000b14:       |     |   4591                  li      a1,4
 f0000b16:       |     |   864e                  mv      a2,s3
 f0000b18:       |     |   86ca                  mv      a3,s2
@@ -7847,7 +7847,7 @@ f0000b80:                    0045a903           lw      s2,4(a1)
 f0000b84:                    0005aa03           lw      s4,0(a1)
 f0000b88:                    8aaa                       mv      s5,a0
 f0000b8a:                    055d5537           lui     a0,0x55d5
-f0000b8e:                    a8050513           addi    a0,a0,-1408 # 55d4a80 <_ottf_size+0x5554a80>
+f0000b8e:                    a8050513           addi    a0,a0,-1408 # 55d4a80 <_ottf_size+0x5594a80>
 f0000b92:                    c62a                       sw      a0,12(sp)
 f0000b94:                    4581                       li      a1,0
 f0000b96:                    8652                       mv      a2,s4
@@ -7868,7 +7868,7 @@ f0000ba6:                    02aa3633           mulhu   a2,s4,a0
 f0000baa:                    95b2                       add     a1,a1,a2
 f0000bac:                    02aa0533           mul     a0,s4,a0
 f0000bb0:                    000f4637           lui     a2,0xf4
-f0000bb4:                    24060613           addi    a2,a2,576 # f4240 <_ottf_size+0x74240>
+f0000bb4:                    24060613           addi    a2,a2,576 # f4240 <_ottf_size+0xb4240>
 f0000bb8:                    4681                       li      a3,0
 f0000bba:                    4701                       li      a4,0
 f0000bbc:                    664010ef           jal     ra,f0002220 <udiv64_slow>
@@ -7895,13 +7895,13 @@ f0000bf8:                    c02a                       sw      a0,0(sp)
 f0000bfa:                    6531                       lui     a0,0xc
 f0000bfc:                    aad50d93           addi    s11,a0,-1363 # baad <_non_volatile_scratch_size+0x6aad>
 f0000c00:                    1000f517           auipc   a0,0x1000f
-f0000c04:                    4dc50513           addi    a0,a0,1244 # 100dc <_non_volatile_scratch_end+0xff900dc>
+f0000c04:                    4dc50513           addi    a0,a0,1244 # 100dc <_non_volatile_scratch_end+0xffd00dc>
 f0000c08:                    c42a                       sw      a0,8(sp)
 f0000c0a:                    00002517           auipc   a0,0x2
 f0000c0e:                    68650513           addi    a0,a0,1670 # f0003290 <kExpectedHmacDigest+0x350>
 f0000c12:                    c22a                       sw      a0,4(sp)
 f0000c14:                    1000fd17           auipc   s10,0x1000f
-f0000c18:                    52cd0d13           addi    s10,s10,1324 # 10140 <_non_volatile_scratch_end+0xff90140>
+f0000c18:                    52cd0d13           addi    s10,s10,1324 # 10140 <_non_volatile_scratch_end+0xffd0140>
 check_fifo_empty():
 /proc/self/cwd/sw/device/lib/testing/hmac_testutils.c:78
   CHECK_DIF_OK(dif_hmac_fifo_count_entries(hmac, &fifo_depth));
@@ -8039,7 +8039,7 @@ f0000d10:                       4204                    lw      s1,0(a2)
 f0000d12:                       8aae                    mv      s5,a1
 f0000d14:                       8b2a                    mv      s6,a0
 f0000d16:                       160dc537                lui     a0,0x160dc
-f0000d1a:                       08050513                addi    a0,a0,128 # 160dc080 <_ottf_size+0x1605c080>
+f0000d1a:                       08050513                addi    a0,a0,128 # 160dc080 <_ottf_size+0x1609c080>
 f0000d1e:                       ce2a                    sw      a0,28(sp)
 f0000d20:                       4581                    li      a1,0
 f0000d22:                       8626                    mv      a2,s1
@@ -8057,7 +8057,7 @@ f0000d38:                       95b2                    add     a1,a1,a2
 f0000d3a:                       d026                    sw      s1,32(sp)
 f0000d3c:                       02a48533                mul     a0,s1,a0
 f0000d40:                       000f4637                lui     a2,0xf4
-f0000d44:                       24060613                addi    a2,a2,576 # f4240 <_ottf_size+0x74240>
+f0000d44:                       24060613                addi    a2,a2,576 # f4240 <_ottf_size+0xb4240>
 f0000d48:                       4681                    li      a3,0
 f0000d4a:                       4701                    li      a4,0
 f0000d4c:                       4d4010ef                jal     ra,f0002220 <udiv64_slow>
@@ -8085,13 +8085,13 @@ f0000d8a:                       c82a                    sw      a0,16(sp)
 f0000d8c:                       6531                    lui     a0,0xc
 f0000d8e:                       aad50d13                addi    s10,a0,-1363 # baad <_non_volatile_scratch_size+0x6aad>
 f0000d92:                       1000f517                auipc   a0,0x1000f
-f0000d96:                       35e50513                addi    a0,a0,862 # 100f0 <_non_volatile_scratch_end+0xff900f0>
+f0000d96:                       35e50513                addi    a0,a0,862 # 100f0 <_non_volatile_scratch_end+0xffd00f0>
 f0000d9a:                       cc2a                    sw      a0,24(sp)
 f0000d9c:                       00002517                auipc   a0,0x2
 f0000da0:                       50850513                addi    a0,a0,1288 # f00032a4 <kExpectedHmacDigest+0x364>
 f0000da4:                       c62a                    sw      a0,12(sp)
 f0000da6:                       1000f517                auipc   a0,0x1000f
-f0000daa:                       3ae50513                addi    a0,a0,942 # 10154 <_non_volatile_scratch_end+0xff90154>
+f0000daa:                       3ae50513                addi    a0,a0,942 # 10154 <_non_volatile_scratch_end+0xffd0154>
 f0000dae:                       ca2a                    sw      a0,20(sp)
 check_finished():
 /proc/self/cwd/sw/device/lib/testing/hmac_testutils.c:88
@@ -8227,11 +8227,11 @@ f0000eb2:                          4d21                 li      s10,8
 f0000eb4:                          00002917             auipc   s2,0x2
 f0000eb8:                          3b490913             addi    s2,s2,948 # f0003268 <kExpectedHmacDigest+0x328>
 f0000ebc:                          1000f997             auipc   s3,0x1000f
-f0000ec0:                          25c98993             addi    s3,s3,604 # 10118 <_non_volatile_scratch_end+0xff90118>
+f0000ec0:                          25c98993             addi    s3,s3,604 # 10118 <_non_volatile_scratch_end+0xffd0118>
 f0000ec4:                          00002a17             auipc   s4,0x2
 f0000ec8:                          390a0a13             addi    s4,s4,912 # f0003254 <kExpectedHmacDigest+0x314>
 f0000ecc:                          1000fa97             auipc   s5,0x1000f
-f0000ed0:                          238a8a93             addi    s5,s5,568 # 10104 <_non_volatile_scratch_end+0xff90104>
+f0000ed0:                          238a8a93             addi    s5,s5,568 # 10104 <_non_volatile_scratch_end+0xffd0104>
 /proc/self/cwd/sw/device/lib/testing/hmac_testutils.c:104
   CHECK_ARRAYS_EQ(digest.digest, expected->digest, ARRAYSIZE(digest.digest));
 f0000ed4:       /----------------> 400c                 lw      a1,0(s0)
@@ -8332,7 +8332,7 @@ f0000f9c:       |               2e498993                addi    s3,s3,740 # f000
 f0000fa0:       |               65b1                    lui     a1,0xc
 f0000fa2:       |               aad58a13                addi    s4,a1,-1363 # baad <_non_volatile_scratch_size+0x6aad>
 f0000fa6:       |               1000fa97                auipc   s5,0x1000f
-f0000faa:       |               186a8a93                addi    s5,s5,390 # 1012c <_non_volatile_scratch_end+0xff9012c>
+f0000faa:       |               186a8a93                addi    s5,s5,390 # 1012c <_non_volatile_scratch_end+0xffd012c>
 f0000fae:       |               84ca                    mv      s1,s2
 /proc/self/cwd/sw/device/lib/testing/hmac_testutils.c:114
     dif_result_t res =
@@ -9023,7 +9023,7 @@ f00011fa:           e7e50513            addi    a0,a0,-386 # f0004074 <kDeviceLo
 f00011fe:           4108                        lw      a0,0(a0)
 f0001200:       /-- c911                        beqz    a0,f0001214 <ottf_machine_ecall_handler+0x36>
 f0001202:       |   1000f517            auipc   a0,0x1000f
-f0001206:       |   f6650513            addi    a0,a0,-154 # 10168 <_non_volatile_scratch_end+0xff90168>
+f0001206:       |   f6650513            addi    a0,a0,-154 # 10168 <_non_volatile_scratch_end+0xffd0168>
 f000120a:       |   4581                        li      a1,0
 f000120c:       |   40f2                        lw      ra,28(sp)
 f000120e:       |   6105                        addi    sp,sp,32
@@ -9083,7 +9083,7 @@ f0001262:          |      00092503              lw      a0,0(s2)
 f0001266:          |      40c0                  lw      s0,4(s1)
 f0001268:          |  /-- c911                  beqz    a0,f000127c <_ottf_main+0x4c>
 f000126a:          |  |   1000f517              auipc   a0,0x1000f
-f000126e:          |  |   f1250513              addi    a0,a0,-238 # 1017c <_non_volatile_scratch_end+0xff9017c>
+f000126e:          |  |   f1250513              addi    a0,a0,-238 # 1017c <_non_volatile_scratch_end+0xffd017c>
 f0001272:          |  |   4585                  li      a1,1
 f0001274:          |  |   8622                  mv      a2,s0
 f0001276:          |  |   784000ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -9111,7 +9111,7 @@ f00012a0:       |         842a                  mv      s0,a0
 f00012a2:       |         00092503              lw      a0,0(s2)
 f00012a6:       |     /-- c911                  beqz    a0,f00012ba <_ottf_main+0x8a>
 f00012a8:       |     |   1000f517              auipc   a0,0x1000f
-f00012ac:       |     |   ee850513              addi    a0,a0,-280 # 10190 <_non_volatile_scratch_end+0xff90190>
+f00012ac:       |     |   ee850513              addi    a0,a0,-280 # 10190 <_non_volatile_scratch_end+0xffd0190>
 f00012b0:       |     |   4585                  li      a1,1
 f00012b2:       |     |   8622                  mv      a2,s0
 f00012b4:       |     |   746000ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -9180,7 +9180,7 @@ f000131c:             |   2a11                  jal     f0001430 <test_wrapper>
 f000131e:             \-> 00092503              lw      a0,0(s2)
 f0001322:             /-- c909                  beqz    a0,f0001334 <_ottf_main+0x104>
 f0001324:             |   1000f517              auipc   a0,0x1000f
-f0001328:             |   e8050513              addi    a0,a0,-384 # 101a4 <_non_volatile_scratch_end+0xff901a4>
+f0001328:             |   e8050513              addi    a0,a0,-384 # 101a4 <_non_volatile_scratch_end+0xffd01a4>
 f000132c:             |   4581                  li      a1,0
 f000132e:             |   6cc000ef              jal     ra,f00019fa <base_log_internal_dv>
 f0001332:          /--|-- a821                  j       f000134a <_ottf_main+0x11a>
@@ -9224,7 +9224,7 @@ f0001380:       |         842a                  mv      s0,a0
 f0001382:       |         4088                  lw      a0,0(s1)
 f0001384:       |     /-- c911                  beqz    a0,f0001398 <init_uart+0x3a>
 f0001386:       |     |   1000f517              auipc   a0,0x1000f
-f000138a:       |     |   e3250513              addi    a0,a0,-462 # 101b8 <_non_volatile_scratch_end+0xff901b8>
+f000138a:       |     |   e3250513              addi    a0,a0,-462 # 101b8 <_non_volatile_scratch_end+0xffd01b8>
 f000138e:       |     |   4585                  li      a1,1
 f0001390:       |     |   8622                  mv      a2,s0
 f0001392:       |     |   668000ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -9262,7 +9262,7 @@ f00013e4:       |         842a                  mv      s0,a0
 f00013e6:       |         4088                  lw      a0,0(s1)
 f00013e8:       |     /-- c911                  beqz    a0,f00013fc <init_uart+0x9e>
 f00013ea:       |     |   1000f517              auipc   a0,0x1000f
-f00013ee:       |     |   de250513              addi    a0,a0,-542 # 101cc <_non_volatile_scratch_end+0xff901cc>
+f00013ee:       |     |   de250513              addi    a0,a0,-542 # 101cc <_non_volatile_scratch_end+0xffd01cc>
 f00013f2:       |     |   4585                  li      a1,1
 f00013f4:       |     |   8622                  mv      a2,s0
 f00013f6:       |     |   604000ef              jal     ra,f00019fa <base_log_internal_dv>
@@ -9342,7 +9342,7 @@ f0001482:       |         4108                  lw      a0,0(a0)
 f0001484:       |         40c4                  lw      s1,4(s1)
 f0001486:       |     /-- c909                  beqz    a0,f0001498 <test_wrapper+0x68>
 f0001488:       |     |   1000f517              auipc   a0,0x1000f
-f000148c:       |     |   d5850513              addi    a0,a0,-680 # 101e0 <_non_volatile_scratch_end+0xff901e0>
+f000148c:       |     |   d5850513              addi    a0,a0,-680 # 101e0 <_non_volatile_scratch_end+0xffd01e0>
 f0001490:       |     |   4585                  li      a1,1
 f0001492:       |     |   8626                  mv      a2,s1
 f0001494:       |     |   239d                  jal     f00019fa <base_log_internal_dv>
@@ -9408,7 +9408,7 @@ f00014e0:       |      0028                     addi    a0,sp,8
 f00014e2:       |      299d                     jal     f0001958 <base_log_internal_core>
 f00014e4:       |  /-- a039                     j       f00014f2 <vApplicationMallocFailedHook+0x32>
 f00014e6:       \--|-> 1000f517                 auipc   a0,0x1000f
-f00014ea:          |   d0e50513                 addi    a0,a0,-754 # 101f4 <_non_volatile_scratch_end+0xff901f4>
+f00014ea:          |   d0e50513                 addi    a0,a0,-754 # 101f4 <_non_volatile_scratch_end+0xffd01f4>
 f00014ee:          |   4581                     li      a1,0
 f00014f0:          |   2329                     jal     f00019fa <base_log_internal_dv>
 /proc/self/cwd/sw/device/lib/testing/test_framework/freertos_hooks.c:20
@@ -9445,7 +9445,7 @@ f0001518:       |      0028                     addi    a0,sp,8
 f000151a:       |      293d                     jal     f0001958 <base_log_internal_core>
 f000151c:       |  /-- a039                     j       f000152a <vApplicationStackOverflowHook+0x32>
 f000151e:       \--|-> 1000f517                 auipc   a0,0x1000f
-f0001522:          |   cea50513                 addi    a0,a0,-790 # 10208 <_non_volatile_scratch_end+0xff90208>
+f0001522:          |   cea50513                 addi    a0,a0,-790 # 10208 <_non_volatile_scratch_end+0xffd0208>
 f0001526:          |   4581                     li      a1,0
 f0001528:          |   29c9                     jal     f00019fa <base_log_internal_dv>
 /proc/self/cwd/sw/device/lib/testing/test_framework/freertos_hooks.c:30
@@ -9641,7 +9641,7 @@ f00015c0:           842a                        mv      s0,a0
   LOG_ERROR("FAULT: %s. MCAUSE=%08x MEPC=%08x MTVAL=%08x", reason, mcause, mepc,
 f00015c2:       /-- c18d                        beqz    a1,f00015e4 <ottf_generic_fault_print+0x44>
 f00015c4:       |   1000f517            auipc   a0,0x1000f
-f00015c8:       |   c5850513            addi    a0,a0,-936 # 1021c <_non_volatile_scratch_end+0xff9021c>
+f00015c8:       |   c5850513            addi    a0,a0,-936 # 1021c <_non_volatile_scratch_end+0xffd021c>
 f00015cc:       |   4591                        li      a1,4
 f00015ce:       |   864e                        mv      a2,s3
 f00015d0:       |   86ca                        mv      a3,s2
@@ -9854,7 +9854,7 @@ f00016c0:          |         842a                       mv      s0,a0
 f00016c2:          |         4088                       lw      a0,0(s1)
 f00016c4:          |     /-- c909                       beqz    a0,f00016d6 <ottf_external_isr+0x36>
 f00016c6:          |     |   1000f517           auipc   a0,0x1000f
-f00016ca:          |     |   b6a50513           addi    a0,a0,-1174 # 10230 <_non_volatile_scratch_end+0xff90230>
+f00016ca:          |     |   b6a50513           addi    a0,a0,-1174 # 10230 <_non_volatile_scratch_end+0xffd0230>
 f00016ce:          |     |   4585                       li      a1,1
 f00016d0:          |     |   8622                       mv      a2,s0
 f00016d2:          |     |   2625                       jal     f00019fa <base_log_internal_dv>
@@ -9904,7 +9904,7 @@ f000171e:       |  |         842a                       mv      s0,a0
 f0001720:       |  |         4088                       lw      a0,0(s1)
 f0001722:       |  |     /-- c909                       beqz    a0,f0001734 <ottf_external_isr+0x94>
 f0001724:       |  |     |   1000f517           auipc   a0,0x1000f
-f0001728:       |  |     |   b2050513           addi    a0,a0,-1248 # 10244 <_non_volatile_scratch_end+0xff90244>
+f0001728:       |  |     |   b2050513           addi    a0,a0,-1248 # 10244 <_non_volatile_scratch_end+0xffd0244>
 f000172c:       |  |     |   4585                       li      a1,1
 f000172e:       |  |     |   8622                       mv      a2,s0
 f0001730:       |  |     |   24e9                       jal     f00019fa <base_log_internal_dv>
@@ -10109,7 +10109,7 @@ f000180c:       |         86c50513              addi    a0,a0,-1940 # f0004074 <
 f0001810:       |         4108                  lw      a0,0(a0)
 f0001812:       |     /-- c901                  beqz    a0,f0001822 <rand_testutils_init+0x28>
 f0001814:       |     |   1000f517              auipc   a0,0x1000f
-f0001818:       |     |   a4450513              addi    a0,a0,-1468 # 10258 <_non_volatile_scratch_end+0xff90258>
+f0001818:       |     |   a4450513              addi    a0,a0,-1468 # 10258 <_non_volatile_scratch_end+0xffd0258>
 f000181c:       |     |   4581                  li      a1,0
 f000181e:       |     |   2af1                  jal     f00019fa <base_log_internal_dv>
 f0001820:       |  /--|-- a819                  j       f0001836 <rand_testutils_init+0x3c>
@@ -10133,10 +10133,10 @@ f0001840:                 6561                  lui     a0,0x18
 f0001842:                 6a050513              addi    a0,a0,1696 # 186a0 <test_status_set.kLogFields.2+0x83f8>
 f0001846:                 c048                  sw      a0,4(s0)
 f0001848:                 deadc537              lui     a0,0xdeadc
-f000184c:                 eef50513              addi    a0,a0,-273 # deadbeef <_non_volatile_scratch_end+0xeea5beef>
+f000184c:                 eef50513              addi    a0,a0,-273 # deadbeef <_non_volatile_scratch_end+0xeea9beef>
 f0001850:                 c408                  sw      a0,8(s0)
 f0001852:                 80000537              lui     a0,0x80000
-f0001856:                 05750513              addi    a0,a0,87 # 80000057 <_non_volatile_scratch_end+0x8ff80057>
+f0001856:                 05750513              addi    a0,a0,87 # 80000057 <_non_volatile_scratch_end+0x8ffc0057>
 f000185a:                 c448                  sw      a0,12(s0)
 f000185c:                 10000513              li      a0,256
 /proc/self/cwd/sw/device/lib/testing/rand_testutils.c:45
@@ -10267,7 +10267,7 @@ f00018fe:       |  /--|--|-- a03d                       j       f000192c <test_s
 /proc/self/cwd/sw/device/lib/testing/test_framework/status.c:34
       LOG_INFO("FAIL!");
 f0001900:       |  |  \--|-> 1000f517           auipc   a0,0x1000f
-f0001904:       |  |     |   9a850513           addi    a0,a0,-1624 # 102a8 <_non_volatile_scratch_end+0xff902a8>
+f0001904:       |  |     |   9a850513           addi    a0,a0,-1624 # 102a8 <_non_volatile_scratch_end+0xffd02a8>
 f0001908:       |  |     |   4581                       li      a1,0
 f000190a:       |  |     |   28c5                       jal     f00019fa <base_log_internal_dv>
 test_status_device_write():
@@ -10284,7 +10284,7 @@ test_status_set():
 /proc/self/cwd/sw/device/lib/testing/test_framework/status.c:28
       LOG_INFO("PASS!");
 f0001920:       \--|--|--|-> 1000f517           auipc   a0,0x1000f
-f0001924:          |  |  |   97450513           addi    a0,a0,-1676 # 10294 <_non_volatile_scratch_end+0xff90294>
+f0001924:          |  |  |   97450513           addi    a0,a0,-1676 # 10294 <_non_volatile_scratch_end+0xffd0294>
 f0001928:          |  |  |   4581                       li      a1,0
 f000192a:          |  |  |   28c1                       jal     f00019fa <base_log_internal_dv>
 test_status_device_write():
@@ -10385,7 +10385,7 @@ f000196e:              ca2e                     sw      a1,20(sp)
       ((char *)memchr(log.file_name, '\0', PTRDIFF_MAX)) - log.file_name;
 f0001970:              4148                     lw      a0,4(a0)
 f0001972:              800005b7                 lui     a1,0x80000
-f0001976:              fff58613                 addi    a2,a1,-1 # 7fffffff <_non_volatile_scratch_end+0x8ff7ffff>
+f0001976:              fff58613                 addi    a2,a1,-1 # 7fffffff <_non_volatile_scratch_end+0x8ffbffff>
 f000197a:              4581                     li      a1,0
 f000197c:              23f000ef                 jal     ra,f00023ba <memchr>
 f0001980:              4054                     lw      a3,4(s0)
@@ -11691,7 +11691,7 @@ f000215a:       |      00492603                 lw      a2,4(s2)
 f000215e:       +----- ca41                     beqz    a2,f00021ee <dif_uart_configure+0xaa>
 f0002160:       |      842a                     mv      s0,a0
 f0002162:       |      0016e537                 lui     a0,0x16e
-f0002166:       |      36050513                 addi    a0,a0,864 # 16e360 <_ottf_size+0xee360>
+f0002166:       |      36050513                 addi    a0,a0,864 # 16e360 <_ottf_size+0x12e360>
 /proc/self/cwd/sw/device/lib/dif/dif_uart.c:118
   // 2^4 should be multiplied.
   // If uart baud rate is 1.5Mbps and IO is 24Mhz, NCO is 0x10000, which is over
@@ -11701,7 +11701,7 @@ f0002166:       |      36050513                 addi    a0,a0,864 # 16e360 <_ott
       ((uint64_t)config.baudrate == 1500000 && config.clk_freq_hz == 24000000)
 f000216a:       |      8d35                     xor     a0,a0,a3
 f000216c:       |      016e35b7                 lui     a1,0x16e3
-f0002170:       |      60058593                 addi    a1,a1,1536 # 16e3600 <_ottf_size+0x1663600>
+f0002170:       |      60058593                 addi    a1,a1,1536 # 16e3600 <_ottf_size+0x16a3600>
 f0002174:       |      8db1                     xor     a1,a1,a2
 f0002176:       |      00b56733                 or      a4,a0,a1
 f000217a:       |      6541                     lui     a0,0x10
@@ -12169,7 +12169,7 @@ f0002380:       /--\----X 02080263              beqz    a6,f00023a4 <memset+0x4c
 f0002384:       |         00e808b3              add     a7,a6,a4
 f0002388:       |         0ff5f813              andi    a6,a1,255
 f000238c:       |         010107b7              lui     a5,0x1010
-f0002390:       |         10178793              addi    a5,a5,257 # 1010101 <_ottf_size+0xf90101>
+f0002390:       |         10178793              addi    a5,a5,257 # 1010101 <_ottf_size+0xfd0101>
 f0002394:       |         02f807b3              mul     a5,a6,a5
 write_32():
 /proc/self/cwd/./sw/device/lib/base/memory.h:145
@@ -12254,7 +12254,7 @@ f00023e8:       |                     99f1                      andi    a1,a1,-4
 f00023ea:       |  /----------------- c9a9                      beqz    a1,f000243c <memchr+0x82>
 f00023ec:       |  |                  01d58833                  add     a6,a1,t4
 f00023f0:       |  |                  010105b7                  lui     a1,0x1010
-f00023f4:       |  |                  10158593                  addi    a1,a1,257 # 1010101 <_ottf_size+0xf90101>
+f00023f4:       |  |                  10158593                  addi    a1,a1,257 # 1010101 <_ottf_size+0xfd0101>
 f00023f8:       |  |                  02be02b3                  mul     t0,t3,a1
 f00023fc:       |  |                  0ff00893                  li      a7,255
 f0002400:       |  |                  65c1                      lui     a1,0x10
@@ -12394,7 +12394,7 @@ f00024a0:                   |  \-- fe7597e3             bne     a1,t2,f000248e <
 f00024a4:                   |      953a                 add     a0,a0,a4
 f00024a6:                   |      8082                 ret
 f00024a8:                   \----> 010105b7             lui     a1,0x1010
-f00024ac:                          10158593             addi    a1,a1,257 # 1010101 <_ottf_size+0xf90101>
+f00024ac:                          10158593             addi    a1,a1,257 # 1010101 <_ottf_size+0xfd0101>
 repeat_byte_to_u32():
 /proc/self/cwd/sw/device/lib/base/memory.c:56
   return byte << 24 | byte << 16 | byte << 8 | byte;
@@ -12975,11 +12975,11 @@ f00027da:       |      8d4d                     or      a0,a0,a1
 f00027dc:       |      fff54513                 not     a0,a0
 f00027e0:       |      00155593                 srli    a1,a0,0x1
 f00027e4:       |      55555637                 lui     a2,0x55555
-f00027e8:       |      55560613                 addi    a2,a2,1365 # 55555555 <_ottf_size+0x554d5555>
+f00027e8:       |      55560613                 addi    a2,a2,1365 # 55555555 <_ottf_size+0x55515555>
 f00027ec:       |      8df1                     and     a1,a1,a2
 f00027ee:       |      8d0d                     sub     a0,a0,a1
 f00027f0:       |      333335b7                 lui     a1,0x33333
-f00027f4:       |      33358593                 addi    a1,a1,819 # 33333333 <_ottf_size+0x332b3333>
+f00027f4:       |      33358593                 addi    a1,a1,819 # 33333333 <_ottf_size+0x332f3333>
 f00027f8:       |      00b57633                 and     a2,a0,a1
 f00027fc:       |      8109                     srli    a0,a0,0x2
 f00027fe:       |      8d6d                     and     a0,a0,a1
@@ -12987,10 +12987,10 @@ f0002800:       |      9532                     add     a0,a0,a2
 f0002802:       |      00455593                 srli    a1,a0,0x4
 f0002806:       |      952e                     add     a0,a0,a1
 f0002808:       |      0f0f15b7                 lui     a1,0xf0f1
-f000280c:       |      f0f58593                 addi    a1,a1,-241 # f0f0f0f <_ottf_size+0xf070f0f>
+f000280c:       |      f0f58593                 addi    a1,a1,-241 # f0f0f0f <_ottf_size+0xf0b0f0f>
 f0002810:       |      8d6d                     and     a0,a0,a1
 f0002812:       |      010105b7                 lui     a1,0x1010
-f0002816:       |      10158593                 addi    a1,a1,257 # 1010101 <_ottf_size+0xf90101>
+f0002816:       |      10158593                 addi    a1,a1,257 # 1010101 <_ottf_size+0xfd0101>
 f000281a:       |      02b50533                 mul     a0,a0,a1
 f000281e:       |      8161                     srli    a0,a0,0x18
 f0002820:       |      01f54513                 xori    a0,a0,31

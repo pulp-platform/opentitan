@@ -10760,7 +10760,7 @@ d000ce18 g     F .text  00000046 sec_mmio_read32
 e0002428 g     O .bss   00000044 rstmgr_alert_info
 d000bcd4 g     F .text  0000028e sigverify_rsa_verify
 e0001fc8 g     O .bss   00000004 lc_state
-00080000 g       *ABS*  00000000 _rom_ext_virtual_size
+00040000 g       *ABS*  00000000 _rom_ext_virtual_size
 d0008100 g     F .vectors       00000080 _rom_interrupt_vector_c
 d000b14e g     F .text  00000044 flash_ctrl_data_erase
 d000c8cc g     F .text  0000002c rnd_uint32
@@ -11110,7 +11110,7 @@ d000827a:       |      01052283                 lw      t0,16(a0) # c0040010 <_s
 d000827e:       |      01c00f37                 lui     t5,0x1c00
 d0008282:       |      01e2f2b3                 and     t0,t0,t5
 d0008286:       |      01800eb7                 lui     t4,0x1800
-d000828a:       |      739e8e93                 addi    t4,t4,1849 # 1800739 <_rom_ext_virtual_size+0x1780739>
+d000828a:       |      739e8e93                 addi    t4,t4,1849 # 1800739 <_rom_ext_virtual_size+0x17c0739>
 d000828e:       |      01d2c2b3                 xor     t0,t0,t4
 d0008292:       +----- 05f29c63                 bne     t0,t6,d00082ea <kRomStartWatchdogEnabled+0x108>
 d0008296:       |      73900f93                 li      t6,1849
@@ -11140,7 +11140,7 @@ d00082e6:       |      0000                     unimp
 d00082e8:       |      0000                     unimp
 d00082ea:       \----> c1160537                 lui     a0,0xc1160
 d00082ee:              009092b7                 lui     t0,0x909
-d00082f2:              09928293                 addi    t0,t0,153 # 909099 <_rom_ext_virtual_size+0x889099>
+d00082f2:              09928293                 addi    t0,t0,153 # 909099 <_rom_ext_virtual_size+0x8c9099>
 d00082f6:              02552223                 sw      t0,36(a0) # c1160024 <_stack_end+0xe1140024>
 d00082fa:              4299                     li      t0,6
 d00082fc:              02552023                 sw      t0,32(a0)
@@ -11223,7 +11223,7 @@ d0008398:       8105                    srli    a0,a0,0x1
   return kErrorInterrupt + mcause;
 d000839a:       8d4d                    or      a0,a0,a1
 d000839c:       004955b7                lui     a1,0x495
-d00083a0:       20258593                addi    a1,a1,514 # 495202 <_rom_ext_virtual_size+0x415202>
+d00083a0:       20258593                addi    a1,a1,514 # 495202 <_rom_ext_virtual_size+0x455202>
 d00083a4:       8d4d                    or      a0,a0,a1
 rom_interrupt_handler():
 /proc/self/cwd/sw/device/silicon_creator/rom/rom.c:520
@@ -11443,7 +11443,7 @@ d000844a:       3b401073                csrw    pmpaddr4,zero
 
   // eFLASH
   li   t0, NAPOT(TOP_EARLGREY_EFLASH_BASE_ADDR, TOP_EARLGREY_EFLASH_SIZE_BYTES)
-d000844e:       3c0202b7                lui     t0,0x3c020
+d000844e:       3c0102b7                lui     t0,0x3c010
 d0008452:       12fd                    addi    t0,t0,-1
 /proc/self/cwd/sw/device/silicon_creator/rom/rom_epmp_init.S:74
   csrw pmpaddr5, t0
@@ -11493,7 +11493,7 @@ d0008480:       3bf29073                csrw    pmpaddr15,t0
   // Set PMP configuration registers.
   li   t0, CFG_INDEX(1  % 4, EPMP_CFG_A_TOR   | EPMP_CFG_LRX) | /* ROM TEXT    */ \
 d0008484:       009992b7                lui     t0,0x999
-d0008488:       d0028293                addi    t0,t0,-768 # 998d00 <_rom_ext_virtual_size+0x918d00>
+d0008488:       d0028293                addi    t0,t0,-768 # 998d00 <_rom_ext_virtual_size+0x958d00>
 /proc/self/cwd/sw/device/silicon_creator/rom/rom_epmp_init.S:97
            CFG_INDEX(2  % 4, EPMP_CFG_A_NAPOT | EPMP_CFG_LR)    /* ROM         */
   li   t1, CFG_INDEX(5  % 4, EPMP_CFG_A_NAPOT | EPMP_CFG_LR)    /* eFLASH      */
@@ -12706,7 +12706,7 @@ d0008d48:       |  |         0000                       unimp
 d0008d4a:       |  |         0000                       unimp
 d0008d4c:       |  |         0000                       unimp
 d0008d4e:       |  \-------> 014d5537           lui     a0,0x14d5
-d0008d52:       |            20950513           addi    a0,a0,521 # 14d5209 <_rom_ext_virtual_size+0x1455209>
+d0008d52:       |            20950513           addi    a0,a0,521 # 14d5209 <_rom_ext_virtual_size+0x1495209>
 /proc/self/cwd/sw/device/silicon_creator/rom/rom.c:490
 }
 d0008d56:       \----------> 4a92                       lw      s5,4(sp)
@@ -13070,8 +13070,8 @@ d0008fb8:       |  |        |     |   0000                      unimp
       ibex_addr_remap_0_set((uintptr_t)_rom_ext_virtual_start_address,
 d0008fba:       |  |        |     \-> bfff7997                  auipc   s3,0xbfff7
 d0008fbe:       |  |        |         04698993                  addi    s3,s3,70 # 90000000 <_rom_ext_virtual_start_address>
-d0008fc2:       |  |        |         30077417                  auipc   s0,0x30077
-d0008fc6:       |  |        |         03e40413                  addi    s0,s0,62 # 80000 <_stack_end+0x20060000>
+d0008fc2:       |  |        |         30037417                  auipc   s0,0x30037
+d0008fc6:       |  |        |         03e40413                  addi    s0,s0,62 # 40000 <_stack_end+0x20020000>
 d0008fca:       |  |        |         854e                      mv      a0,s3
 d0008fcc:       |  |        |         85a6                      mv      a1,s1
 d0008fce:       |  |        |         8622                      mv      a2,s0
@@ -13378,7 +13378,7 @@ d0009238:       |  |  |  |  |  |      00aa2a23                  sw      a0,20(s4
   ((rom_ext_entry_point *)entry_point)();
 d000923c:       |  |  |  |  |  |      9402                      jalr    s0
 d000923e:       |  |  |  |  |  |      014d5537                  lui     a0,0x14d5
-d0009242:       |  |  |  |  |  |      20950513                  addi    a0,a0,521 # 14d5209 <_rom_ext_virtual_size+0x1455209>
+d0009242:       |  |  |  |  |  |      20950513                  addi    a0,a0,521 # 14d5209 <_rom_ext_virtual_size+0x1495209>
 /proc/self/cwd/sw/device/silicon_creator/rom/rom.c:453
 }
 d0009246:       \--|--|--|--|--|----> 4c92                      lw      s9,4(sp)
@@ -13440,8 +13440,8 @@ d0009284:           f0000537            lui     a0,0xf0000
   const manifest_t *slot_b = boot_policy_manifest_b_get();
   if (slot_a->security_version >= slot_b->security_version) {
 d0009288:           34452503            lw      a0,836(a0) # f0000344 <_stack_end+0xffe0344>
-d000928c:           f00805b7            lui     a1,0xf0080
-d0009290:           3445a603            lw      a2,836(a1) # f0080344 <_stack_end+0x10060344>
+d000928c:           f00405b7            lui     a1,0xf0040
+d0009290:           3445a603            lw      a2,836(a1) # f0040344 <_stack_end+0x10020344>
 /proc/self/cwd/sw/device/silicon_creator/rom/boot_policy.c:26
     };
   }
@@ -13452,7 +13452,7 @@ d0009290:           3445a603            lw      a2,836(a1) # f0080344 <_stack_en
 d0009294:       /-- 00c56563            bltu    a0,a2,d000929e <boot_policy_manifests_get+0x1a>
 d0009298:       |   f0000537            lui     a0,0xf0000
 d000929c:       |   8082                        ret
-d000929e:       \-> f0080537            lui     a0,0xf0080
+d000929e:       \-> f0040537            lui     a0,0xf0040
 d00092a2:           f00005b7            lui     a1,0xf0000
 d00092a6:           8082                        ret
 
@@ -13479,7 +13479,7 @@ d00092c6:             |  /-- 00c6fb63           bgeu    a3,a2,d00092dc <boot_pol
 d00092ca:             |  |   02425537           lui     a0,0x2425
 d00092ce:          /--|--|-- a019                       j       d00092d4 <boot_policy_manifest_check+0x2c>
 d00092d0:          |  \--|-> 01425537           lui     a0,0x1425
-d00092d4:          >-----|-> 00d50613           addi    a2,a0,13 # 142500d <_rom_ext_virtual_size+0x13a500d>
+d00092d4:          >-----|-> 00d50613           addi    a2,a0,13 # 142500d <_rom_ext_virtual_size+0x13e500d>
 /proc/self/cwd/sw/device/silicon_creator/rom/boot_policy.c:46
     HARDENED_CHECK_GE(manifest->security_version,
                       boot_data->min_security_version_rom_ext);
@@ -13499,7 +13499,7 @@ d00092e8:       |  |         00164613           xori    a2,a2,1
 d00092ec:       |  |         3806b713           sltiu   a4,a3,896
 d00092f0:       |  |         8f51                       or      a4,a4,a2
 d00092f2:       |  |         024d4637           lui     a2,0x24d4
-d00092f6:       |  |         10d60613           addi    a2,a2,269 # 24d410d <_rom_ext_virtual_size+0x245410d>
+d00092f6:       |  |         10d60613           addi    a2,a2,269 # 24d410d <_rom_ext_virtual_size+0x249410d>
 d00092fa:       +--|-------- ff79                       bnez    a4,d00092d8 <boot_policy_manifest_check+0x30>
 /proc/self/cwd/./sw/device/silicon_creator/lib/manifest.h:262
       manifest->code_end > manifest->length ||
@@ -13535,7 +13535,7 @@ d0009338:       |  |  /--|-- 00b67a63           bgeu    a2,a1,d000934c <boot_pol
 d000933c:       |  |  |  |   03425537           lui     a0,0x3425
 d0009340:       |  \--|--|-- bf51                       j       d00092d4 <boot_policy_manifest_check+0x2c>
 d0009342:       |     |  \-> 014d4537           lui     a0,0x14d4
-d0009346:       |     |      10d50613           addi    a2,a0,269 # 14d410d <_rom_ext_virtual_size+0x145410d>
+d0009346:       |     |      10d50613           addi    a2,a0,269 # 14d410d <_rom_ext_virtual_size+0x149410d>
 d000934a:       +-----|----- b779                       j       d00092d8 <boot_policy_manifest_check+0x30>
 /proc/self/cwd/sw/device/silicon_creator/rom/boot_policy.c:41
     HARDENED_CHECK_GE(manifest->security_version,
@@ -13609,7 +13609,7 @@ boot_data_default_get():
 d00093a4:       |                 |     \-> 11800513            li      a0,280
 d00093a8:       |                 |         20f030ef            jal     ra,d000cdb6 <otp_read32>
 d00093ac:       |                 |         014245b7            lui     a1,0x1424
-d00093b0:       |                 |         40d58593            addi    a1,a1,1037 # 142440d <_rom_ext_virtual_size+0x13a440d>
+d00093b0:       |                 |         40d58593            addi    a1,a1,1037 # 142440d <_rom_ext_virtual_size+0x13e440d>
 /proc/self/cwd/sw/device/silicon_creator/lib/boot_data.c:492
   rom_error_t res = lc_state ^ launder32(kErrorBootDataNotFound);
 d00093b4:       |                 |         8da1                        xor     a1,a1,s0
@@ -13625,7 +13625,7 @@ d00093c0:       |                 |  /----- 04c75263            bge     a4,a2,d0
 d00093c4:       |                 |  |      aab68693            addi    a3,a3,-1365
 d00093c8:       |              /--|--|----- 06d60a63            beq     a2,a3,d000943c <boot_data_read+0xda>
 d00093cc:       |              |  |  |      0b5a76b7            lui     a3,0xb5a7
-d00093d0:       |              |  |  |      5e068693            addi    a3,a3,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d00093d0:       |              |  |  |      5e068693            addi    a3,a3,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d00093d4:       |           /--|--|--|----- 08d61363            bne     a2,a3,d000945a <boot_data_read+0xf8>
 /proc/self/cwd/sw/device/silicon_creator/lib/boot_data.c:500
       HARDENED_CHECK_EQ(lc_state, kLcStateDev);
@@ -13635,7 +13635,7 @@ d00093de:       |           |  |  |  |  |   0000                        unimp
 d00093e0:       |           |  |  |  |  |   0000                        unimp
 d00093e2:       |           |  |  |  |  |   0000                        unimp
 d00093e4:       |           |  |  |  |  \-> 0a183537            lui     a0,0xa183
-d00093e8:       |           |  |  |  |      6d450513            addi    a0,a0,1748 # a1836d4 <_rom_ext_virtual_size+0xa1036d4>
+d00093e8:       |           |  |  |  |      6d450513            addi    a0,a0,1748 # a1836d4 <_rom_ext_virtual_size+0xa1436d4>
 d00093ec:       |        /--|--|--|--|----- a0d9                        j       d00094b2 <boot_data_read+0x150>
 d00093ee:       |        |  |  |  \--|----> 73900493            li      s1,1849
 boot_data_read():
@@ -13872,7 +13872,7 @@ d000959e:       |                                 41445537              lui     
 d00095a2:       |                                 f4250513              addi    a0,a0,-190 # 41444f42 <_epmp_stack_guard_na4+0x943df42>
 d00095a6:       |                                 c62a                  sw      a0,12(sp)
 d00095a8:       |                                 03424537              lui     a0,0x3424
-d00095ac:       |                                 40d50513              addi    a0,a0,1037 # 342440d <_rom_ext_virtual_size+0x33a440d>
+d00095ac:       |                                 40d50513              addi    a0,a0,1037 # 342440d <_rom_ext_virtual_size+0x33e440d>
 d00095b0:       |                                 c42a                  sw      a0,8(sp)
 /proc/self/cwd/sw/device/silicon_creator/lib/boot_data.c:468
     HARDENED_RETURN_IF_ERROR(
@@ -14399,7 +14399,7 @@ launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d00098fa:              4681                     li      a3,0
 d00098fc:              03424737                 lui     a4,0x3424
-d0009900:              40d70513                 addi    a0,a4,1037 # 342440d <_rom_ext_virtual_size+0x33a440d>
+d0009900:              40d70513                 addi    a0,a4,1037 # 342440d <_rom_ext_virtual_size+0x33e440d>
 d0009904:              479d                     li      a5,7
 d0009906:              4581                     li      a1,0
 d0009908:              862a                     mv      a2,a0
@@ -14618,19 +14618,19 @@ d0009a24:       |                                      \-> 265d                 
 d0009a26:       |                                          d4576cb7             lui     s9,0xd4576
 d0009a2a:       |                                          543c8d93             addi    s11,s9,1347 # d4576543 <_stack_end+0xf4556543>
 d0009a2e:       |                                          03425537             lui     a0,0x3425
-d0009a32:       |                                          30350d13             addi    s10,a0,771 # 3425303 <_rom_ext_virtual_size+0x33a5303>
+d0009a32:       |                                          30350d13             addi    s10,a0,771 # 3425303 <_rom_ext_virtual_size+0x33e5303>
 d0009a36:       |                                          bdd8d537             lui     a0,0xbdd8d
 d0009a3a:       |                                          a6050993             addi    s3,a0,-1440 # bdd8ca60 <_stack_end+0xddd6ca60>
 d0009a3e:       |                                          09900a93             li      s5,153
-d0009a42:       |                                          fff00537             lui     a0,0xfff00
+d0009a42:       |                                          fff80537             lui     a0,0xfff80
 d0009a46:       |                                          051d                 addi    a0,a0,7
 d0009a48:       |                                          ce2a                 sw      a0,28(sp)
 d0009a4a:       |                                          02425537             lui     a0,0x2425
-d0009a4e:       |                                          30350513             addi    a0,a0,771 # 2425303 <_rom_ext_virtual_size+0x23a5303>
+d0009a4e:       |                                          30350513             addi    a0,a0,771 # 2425303 <_rom_ext_virtual_size+0x23e5303>
 d0009a52:       |                                          cc2a                 sw      a0,24(sp)
 d0009a54:       |                                          4919                 li      s2,6
 d0009a56:       |                                          01425537             lui     a0,0x1425
-d0009a5a:       |                                          30350513             addi    a0,a0,771 # 1425303 <_rom_ext_virtual_size+0x13a5303>
+d0009a5a:       |                                          30350513             addi    a0,a0,771 # 1425303 <_rom_ext_virtual_size+0x13e5303>
 d0009a5e:       |                                          ca2a                 sw      a0,20(sp)
 d0009a60:       |                                          af0eb537             lui     a0,0xaf0eb
 d0009a64:       |                                          b8b50513             addi    a0,a0,-1141 # af0eab8b <_stack_end+0xcf0cab8b>
@@ -14773,7 +14773,7 @@ d0009b3a:       |  |  |  |  |  |  |  |  |  |  |            5512                 
 bootstrap_sector_erase():
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:103
   if (addr >= kMaxAddress) {
-d0009b3c:       |  |  |  |  |  |  |  |  |  |  |            01455593             srli    a1,a0,0x14
+d0009b3c:       |  |  |  |  |  |  |  |  |  |  |            01355593             srli    a1,a0,0x13
 d0009b40:       |  |  |  |  |  |  |  |  |  |  |            4452                 lw      s0,20(sp)
 d0009b42:       |  |  |  |  |  +--|--|--|--|--|----------- 1a059863             bnez    a1,d0009cf2 <bootstrap+0x31c>
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:106
@@ -14854,7 +14854,7 @@ d0009bce:       |  |  |  |  |  |  |  |     |  |            5c4010ef             
 d0009bd2:       |  |  |  |  |  |  |  |     |  |            842a                 mv      s0,a0
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:266
   rom_error_t err_1 = flash_ctrl_data_erase_verify(
-d0009bd4:       |  |  |  |  |  |  |  |     |  |            00080537             lui     a0,0x80
+d0009bd4:       |  |  |  |  |  |  |  |     |  |            00040537             lui     a0,0x40
 d0009bd8:       |  |  |  |  |  |  |  |     |  |            85e2                 mv      a1,s8
 d0009bda:       |  |  |  |  |  |  |  |     |  |            5b8010ef             jal     ra,d000b192 <flash_ctrl_data_erase_verify>
 launder32():
@@ -14924,7 +14924,7 @@ d0009c36:       |  |  |  |  |  |                 |  |      02c10b93             
 d0009c3a:       |  |  |  |  |  |                 |  |  /-> 86b2                 mv      a3,a2
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:173
       data[byte_count++] = 0xff;
-d0009c3c:       |  |  |  |  |  |                 |  |  |   00150593             addi    a1,a0,1 # 80001 <_rom_ext_virtual_size+0x1>
+d0009c3c:       |  |  |  |  |  |                 |  |  |   00150593             addi    a1,a0,1 # 40001 <_rom_ext_virtual_size+0x1>
 d0009c40:       |  |  |  |  |  |                 |  |  |   955e                 add     a0,a0,s7
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:172
     for (size_t i = 0; i < padding_byte_count; ++i) {
@@ -15061,7 +15061,7 @@ bootstrap_page_program():
 d0009d20:       |     |                    |  \-----|----- f80a9ae3             bnez    s5,d0009cb4 <bootstrap+0x2de>
 d0009d24:       |     |                    \--------|----- bf69                 j       d0009cbe <bootstrap+0x2e8>
 d0009d26:       \-----|-----------------------------|----> 04425537             lui     a0,0x4425
-d0009d2a:             |                             |      30d50413             addi    s0,a0,781 # 442530d <_rom_ext_virtual_size+0x43a530d>
+d0009d2a:             |                             |      30d50413             addi    s0,a0,781 # 442530d <_rom_ext_virtual_size+0x43e530d>
 bootstrap():
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:388
   }
@@ -15112,7 +15112,7 @@ d0009d8e:              3c0010ef                 jal     ra,d000b14e <flash_ctrl_
 d0009d92:              842a                     mv      s0,a0
 /proc/self/cwd/sw/device/silicon_creator/rom/bootstrap.c:75
   rom_error_t err_1 = flash_ctrl_data_erase(FLASH_CTRL_PARAM_BYTES_PER_BANK,
-d0009d94:              00080537                 lui     a0,0x80
+d0009d94:              00040537                 lui     a0,0x40
 d0009d98:              85a6                     mv      a1,s1
 d0009d9a:              3b4010ef                 jal     ra,d000b14e <flash_ctrl_data_erase>
 d0009d9e:              84aa                     mv      s1,a0
@@ -15203,7 +15203,7 @@ d0009e00:           0612                        slli    a2,a2,0x4
 d0009e02:           0f067613            andi    a2,a2,240
 d0009e06:           8dd1                        or      a1,a1,a2
 d0009e08:           00ef1637            lui     a2,0xef1
-d0009e0c:           40860613            addi    a2,a2,1032 # ef1408 <_rom_ext_virtual_size+0xe71408>
+d0009e0c:           40860613            addi    a2,a2,1032 # ef1408 <_rom_ext_virtual_size+0xeb1408>
 /proc/self/cwd/./sw/device/lib/base/bitfield.h:76
   bitfield |= (value & field.mask) << field.index;
 d0009e10:           8dd1                        or      a1,a1,a2
@@ -15451,7 +15451,7 @@ d0009f34:       |  |  |   0611                  addi    a2,a2,4
 d0009f36:       |  |  \-- feb668e3              bltu    a2,a1,d0009f26 <spi_device_cmd_get+0x62>
 d0009f3a:       |  +----- a029                  j       d0009f44 <spi_device_cmd_get+0x80>
 d0009f3c:       \--|----> 01535537              lui     a0,0x1535
-d0009f40:          |      00d50813              addi    a6,a0,13 # 153500d <_rom_ext_virtual_size+0x14b500d>
+d0009f40:          |      00d50813              addi    a6,a0,13 # 153500d <_rom_ext_virtual_size+0x14f500d>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/spi_device.c:662
   }
 
@@ -15676,7 +15676,7 @@ d000a05c:             |  |   0000                       unimp
 d000a05e:             |  \-> 00892023           sw      s0,0(s2)
 d000a062:             |  /-- a029                       j       d000a06c <sigverify_rsa_key_get+0x112>
 d000a064:             \--|-> 02535537           lui     a0,0x2535
-d000a068:                |   60350513           addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24b5603>
+d000a068:                |   60350513           addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24f5603>
 /proc/self/cwd/sw/device/silicon_creator/rom/sigverify_keys.c:217
     return error;
   }
@@ -15711,7 +15711,7 @@ d000a092:                                  /----- 04d7d663              bge     
 d000a096:                                  |      aab70713              addi    a4,a4,-1365
 d000a09a:                               /--|----- 04e68f63              beq     a3,a4,d000a0f8 <key_is_valid+0x70>
 d000a09e:                               |  |      0b5a7737              lui     a4,0xb5a7
-d000a0a2:                               |  |      5e070713              addi    a4,a4,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000a0a2:                               |  |      5e070713              addi    a4,a4,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000a0a6:                         /-----|--|----- 08e69763              bne     a3,a4,d000a134 <key_is_valid+0xac>
 /proc/self/cwd/sw/device/silicon_creator/rom/sigverify_keys.c:172
       HARDENED_CHECK_EQ(lc_state, kLcStateDev);
@@ -15886,7 +15886,7 @@ d000a1e8:                |     |  |  |  |  |      0000                  unimp
 d000a1ea:                |     |  |  |  |  |      0000                  unimp
 d000a1ec:                |     |  |  |  |  |      0000                  unimp
 d000a1ee:                |     |  |  |  \--|----> 02535537              lui     a0,0x2535
-d000a1f2:                |     |  |  |     |      60350513              addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24b5603>
+d000a1f2:                |     |  |  |     |      60350513              addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24f5603>
 key_is_valid():
 /proc/self/cwd/sw/device/silicon_creator/rom/sigverify_keys.c:180
 }
@@ -15982,7 +15982,7 @@ d000a280:          |  |   0000                  unimp
 d000a282:          |  |   0000                  unimp
 d000a284:          |  |   0000                  unimp
 d000a286:          \--|-> 02535537              lui     a0,0x2535
-d000a28a:             |   60350513              addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24b5603>
+d000a28a:             |   60350513              addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24f5603>
 /proc/self/cwd/sw/device/silicon_creator/rom/sigverify_keys.c:123
 }
 d000a28e:             |   8082                  ret
@@ -16033,7 +16033,7 @@ d000a2ca:       |  |   0000                     unimp
 d000a2cc:       |  \-> 73900513                 li      a0,1849
 d000a2d0:       |  /-- a029                     j       d000a2da <key_is_valid_in_otp+0x42>
 d000a2d2:       \--|-> 02535537                 lui     a0,0x2535
-d000a2d6:          |   60350513                 addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24b5603>
+d000a2d6:          |   60350513                 addi    a0,a0,1539 # 2535603 <_rom_ext_virtual_size+0x24f5603>
 /proc/self/cwd/sw/device/silicon_creator/rom/sigverify_keys.c:42
 }
 d000a2da:          \-> 4422                     lw      s0,8(sp)
@@ -16078,7 +16078,7 @@ d000a308:                         /----- 02a65563               bge     a2,a0,d0
 d000a30c:                         |      aab58593               addi    a1,a1,-1365
 d000a310:                      /--|----- 04b50063               beq     a0,a1,d000a350 <shutdown_init+0x6e>
 d000a314:                      |  |      0b5a75b7               lui     a1,0xb5a7
-d000a318:                      |  |      5e058593               addi    a1,a1,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000a318:                      |  |      5e058593               addi    a1,a1,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000a31c:                   /--|--|----- 04b51963               bne     a0,a1,d000a36e <shutdown_init+0x8c>
 /proc/self/cwd/sw/device/silicon_creator/lib/shutdown.c:109
       HARDENED_CHECK_EQ(lc_state, kLcStateProdEnd);
@@ -16579,7 +16579,7 @@ d000a5cc:                             04000693                  li      a3,64
   if (index >= ALERT_HANDLER_ALERT_CLASS_SHADOWED_MULTIREG_COUNT) {
 d000a5d0:                         /-- 00a6f763                  bgeu    a3,a0,d000a5de <alert_configure+0x12>
 d000a5d4:                         |   01415537                  lui     a0,0x1415
-d000a5d8:       /-----------------|-> 80350513                  addi    a0,a0,-2045 # 1414803 <_rom_ext_virtual_size+0x1394803>
+d000a5d8:       /-----------------|-> 80350513                  addi    a0,a0,-2045 # 1414803 <_rom_ext_virtual_size+0x13d4803>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/alert.c:73
       break;
     default:
@@ -16699,7 +16699,7 @@ d000a68c:                             4699                      li      a3,6
   if (index >= ALERT_HANDLER_LOC_ALERT_CLASS_SHADOWED_MULTIREG_COUNT) {
 d000a68e:                         /-- 00a6f763                  bgeu    a3,a0,d000a69c <alert_local_configure+0x10>
 d000a692:                         |   01415537                  lui     a0,0x1415
-d000a696:       /-----------------|-> 80350513                  addi    a0,a0,-2045 # 1414803 <_rom_ext_virtual_size+0x1394803>
+d000a696:       /-----------------|-> 80350513                  addi    a0,a0,-2045 # 1414803 <_rom_ext_virtual_size+0x13d4803>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/alert.c:127
       break;
     default:
@@ -16812,7 +16812,7 @@ rom_error_t alert_class_configure(alert_class_t cls,
 d000a74a:                          862a                 mv      a2,a0
 d000a74c:                          02415537             lui     a0,0x2415
 d000a750:                          0a600693             li      a3,166
-d000a754:                          80350513             addi    a0,a0,-2045 # 2414803 <_rom_ext_virtual_size+0x2394803>
+d000a754:                          80350513             addi    a0,a0,-2045 # 2414803 <_rom_ext_virtual_size+0x23d4803>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/alert.c:147
       reg, ALERT_HANDLER_CLASSA_CTRL_SHADOWED_MAP_E3_FIELD, 3);
 
@@ -16867,7 +16867,7 @@ d000a7ba:       |  |     \-----|-> 90150713             addi    a4,a0,-1791
 d000a7be:       |  |           \-> 41dc                 lw      a5,4(a1)
 d000a7c0:       |  |               04415537             lui     a0,0x4415
 d000a7c4:       |  |               0b800693             li      a3,184
-d000a7c8:       |  |               80350513             addi    a0,a0,-2045 # 4414803 <_rom_ext_virtual_size+0x4394803>
+d000a7c8:       |  |               80350513             addi    a0,a0,-2045 # 4414803 <_rom_ext_virtual_size+0x43d4803>
 d000a7cc:       |  |           /-- 00f6df63             bge     a3,a5,d000a7ea <alert_class_configure+0xa0>
 d000a7d0:       |  |           |   0b900693             li      a3,185
 d000a7d4:       |  |  /--------|-- 02d78963             beq     a5,a3,d000a806 <alert_class_configure+0xbc>
@@ -16972,7 +16972,7 @@ alert_class_configure():
 }
 d000a85e:          |               8082                 ret
 d000a860:          \-------------> 03415537             lui     a0,0x3415
-d000a864:                          80350513             addi    a0,a0,-2045 # 3414803 <_rom_ext_virtual_size+0x3394803>
+d000a864:                          80350513             addi    a0,a0,-2045 # 3414803 <_rom_ext_virtual_size+0x33d4803>
 d000a868:                          8082                 ret
 
 d000a86a <alert_config_crc32>:
@@ -17213,7 +17213,7 @@ d000a996:                      /----- 02b6d563                  bge     a3,a1,d0
 d000a99a:                      |      aab60513                  addi    a0,a2,-1365
 d000a99e:                   /--|----- 04a58063                  beq     a1,a0,d000a9de <alert_config_check+0x60>
 d000a9a2:                   |  |      0b5a7537                  lui     a0,0xb5a7
-d000a9a6:                   |  |      5e050513                  addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000a9a6:                   |  |      5e050513                  addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000a9aa:                /--|--|----- 04a59763                  bne     a1,a0,d000a9f8 <alert_config_check+0x7a>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/alert.c:324
       HARDENED_CHECK_EQ(lc_state, kLcStateProdEnd);
@@ -17305,7 +17305,7 @@ d000aa30:       |  |     |  |  |      0000                      unimp
 d000aa32:       |  |     |  |  |      0000                      unimp
 d000aa34:       |  |     |  |  \--/-X a029                      j       d000aa3e <alert_config_check+0xc0>
 d000aa36:       |  |     |  \-----|-> 05415537                  lui     a0,0x5415
-d000aa3a:       |  |     |        |   80350513                  addi    a0,a0,-2045 # 5414803 <_rom_ext_virtual_size+0x5394803>
+d000aa3a:       |  |     |        |   80350513                  addi    a0,a0,-2045 # 5414803 <_rom_ext_virtual_size+0x53d4803>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/alert.c:341
   return res;
 }
@@ -17445,7 +17445,7 @@ d000aace:                   /----- 02b6d363             bge     a3,a1,d000aaf4 <
 d000aad2:                   |      aab60613             addi    a2,a2,-1365
 d000aad6:                /--|----- 02c58c63             beq     a1,a2,d000ab0e <ast_check+0x4e>
 d000aada:                |  |      0b5a7637             lui     a2,0xb5a7
-d000aade:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000aade:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000aae2:             /--|--|----- 04c59163             bne     a1,a2,d000ab24 <ast_check+0x64>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/ast.c:38
       return kErrorOk;
@@ -17537,7 +17537,7 @@ d000ab5e:       |     |  |         00003517             auipc   a0,0x3
 d000ab62:       |     |  |         40a50513             addi    a0,a0,1034 # d000df68 <kAstCheckPollCpuCycles>
 d000ab66:       |     |  |         00052803             lw      a6,0(a0)
 d000ab6a:       |     |  |         01415537             lui     a0,0x1415
-d000ab6e:       |     |  |         30d50693             addi    a3,a0,781 # 141530d <_rom_ext_virtual_size+0x139530d>
+d000ab6e:       |     |  |         30d50693             addi    a3,a0,781 # 141530d <_rom_ext_virtual_size+0x13d530d>
 d000ab72:       |     |  |         c0490637             lui     a2,0xc0490
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/ast.c:64
   do {
@@ -17997,7 +17997,7 @@ d000adba:              00257593                 andi    a1,a0,2
 d000adbe:              73900513                 li      a0,1849
 d000adc2:          /-- c589                     beqz    a1,d000adcc <flash_ctrl_info_read+0x66>
 d000adc4:          |   02464537                 lui     a0,0x2464
-d000adc8:          |   30d50513                 addi    a0,a0,781 # 246430d <_rom_ext_virtual_size+0x23e430d>
+d000adc8:          |   30d50513                 addi    a0,a0,781 # 246430d <_rom_ext_virtual_size+0x242430d>
 flash_ctrl_info_read():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:370
   return wait_for_done(kErrorFlashCtrlInfoRead);
@@ -18039,7 +18039,7 @@ d000ae1c:             |              |           |     |  |  |   0000           
 d000ae1e:             |              |           |     |  |  \-> 6589                   lui     a1,0x2
 d000ae20:       /-----|--------------|-----------|-----|--|----- a495                   j       d000b084 <info_page_addr+0x2ac>
 d000ae22:       |     |              |           |     |  \----> 238cf637               lui     a2,0x238cf
-d000ae26:       |     |              |           |     |         15b60613               addi    a2,a2,347 # 238cf15b <_rom_ext_virtual_size+0x2384f15b>
+d000ae26:       |     |              |           |     |         15b60613               addi    a2,a2,347 # 238cf15b <_rom_ext_virtual_size+0x2388f15b>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:227
   switch (launder32(info_page)) {
 d000ae2a:       |     |              |           |     |  /----- 06b64363               blt     a2,a1,d000ae90 <info_page_addr+0xb8>
@@ -18049,7 +18049,7 @@ d000ae36:       |     |              |           |  /--|--|----- 0ab6d363       
 d000ae3a:       |     |              |           |  |  |  |      9f660613               addi    a2,a2,-1546
 d000ae3e:       |     |              |  /--------|--|--|--|----- 10c58763               beq     a1,a2,d000af4c <info_page_addr+0x174>
 d000ae42:       |     |              |  |        |  |  |  |      10adc637               lui     a2,0x10adc
-d000ae46:       |     |              |  |        |  |  |  |      6aa60613               addi    a2,a2,1706 # 10adc6aa <_rom_ext_virtual_size+0x10a5c6aa>
+d000ae46:       |     |              |  |        |  |  |  |      6aa60613               addi    a2,a2,1706 # 10adc6aa <_rom_ext_virtual_size+0x10a9c6aa>
 d000ae4a:       |     |  /-----------|--|--------|--|--|--|----- 16c59663               bne     a1,a2,d000afb6 <info_page_addr+0x1de>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:228
     FLASH_CTRL_INFO_PAGES_DEFINE(INFO_PAGE_ADDR_CASE_)
@@ -18077,7 +18077,7 @@ d000ae82:       |     |  |  |        |  |  |     |  |  |  |  |   0000           
 d000ae84:       |     |  |  |        |  |  |     |  |  |  |  |   0000                   unimp
 d000ae86:       |     |  |  |        |  |  |     |  |  |  |  |   0000                   unimp
 d000ae88:       |     |  |  |        |  |  |     |  |  |  |  |   0000                   unimp
-d000ae8a:       |     |  |  |        |  |  |     |  |  |  |  \-> 00085537               lui     a0,0x85
+d000ae8a:       |     |  |  |        |  |  |     |  |  |  |  \-> 00045537               lui     a0,0x45
 d000ae8e:       |  /--|--|--|--------|--|--|-----|--|--|--|----- aacd                   j       d000b080 <info_page_addr+0x2a8>
 d000ae90:       |  |  |  |  |        |  |  |     |  |  |  \----> 5f072637               lui     a2,0x5f072
 d000ae94:       |  |  |  |  |        |  |  |     |  |  |         77d60693               addi    a3,a2,1917 # 5f07277d <_epmp_stack_guard_na4+0x2706b77d>
@@ -18138,10 +18138,10 @@ d000af08:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  |   0000           
 d000af0a:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  |   0000                   unimp
 d000af0c:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  |   0000                   unimp
 d000af0e:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  |   0000                   unimp
-d000af10:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  \-> 00082537               lui     a0,0x82
+d000af10:       |  |  |  |  |  |  |  |  |  |  |  |  |     |  \-> 00042537               lui     a0,0x42
 d000af14:       |  +--|--|--|--|--|--|--|--|--|--|--|-----|----- a2b5                   j       d000b080 <info_page_addr+0x2a8>
 d000af16:       |  |  |  |  |  |  |  |  |  |  |  |  |     \----> 238cf637               lui     a2,0x238cf
-d000af1a:       |  |  |  |  |  |  |  |  |  |  |  |  |            15c60613               addi    a2,a2,348 # 238cf15c <_rom_ext_virtual_size+0x2384f15c>
+d000af1a:       |  |  |  |  |  |  |  |  |  |  |  |  |            15c60613               addi    a2,a2,348 # 238cf15c <_rom_ext_virtual_size+0x2388f15c>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:227
   switch (launder32(info_page)) {
 d000af1e:       |  |  |  |  |  |  |  |  |  |  |  |  |  /-------- 14c59363               bne     a1,a2,d000b064 <info_page_addr+0x28c>
@@ -18152,7 +18152,7 @@ d000af26:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   0000           
 d000af28:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   0000                   unimp
 d000af2a:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   0000                   unimp
 d000af2c:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   0000                   unimp
-d000af2e:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     \-> 000815b7               lui     a1,0x81
+d000af2e:       |  |  |  |  |  |  |  |  |  |  |  |  |  |     \-> 000415b7               lui     a1,0x41
 d000af32:       +--|--|--|--|--|--|--|--|--|--|--|--|--|-------- aa89                   j       d000b084 <info_page_addr+0x2ac>
 d000af34:       |  |  |  |  |  |  |  \--|--|--|--|--|--|-------> a4f6f5b7               lui     a1,0xa4f6f
 d000af38:       |  |  |  |  |  |  |     |  |  |  |  |  |         6c358593               addi    a1,a1,1731 # a4f6f6c3 <_stack_end+0xc4f4f6c3>
@@ -18170,7 +18170,7 @@ d000af58:       |  |  |  |  |  |  |        |  |  |  |  |     |   0000           
 d000af5a:       |  |  |  |  |  |  |        |  |  |  |  |     |   0000                   unimp
 d000af5c:       |  |  |  |  |  |  |        |  |  |  |  |     |   0000                   unimp
 d000af5e:       |  |  |  |  |  |  |        |  |  |  |  |     |   0000                   unimp
-d000af60:       |  |  |  |  |  |  |        |  |  |  |  |     \-> 000805b7               lui     a1,0x80
+d000af60:       |  |  |  |  |  |  |        |  |  |  |  |     \-> 000405b7               lui     a1,0x40
 d000af64:       +--|--|--|--|--|--|--------|--|--|--|--|-------- a205                   j       d000b084 <info_page_addr+0x2ac>
 d000af66:       |  |  |  |  |  |  |        \--|--|--|--|-------> e3ffb5b7               lui     a1,0xe3ffb
 d000af6a:       |  |  |  |  |  |  |           |  |  |  |         c8658593               addi    a1,a1,-890 # e3ffac86 <_stack_end+0x3fdac86>
@@ -18179,7 +18179,7 @@ d000af72:       |  |  |  |  |  |  |           |  |  |  |     |   0000           
 d000af74:       |  |  |  |  |  |  |           |  |  |  |     |   0000                   unimp
 d000af76:       |  |  |  |  |  |  |           |  |  |  |     |   0000                   unimp
 d000af78:       |  |  |  |  |  |  |           |  |  |  |     |   0000                   unimp
-d000af7a:       |  |  |  |  |  |  |           |  |  |  |     \-> 000835b7               lui     a1,0x83
+d000af7a:       |  |  |  |  |  |  |           |  |  |  |     \-> 000435b7               lui     a1,0x43
 d000af7e:       +--|--|--|--|--|--|-----------|--|--|--|-------- a219                   j       d000b084 <info_page_addr+0x2ac>
 d000af80:       |  |  |  |  |  |  |           \--|--|--|-------> 5f0725b7               lui     a1,0x5f072
 d000af84:       |  |  |  |  |  |  |              |  |  |         77e58593               addi    a1,a1,1918 # 5f07277e <_epmp_stack_guard_na4+0x2706b77e>
@@ -18202,10 +18202,10 @@ d000afa8:       |  |     |  |  |  |              |  |  |  |  |   0000           
 d000afaa:       |  |     |  |  |  |              |  |  |  |  |   0000                   unimp
 d000afac:       |  |     |  |  |  |              |  |  |  |  |   0000                   unimp
 d000afae:       |  |     |  |  |  |              |  |  |  |  |   0000                   unimp
-d000afb0:       |  |     |  |  |  |              |  |  |  |  \-> 00083537               lui     a0,0x83
+d000afb0:       |  |     |  |  |  |              |  |  |  |  \-> 00043537               lui     a0,0x43
 d000afb4:       |  +-----|--|--|--|--------------|--|--|--|----- a0f1                   j       d000b080 <info_page_addr+0x2a8>
 d000afb6:       |  |     \--|--|--|--------------|--|--|--|----> 118b6637               lui     a2,0x118b6
-d000afba:       |  |        |  |  |              |  |  |  |      dbb60613               addi    a2,a2,-581 # 118b5dbb <_rom_ext_virtual_size+0x11835dbb>
+d000afba:       |  |        |  |  |              |  |  |  |      dbb60613               addi    a2,a2,-581 # 118b5dbb <_rom_ext_virtual_size+0x11875dbb>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:227
   switch (launder32(info_page)) {
 d000afbe:       |  |        |  |  |              |  |  |  +----- 0cc59563               bne     a1,a2,d000b088 <info_page_addr+0x2b0>
@@ -18230,7 +18230,7 @@ d000afe2:       |  |           |  |              |  |  |  |  |   0000           
 d000afe4:       |  |           |  |              |  |  |  |  |   0000                   unimp
 d000afe6:       |  |           |  |              |  |  |  |  |   0000                   unimp
 d000afe8:       |  |           |  |              |  |  |  |  |   0000                   unimp
-d000afea:       |  |           |  |              |  |  |  |  \-> 00084537               lui     a0,0x84
+d000afea:       |  |           |  |              |  |  |  |  \-> 00044537               lui     a0,0x44
 d000afee:       |  +-----------|--|--------------|--|--|--|----- a849                   j       d000b080 <info_page_addr+0x2a8>
 d000aff0:       |  |           |  \--------------|--|--|--|----> 7dfbe637               lui     a2,0x7dfbe
 d000aff4:       |  |           |                 |  |  |  |      f9b60613               addi    a2,a2,-101 # 7dfbdf9b <_epmp_stack_guard_na4+0x45fb6f9b>
@@ -18244,7 +18244,7 @@ d000b000:       |  |           |                 |  |  |  |  |   0000           
 d000b002:       |  |           |                 |  |  |  |  |   0000                   unimp
 d000b004:       |  |           |                 |  |  |  |  |   0000                   unimp
 d000b006:       |  |           |                 |  |  |  |  |   0000                   unimp
-d000b008:       |  |           |                 |  |  |  |  \-> 000825b7               lui     a1,0x82
+d000b008:       |  |           |                 |  |  |  |  \-> 000425b7               lui     a1,0x42
 d000b00c:       +--|-----------|-----------------|--|--|--|----- a8a5                   j       d000b084 <info_page_addr+0x2ac>
 d000b00e:       |  |           |                 \--|--|--|----> 9fbb8637               lui     a2,0x9fbb8
 d000b012:       |  |           |                    |  |  |      40e60613               addi    a2,a2,1038 # 9fbb840e <_stack_end+0xbfb9840e>
@@ -18258,7 +18258,7 @@ d000b01e:       |  |           |                    |  |  |  |   0000           
 d000b020:       |  |           |                    |  |  |  |   0000                   unimp
 d000b022:       |  |           |                    |  |  |  |   0000                   unimp
 d000b024:       |  |           |                    |  |  |  |   0000                   unimp
-d000b026:       |  |           |                    |  |  |  \-> 000845b7               lui     a1,0x84
+d000b026:       |  |           |                    |  |  |  \-> 000445b7               lui     a1,0x44
 d000b02a:       +--|-----------|--------------------|--|--|----- a8a9                   j       d000b084 <info_page_addr+0x2ac>
 d000b02c:       |  |           |                    \--|--|----> f646f637               lui     a2,0xf646f
 d000b030:       |  |           |                       |  |      11b60613               addi    a2,a2,283 # f646f11b <_stack_end+0x1644f11b>
@@ -18300,8 +18300,8 @@ d000b074:       |  |                                      |  |   0000           
 d000b076:       |  |                                      |  |   0000                   unimp
 d000b078:       |  |                                      |  |   0000                   unimp
 d000b07a:       |  |                                      |  |   0000                   unimp
-d000b07c:       |  |                                      |  \-> 00081537               lui     a0,0x81
-d000b080:       |  \--------------------------------------|----> 80050593               addi    a1,a0,-2048 # 80800 <_rom_ext_virtual_size+0x800>
+d000b07c:       |  |                                      |  \-> 00041537               lui     a0,0x41
+d000b080:       |  \--------------------------------------|----> 80050593               addi    a1,a0,-2048 # 40800 <_rom_ext_virtual_size+0x800>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:234
 }
 d000b084:       \-----------------------------------------|----> 852e                   mv      a0,a1
@@ -18318,7 +18318,7 @@ flash_ctrl_data_write():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:374
                                   const void *data) {
 d000b090:       034646b7                lui     a3,0x3464
-d000b094:       30d68713                addi    a4,a3,781 # 346430d <_rom_ext_virtual_size+0x33e430d>
+d000b094:       30d68713                addi    a4,a3,781 # 346430d <_rom_ext_virtual_size+0x342430d>
 d000b098:       86b2                    mv      a3,a2
 d000b09a:       862e                    mv      a2,a1
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:375
@@ -18486,7 +18486,7 @@ d000b17a:           00257593            andi    a1,a0,2
 d000b17e:           73900513            li      a0,1849
 d000b182:       /-- c589                        beqz    a1,d000b18c <flash_ctrl_data_erase+0x3e>
 d000b184:       |   05464537            lui     a0,0x5464
-d000b188:       |   30d50513            addi    a0,a0,781 # 546430d <_rom_ext_virtual_size+0x53e430d>
+d000b188:       |   30d50513            addi    a0,a0,781 # 546430d <_rom_ext_virtual_size+0x542430d>
 flash_ctrl_data_erase():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:397
   return wait_for_done(kErrorFlashCtrlDataErase);
@@ -18527,8 +18527,8 @@ d000b1c8:       |  |     |   0000                       unimp
 d000b1ca:       |  |     |   0000                       unimp
 d000b1cc:       |  |     |   0000                       unimp
 d000b1ce:       |  |     |   0000                       unimp
-d000b1d0:       |  |     \-> 000808b7           lui     a7,0x80
-d000b1d4:       |  |         8c688593           addi    a1,a7,-1850 # 7f8c6 <WDOG_BARK_THOLD+0x489de>
+d000b1d0:       |  |     \-> 000408b7           lui     a7,0x40
+d000b1d4:       |  |         8c688593           addi    a1,a7,-1850 # 3f8c6 <WDOG_BARK_THOLD+0x89de>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d000b1d8:       |  \-------> 4701                       li      a4,0
@@ -18582,7 +18582,7 @@ flash_ctrl_data_erase_verify():
   if (launder32(mask) == kFlashCtrlErasedWord) {
 d000b216:       |        /-- 01060763           beq     a2,a6,d000b224 <flash_ctrl_data_erase_verify+0x92>
 d000b21a:       |        |   07464537           lui     a0,0x7464
-d000b21e:       |        |   30d50513           addi    a0,a0,781 # 746430d <_rom_ext_virtual_size+0x73e430d>
+d000b21e:       |        |   30d50513           addi    a0,a0,781 # 746430d <_rom_ext_virtual_size+0x742430d>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:442
 }
 d000b222:       |        |   8082                       ret
@@ -18768,7 +18768,7 @@ d000b326:       |              |           |     |  |      0a450513             
 }
 d000b32a:       |              |           |     |  |      8082                 ret
 d000b32c:       |              |           |     |  \----> 238cf637             lui     a2,0x238cf
-d000b330:       |              |           |     |         15b60613             addi    a2,a2,347 # 238cf15b <_rom_ext_virtual_size+0x2384f15b>
+d000b330:       |              |           |     |         15b60613             addi    a2,a2,347 # 238cf15b <_rom_ext_virtual_size+0x2388f15b>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:272
   switch (launder32(info_page)) {
 d000b334:       |              |           |     |  /----- 06b64c63             blt     a2,a1,d000b3ac <info_cfg_regs+0xd4>
@@ -18778,7 +18778,7 @@ d000b340:       |              |           |  /--|--|----- 0cb6d663             
 d000b344:       |              |           |  |  |  |      9f660613             addi    a2,a2,-1546
 d000b348:       |              |  /--------|--|--|--|----- 14c58c63             beq     a1,a2,d000b4a0 <info_cfg_regs+0x1c8>
 d000b34c:       |              |  |        |  |  |  |      10adc637             lui     a2,0x10adc
-d000b350:       |              |  |        |  |  |  |      6aa60613             addi    a2,a2,1706 # 10adc6aa <_rom_ext_virtual_size+0x10a5c6aa>
+d000b350:       |              |  |        |  |  |  |      6aa60613             addi    a2,a2,1706 # 10adc6aa <_rom_ext_virtual_size+0x10a9c6aa>
 d000b354:       |  /-----------|--|--------|--|--|--|----- 1cc59c63             bne     a1,a2,d000b52c <info_cfg_regs+0x254>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:273
     FLASH_CTRL_INFO_PAGES_DEFINE(INFO_CFG_REGS_CASE_)
@@ -18894,7 +18894,7 @@ d000b452:       |  |  |     |  |  |  |  |  |  |  |  |      10850513             
 }
 d000b456:       |  |  |     |  |  |  |  |  |  |  |  |      8082                 ret
 d000b458:       |  |  |     |  |  |  |  |  |  |  |  \----> 238cf637             lui     a2,0x238cf
-d000b45c:       |  |  |     |  |  |  |  |  |  |  |         15c60613             addi    a2,a2,348 # 238cf15c <_rom_ext_virtual_size+0x2384f15c>
+d000b45c:       |  |  |     |  |  |  |  |  |  |  |         15c60613             addi    a2,a2,348 # 238cf15c <_rom_ext_virtual_size+0x2388f15c>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:272
   switch (launder32(info_page)) {
 d000b460:       |  |  |  /--|--|--|--|--|--|--|--|-------- 1ac59863             bne     a1,a2,d000b610 <info_cfg_regs+0x338>
@@ -18990,7 +18990,7 @@ d000b526:          |  |  |  |              |  |  |  |      11050513             
 }
 d000b52a:          |  |  |  |              |  |  |  |      8082                 ret
 d000b52c:          \--|--|--|--------------|--|--|--|----> 118b6637             lui     a2,0x118b6
-d000b530:             |  |  |              |  |  |  |      dbb60613             addi    a2,a2,-581 # 118b5dbb <_rom_ext_virtual_size+0x11835dbb>
+d000b530:             |  |  |              |  |  |  |      dbb60613             addi    a2,a2,-581 # 118b5dbb <_rom_ext_virtual_size+0x11875dbb>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/flash_ctrl.c:272
   switch (launder32(info_page)) {
 d000b534:             |  |  |              |  |  |  +----- 10c59163             bne     a1,a2,d000b636 <info_cfg_regs+0x35e>
@@ -19320,7 +19320,7 @@ d000b72a:           8dc9                        or      a1,a1,a0
 d000b72c:           73900513            li      a0,1849
 d000b730:       /-- c589                        beqz    a1,d000b73a <expected_state_check+0x52>
 d000b732:       |   014b5537            lui     a0,0x14b5
-d000b736:       |   d0d50513            addi    a0,a0,-755 # 14b4d0d <_rom_ext_virtual_size+0x1434d0d>
+d000b736:       |   d0d50513            addi    a0,a0,-755 # 14b4d0d <_rom_ext_virtual_size+0x1474d0d>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/keymgr.c:64
       error_code == 0u && got_state == expected_state) {
     return kErrorOk;
@@ -19772,7 +19772,7 @@ d000b8f0:                   /----- 02b6d363             bge     a3,a1,d000b916 <
 d000b8f4:                   |      aab60613             addi    a2,a2,-1365
 d000b8f8:                /--|----- 02c58c63             beq     a1,a2,d000b930 <watchdog_init+0x50>
 d000b8fc:                |  |      0b5a7637             lui     a2,0xb5a7
-d000b900:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000b900:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000b904:             /--|--|----- 04c59163             bne     a1,a2,d000b946 <watchdog_init+0x66>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/watchdog.c:36
     case kLcStateTest:
@@ -20075,7 +20075,7 @@ d000ba72:                   /----- 02b6d363             bge     a3,a1,d000ba98 <
 d000ba76:                   |      aab60613             addi    a2,a2,-1365
 d000ba7a:                /--|----- 02c58c63             beq     a1,a2,d000bab2 <rom_epmp_state_init+0x52>
 d000ba7e:                |  |      0b5a7637             lui     a2,0xb5a7
-d000ba82:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000ba82:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000ba86:             /--|--|----- 04c59163             bne     a1,a2,d000bac8 <rom_epmp_state_init+0x68>
 /proc/self/cwd/sw/device/silicon_creator/rom/rom_epmp.c:65
     case kLcStateTest:
@@ -20207,7 +20207,7 @@ bitfield_field32_write():
   bitfield &= ~(field.mask << field.index);
 d000bb44:                |         8d6d                 and     a0,a0,a1
 d000bb46:                |         009995b7             lui     a1,0x999
-d000bb4a:                |         d0058593             addi    a1,a1,-768 # 998d00 <_rom_ext_virtual_size+0x918d00>
+d000bb4a:                |         d0058593             addi    a1,a1,-768 # 998d00 <_rom_ext_virtual_size+0x958d00>
 /proc/self/cwd/./sw/device/lib/base/bitfield.h:76
   bitfield |= (value & field.mask) << field.index;
 d000bb4e:                |         8d4d                 or      a0,a0,a1
@@ -20218,7 +20218,7 @@ epmp_state_configure_napot():
   bitfield_field32_t field = {.mask = 0xff, .index = (entry % 4) * 8};
   epmp_state.pmpcfg[entry / 4] = bitfield_field32_write(
 d000bb50:                |         c008                 sw      a0,0(s0)
-d000bb52:                |         3c020537             lui     a0,0x3c020
+d000bb52:                |         3c010537             lui     a0,0x3c010
 d000bb56:                |         157d                 addi    a0,a0,-1
 /proc/self/cwd/./sw/device/silicon_creator/lib/epmp_state.h:203
   epmp_state.pmpaddr[entry] = (region.start >> 2) | len;
@@ -20409,7 +20409,7 @@ d000bc32:                   /----- 02b6d363             bge     a3,a1,d000bc58 <
 d000bc36:                   |      aab60613             addi    a2,a2,-1365
 d000bc3a:                /--|----- 02c58c63             beq     a1,a2,d000bc72 <rom_epmp_config_debug_rom+0x5c>
 d000bc3e:                |  |      0b5a7637             lui     a2,0xb5a7
-d000bc42:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000bc42:                |  |      5e060613             addi    a2,a2,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000bc46:             /--|--|----- 04c59163             bne     a1,a2,d000bc88 <rom_epmp_config_debug_rom+0x72>
 /proc/self/cwd/sw/device/silicon_creator/rom/rom_epmp.c:168
     case kLcStateTest:
@@ -20539,7 +20539,7 @@ d000bd0a:                      /----- 02e7d363                  bge     a5,a4,d0
 d000bd0e:                      |      aab80513                  addi    a0,a6,-1365
 d000bd12:                   /--|----- 02a70c63                  beq     a4,a0,d000bd4a <sigverify_rsa_verify+0x76>
 d000bd16:                   |  |      0b5a7537                  lui     a0,0xb5a7
-d000bd1a:                   |  |      5e050513                  addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000bd1a:                   |  |      5e050513                  addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000bd1e:                /--|--|----- 04a71163                  bne     a4,a0,d000bd60 <sigverify_rsa_verify+0x8c>
 /proc/self/cwd/sw/device/silicon_creator/lib/sigverify/sigverify.c:179
       HARDENED_CHECK_EQ(lc_state, kLcStateDev);
@@ -20851,7 +20851,7 @@ d000bf24:       |        |  |  |  |   0000                      unimp
 d000bf26:       |        |  |  |  |   0000                      unimp
 d000bf28:       |        |  +--|--\-X a029                      j       d000bf32 <sigverify_rsa_verify+0x25e>
 d000bf2a:       |        |  |  \----> 01535537                  lui     a0,0x1535
-d000bf2e:       |        |  |         60350513                  addi    a0,a0,1539 # 1535603 <_rom_ext_virtual_size+0x14b5603>
+d000bf2e:       |        |  |         60350513                  addi    a0,a0,1539 # 1535603 <_rom_ext_virtual_size+0x14f5603>
 sigverify_rsa_verify():
 /proc/self/cwd/sw/device/silicon_creator/lib/sigverify/sigverify.c:214
       break;
@@ -21030,7 +21030,7 @@ d000c01e:                          8aaa                 mv      s5,a0
 d000c020:                          05f00593             li      a1,95
 d000c024:                          17c00613             li      a2,380
 d000c028:                          03535537             lui     a0,0x3535
-d000c02c:                          60350513             addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34b5603>
+d000c02c:                          60350513             addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34f5603>
 d000c030:                          05f00693             li      a3,95
 greater_equal_modulus():
 /proc/self/cwd/sw/device/silicon_creator/lib/sigverify/mod_exp_ibex.c:46
@@ -21053,7 +21053,7 @@ sigverify_mod_exp_ibex():
   if (greater_equal_modulus(key, sig)) {
 d000c04e:       |           /--\-X 00e7f763             bgeu    a5,a4,d000c05c <sigverify_mod_exp_ibex+0x60>
 d000c052:       |           |      03535537             lui     a0,0x3535
-d000c056:       |           |      60350513             addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34b5603>
+d000c056:       |           |      60350513             addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34f5603>
 d000c05a:       +-----------|----- aa79                 j       d000c1f8 <sigverify_mod_exp_ibex+0x1fc>
 d000c05c:       |           \----> 898a                 mv      s3,sp
 calc_r_square():
@@ -21672,7 +21672,7 @@ d000c418:       |         862a                  mv      a2,a0
 d000c41a:       |         06425537              lui     a0,0x6425
 d000c41e:       |         0002c6b7              lui     a3,0x2c
 d000c422:       |         39b68693              addi    a3,a3,923 # 2c39b <_stack_size+0x2839b>
-d000c426:       |         e0d50513              addi    a0,a0,-499 # 6424e0d <_rom_ext_virtual_size+0x63a4e0d>
+d000c426:       |         e0d50513              addi    a0,a0,-499 # 6424e0d <_rom_ext_virtual_size+0x63e4e0d>
 run_otbn_rsa_3072_modexp():
 /proc/self/cwd/sw/device/silicon_creator/lib/sigverify/mod_exp_otbn.c:95
   if (launder32(count) < kModExpOtbnInsnCountMin ||
@@ -21766,7 +21766,7 @@ d000c4a2:       |   40b2                        lw      ra,12(sp)
 d000c4a4:       |   0141                        addi    sp,sp,16
 d000c4a6:       |   b555                        j       d000c34a <run_otbn_rsa_3072_modexp>
 d000c4a8:       \-> 03535537            lui     a0,0x3535
-d000c4ac:           60350513            addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34b5603>
+d000c4ac:           60350513            addi    a0,a0,1539 # 3535603 <_rom_ext_virtual_size+0x34f5603>
 /proc/self/cwd/sw/device/silicon_creator/lib/sigverify/mod_exp_otbn.c:118
 }
 d000c4b0:           4902                        lw      s2,0(sp)
@@ -21827,7 +21827,7 @@ d000c4ee:                    41cc                       lw      a1,4(a1)
 d000c4f0:                    4010                       lw      a2,0(s0)
 d000c4f2:                    892a                       mv      s2,a0
 d000c4f4:                    01425537           lui     a0,0x1425
-d000c4f8:                    e0350493           addi    s1,a0,-509 # 1424e03 <_rom_ext_virtual_size+0x13a4e03>
+d000c4f8:                    e0350493           addi    s1,a0,-509 # 1424e03 <_rom_ext_virtual_size+0x13e4e03>
 d000c4fc:       /----------- 0cb67863           bgeu    a2,a1,d000c5cc <otbn_load_app+0xf4>
 /proc/self/cwd/sw/device/silicon_creator/lib/otbn_util.c:41
   if (app->dmem_data_end < app->dmem_data_start) {
@@ -22003,7 +22003,7 @@ d000c60c:       |      0605                     addi    a2,a2,1
 d000c60e:       |      c590                     sw      a2,8(a1)
 d000c610:       |  /-- a029                     j       d000c61a <otbn_execute_app+0x36>
 d000c612:       \--|-> 01425537                 lui     a0,0x1425
-d000c616:          |   e0350513                 addi    a0,a0,-509 # 1424e03 <_rom_ext_virtual_size+0x13a4e03>
+d000c616:          |   e0350513                 addi    a0,a0,-509 # 1424e03 <_rom_ext_virtual_size+0x13e4e03>
 /proc/self/cwd/sw/device/silicon_creator/lib/otbn_util.c:83
   return err;
 }
@@ -22114,7 +22114,7 @@ d000c676:       |  |   0000                     unimp
 }
 d000c678:       |  \-> 8082                     ret
 d000c67a:       \----> 07425537                 lui     a0,0x7425
-d000c67e:              e0d50513                 addi    a0,a0,-499 # 7424e0d <_rom_ext_virtual_size+0x73a4e0d>
+d000c67e:              e0d50513                 addi    a0,a0,-499 # 7424e0d <_rom_ext_virtual_size+0x73e4e0d>
 d000c682:              8082                     ret
 
 d000c684 <otbn_execute>:
@@ -22141,7 +22141,7 @@ otbn_set_ctrl_software_errs_fatal():
 d000c68e:       4585                    li      a1,1
 d000c690:       03d000ef                jal     ra,d000cecc <sec_mmio_write32>
 d000c694:       03425537                lui     a0,0x3425
-d000c698:       e0d50593                addi    a1,a0,-499 # 3424e0d <_rom_ext_virtual_size+0x33a4e0d>
+d000c698:       e0d50593                addi    a1,a0,-499 # 3424e0d <_rom_ext_virtual_size+0x33e4e0d>
 otbn_execute():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otbn.c:153
   return otbn_cmd_run(kOtbnCmdExecute, kErrorOtbnExecutionFailed);
@@ -22266,7 +22266,7 @@ otbn_imem_sec_wipe():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otbn.c:164
 rom_error_t otbn_imem_sec_wipe(void) {
 d000c724:       04425537                lui     a0,0x4425
-d000c728:       e0d50593                addi    a1,a0,-499 # 4424e0d <_rom_ext_virtual_size+0x43a4e0d>
+d000c728:       e0d50593                addi    a1,a0,-499 # 4424e0d <_rom_ext_virtual_size+0x43e4e0d>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otbn.c:165
   return otbn_cmd_run(kOtbnCmdSecWipeImem, kErrorOtbnSecWipeImemFailed);
 d000c72c:       4579                    li      a0,30
@@ -22294,7 +22294,7 @@ d000c74c:          /-- e681                     bnez    a3,d000c754 <otbn_imem_w
 d000c74e:          |   73900693                 li      a3,1849
 d000c752:       /--|-- a029                     j       d000c75c <otbn_imem_write+0x2c>
 d000c754:       |  \-> 024256b7                 lui     a3,0x2425
-d000c758:       |      e0368693                 addi    a3,a3,-509 # 2424e03 <_rom_ext_virtual_size+0x23a4e03>
+d000c758:       |      e0368693                 addi    a3,a3,-509 # 2424e03 <_rom_ext_virtual_size+0x23e4e03>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d000c75c:       \----> 87b6                     mv      a5,a3
@@ -22409,7 +22409,7 @@ otbn_dmem_sec_wipe():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otbn.c:176
 rom_error_t otbn_dmem_sec_wipe(void) {
 d000c7ee:       05425537                lui     a0,0x5425
-d000c7f2:       e0d50593                addi    a1,a0,-499 # 5424e0d <_rom_ext_virtual_size+0x53a4e0d>
+d000c7f2:       e0d50593                addi    a1,a0,-499 # 5424e0d <_rom_ext_virtual_size+0x53e4e0d>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otbn.c:177
   return otbn_cmd_run(kOtbnCmdSecWipeDmem, kErrorOtbnSecWipeDmemFailed);
 d000c7f6:       0c300513                li      a0,195
@@ -22438,7 +22438,7 @@ d000c81c:          /-- e681                     bnez    a3,d000c824 <otbn_dmem_w
 d000c81e:          |   73900693                 li      a3,1849
 d000c822:       /--|-- a029                     j       d000c82c <otbn_dmem_write+0x30>
 d000c824:       |  \-> 024256b7                 lui     a3,0x2425
-d000c828:       |      e0368693                 addi    a3,a3,-509 # 2424e03 <_rom_ext_virtual_size+0x23a4e03>
+d000c828:       |      e0368693                 addi    a3,a3,-509 # 2424e03 <_rom_ext_virtual_size+0x23e4e03>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d000c82c:       \----> 87b6                     mv      a5,a3
@@ -22483,7 +22483,7 @@ d000c872:                /-- e701                       bnez    a4,d000c87a <otb
 d000c874:                |   73900713           li      a4,1849
 d000c878:             /--|-- a029                       j       d000c882 <otbn_dmem_read+0x2c>
 d000c87a:             |  \-> 02425737           lui     a4,0x2425
-d000c87e:             |      e0370713           addi    a4,a4,-509 # 2424e03 <_rom_ext_virtual_size+0x23a4e03>
+d000c87e:             |      e0370713           addi    a4,a4,-509 # 2424e03 <_rom_ext_virtual_size+0x23e4e03>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d000c882:             \----> 87ba                       mv      a5,a4
@@ -23075,19 +23075,19 @@ launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
 d000cbba:                                         85aa                  mv      a1,a0
 d000cbbc:                                         1ad6b637              lui     a2,0x1ad6b
-d000cbc0:                                         5ac60613              addi    a2,a2,1452 # 1ad6b5ac <_rom_ext_virtual_size+0x1aceb5ac>
+d000cbc0:                                         5ac60613              addi    a2,a2,1452 # 1ad6b5ac <_rom_ext_virtual_size+0x1ad2b5ac>
 lifecycle_state_get():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000cbc4:                                  /----- 02b64b63              blt     a2,a1,d000cbfa <lifecycle_state_get+0x56>
 d000cbc8:                                  |      0e73a637              lui     a2,0xe73a
-d000cbcc:                                  |      ce660693              addi    a3,a2,-794 # e739ce6 <_rom_ext_virtual_size+0xe6b9ce6>
+d000cbcc:                                  |      ce660693              addi    a3,a2,-794 # e739ce6 <_rom_ext_virtual_size+0xe6f9ce6>
 d000cbd0:                               /--|----- 04b6ce63              blt     a3,a1,d000cc2c <lifecycle_state_get+0x88>
 d000cbd4:                               |  |      02108637              lui     a2,0x2108
-d000cbd8:                               |  |      42160613              addi    a2,a2,1057 # 2108421 <_rom_ext_virtual_size+0x2088421>
+d000cbd8:                               |  |      42160613              addi    a2,a2,1057 # 2108421 <_rom_ext_virtual_size+0x20c8421>
 d000cbdc:                         /-----|--|----- 08c58e63              beq     a1,a2,d000cc78 <lifecycle_state_get+0xd4>
 d000cbe0:                         |     |  |      06319637              lui     a2,0x6319
-d000cbe4:                         |     |  |      c6360613              addi    a2,a2,-925 # 6318c63 <_rom_ext_virtual_size+0x6298c63>
+d000cbe4:                         |     |  |      c6360613              addi    a2,a2,-925 # 6318c63 <_rom_ext_virtual_size+0x62d8c63>
 d000cbe8:          /--------------|-----|--|----- 0ec59063              bne     a1,a2,d000ccc8 <lifecycle_state_get+0x124>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:30
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_TEST_UNLOCKED1);
@@ -23098,15 +23098,15 @@ d000cbf4:          |              |     |  |  |   0000                  unimp
 d000cbf6:          |              |     |  |  |   0000                  unimp
 d000cbf8:       /--|--------------|-----|--|--\-X a215                  j       d000cd1c <lifecycle_state_get+0x178>
 d000cbfa:       |  |              |     |  \----> 2318c637              lui     a2,0x2318c
-d000cbfe:       |  |              |     |         63060693              addi    a3,a2,1584 # 2318c630 <_rom_ext_virtual_size+0x2310c630>
+d000cbfe:       |  |              |     |         63060693              addi    a3,a2,1584 # 2318c630 <_rom_ext_virtual_size+0x2314c630>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000cc02:       |  |              |     |  /----- 04b6c663              blt     a3,a1,d000cc4e <lifecycle_state_get+0xaa>
 d000cc06:       |  |              |     |  |      1ad6b637              lui     a2,0x1ad6b
-d000cc0a:       |  |              |     |  |      5ad60613              addi    a2,a2,1453 # 1ad6b5ad <_rom_ext_virtual_size+0x1aceb5ad>
+d000cc0a:       |  |              |     |  |      5ad60613              addi    a2,a2,1453 # 1ad6b5ad <_rom_ext_virtual_size+0x1ad2b5ad>
 d000cc0e:       |  |              |  /--|--|----- 06c58c63              beq     a1,a2,d000cc86 <lifecycle_state_get+0xe2>
 d000cc12:       |  |              |  |  |  |      1ef7c637              lui     a2,0x1ef7c
-d000cc16:       |  |              |  |  |  |      def60613              addi    a2,a2,-529 # 1ef7bdef <_rom_ext_virtual_size+0x1eefbdef>
+d000cc16:       |  |              |  |  |  |      def60613              addi    a2,a2,-529 # 1ef7bdef <_rom_ext_virtual_size+0x1ef3bdef>
 d000cc1a:       |  |           /--|--|--|--|----- 0cc59463              bne     a1,a2,d000cce2 <lifecycle_state_get+0x13e>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:48
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_TEST_UNLOCKED7);
@@ -23121,7 +23121,7 @@ d000cc2c:       |  |           |  |  |  \--|----> ce760613              addi    
   switch (launder32(raw_state)) {
 d000cc30:       |  |           |  |  |  /--|----- 06c58263              beq     a1,a2,d000cc94 <lifecycle_state_get+0xf0>
 d000cc34:       |  |           |  |  |  |  |      1294a637              lui     a2,0x1294a
-d000cc38:       |  |           |  |  |  |  |      52960613              addi    a2,a2,1321 # 1294a529 <_rom_ext_virtual_size+0x128ca529>
+d000cc38:       |  |           |  |  |  |  |      52960613              addi    a2,a2,1321 # 1294a529 <_rom_ext_virtual_size+0x1290a529>
 d000cc3c:       |  |        /--|--|--|--|--|----- 0cc59463              bne     a1,a2,d000cd04 <lifecycle_state_get+0x160>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:39
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_TEST_UNLOCKED4);
@@ -23136,7 +23136,7 @@ d000cc4e:       |  |        |  |  |  |  |  \----> 63160613              addi    
   switch (launder32(raw_state)) {
 d000cc52:       |  |        |  |  |  |  |  /----- 04c58c63              beq     a1,a2,d000ccaa <lifecycle_state_get+0x106>
 d000cc56:       |  |        |  |  |  |  |  |      25295637              lui     a2,0x25295
-d000cc5a:       |  |        |  |  |  |  |  |      a5260613              addi    a2,a2,-1454 # 25294a52 <_rom_ext_virtual_size+0x25214a52>
+d000cc5a:       |  |        |  |  |  |  |  |      a5260613              addi    a2,a2,-1454 # 25294a52 <_rom_ext_virtual_size+0x25254a52>
 d000cc5e:       |  |     /--|--|--|--|--|--|----- 0cc59663              bne     a1,a2,d000cd2a <lifecycle_state_get+0x186>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:57
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_PROD_END);
@@ -23165,7 +23165,7 @@ d000cc8e:       |  |  |  |  |  |        |  |  |   0000                  unimp
 d000cc90:       |  |  |  |  |  |        |  |  |   0000                  unimp
 d000cc92:       +--|--|--|--|--|--------|--|--\-X a069                  j       d000cd1c <lifecycle_state_get+0x178>
 d000cc94:       |  |  |  |  |  |        \--|----> 0e73a5b7              lui     a1,0xe73a
-d000cc98:       |  |  |  |  |  |           |      ce758593              addi    a1,a1,-793 # e739ce7 <_rom_ext_virtual_size+0xe6b9ce7>
+d000cc98:       |  |  |  |  |  |           |      ce758593              addi    a1,a1,-793 # e739ce7 <_rom_ext_virtual_size+0xe6f9ce7>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:36
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_TEST_UNLOCKED3);
 d000cc9c:       |  |  |  |  |  |           |  /-- 00b50663              beq     a0,a1,d000cca8 <lifecycle_state_get+0x104>
@@ -23175,7 +23175,7 @@ d000cca4:       |  |  |  |  |  |           |  |   0000                  unimp
 d000cca6:       |  |  |  |  |  |           |  |   0000                  unimp
 d000cca8:       +--|--|--|--|--|-----------|--\-X a895                  j       d000cd1c <lifecycle_state_get+0x178>
 d000ccaa:       |  |  |  |  |  |           \----> 2318c5b7              lui     a1,0x2318c
-d000ccae:       |  |  |  |  |  |                  63158593              addi    a1,a1,1585 # 2318c631 <_rom_ext_virtual_size+0x2310c631>
+d000ccae:       |  |  |  |  |  |                  63158593              addi    a1,a1,1585 # 2318c631 <_rom_ext_virtual_size+0x2314c631>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:54
       HARDENED_CHECK_EQ(raw_state, LC_CTRL_LC_STATE_STATE_VALUE_PROD);
 d000ccb2:       |  |  |  |  |  |              /-- 00b50663              beq     a0,a1,d000ccbe <lifecycle_state_get+0x11a>
@@ -23187,7 +23187,7 @@ d000ccbe:       |  |  |  |  |  |              \-> 65f25537              lui     
 d000ccc2:       |  |  |  |  |  |                  20f50513              addi    a0,a0,527 # 65f2520f <_epmp_stack_guard_na4+0x2df1e20f>
 d000ccc6:       |  |  +--|--|--|----------------- a8b9                  j       d000cd24 <lifecycle_state_get+0x180>
 d000ccc8:       |  \--|--|--|--|----------------> 0a529637              lui     a2,0xa529
-d000cccc:       |     |  |  |  |                  4a560613              addi    a2,a2,1189 # a5294a5 <_rom_ext_virtual_size+0xa4a94a5>
+d000cccc:       |     |  |  |  |                  4a560613              addi    a2,a2,1189 # a5294a5 <_rom_ext_virtual_size+0xa4e94a5>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000ccd0:       |     |  |  |  |           /----- 06c59e63              bne     a1,a2,d000cd4c <lifecycle_state_get+0x1a8>
@@ -23200,7 +23200,7 @@ d000ccdc:       |     |  |  |  |           |  |   0000                  unimp
 d000ccde:       |     |  |  |  |           |  |   0000                  unimp
 d000cce0:       +-----|--|--|--|-----------|--\-X a835                  j       d000cd1c <lifecycle_state_get+0x178>
 d000cce2:       |     |  |  |  \-----------|----> 21084637              lui     a2,0x21084
-d000cce6:       |     |  |  |              |      21060613              addi    a2,a2,528 # 21084210 <_rom_ext_virtual_size+0x21004210>
+d000cce6:       |     |  |  |              |      21060613              addi    a2,a2,528 # 21084210 <_rom_ext_virtual_size+0x21044210>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000ccea:       |     |  |  |              +----- 06c59163              bne     a1,a2,d000cd4c <lifecycle_state_get+0x1a8>
@@ -23212,10 +23212,10 @@ d000ccf4:       |     |  |  |              |  |   0000                  unimp
 d000ccf6:       |     |  |  |              |  |   0000                  unimp
 d000ccf8:       |     |  |  |              |  |   0000                  unimp
 d000ccfa:       |     |  |  |              |  \-> 0b5a7537              lui     a0,0xb5a7
-d000ccfe:       |     |  |  |              |      5e050513              addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5275e0>
+d000ccfe:       |     |  |  |              |      5e050513              addi    a0,a0,1504 # b5a75e0 <_rom_ext_virtual_size+0xb5675e0>
 d000cd02:       |     +--|--|--------------|----- a00d                  j       d000cd24 <lifecycle_state_get+0x180>
 d000cd04:       |     |  |  \--------------|----> 16b5b637              lui     a2,0x16b5b
-d000cd08:       |     |  |                 |      d6b60613              addi    a2,a2,-661 # 16b5ad6b <_rom_ext_virtual_size+0x16adad6b>
+d000cd08:       |     |  |                 |      d6b60613              addi    a2,a2,-661 # 16b5ad6b <_rom_ext_virtual_size+0x16b1ad6b>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000cd0c:       |     |  |                 +----- 04c59063              bne     a1,a2,d000cd4c <lifecycle_state_get+0x1a8>
@@ -23234,7 +23234,7 @@ d000cd24:             >--|-----------------|----> 40b2                  lw      
 d000cd26:             |  |                 |      0141                  addi    sp,sp,16
 d000cd28:             |  |                 |      8082                  ret
 d000cd2a:             |  \-----------------|----> 2739d637              lui     a2,0x2739d
-d000cd2e:             |                    |      e7360613              addi    a2,a2,-397 # 2739ce73 <_rom_ext_virtual_size+0x2731ce73>
+d000cd2e:             |                    |      e7360613              addi    a2,a2,-397 # 2739ce73 <_rom_ext_virtual_size+0x2735ce73>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/lifecycle.c:25
   switch (launder32(raw_state)) {
 d000cd32:             |                    +----- 00c59d63              bne     a1,a2,d000cd4c <lifecycle_state_get+0x1a8>
@@ -23445,7 +23445,7 @@ abs_mmio_read32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:73
 d000ce26:           00052903            lw      s2,0(a0)
 d000ce2a:           21692537            lui     a0,0x21692
-d000ce2e:           43650993            addi    s3,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21612436>
+d000ce2e:           43650993            addi    s3,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21652436>
 sec_mmio_read32():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:80
   uint32_t value = abs_mmio_read32(addr);
@@ -23574,7 +23574,7 @@ abs_mmio_write32():
   *((volatile uint32_t *)addr) = value;
 d000ced8:           c10c                        sw      a1,0(a0)
 d000ceda:           21692537            lui     a0,0x21692
-d000cede:           43650913            addi    s2,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21612436>
+d000cede:           43650913            addi    s2,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21652436>
 sec_mmio_write32():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:90
   abs_mmio_write32(addr, value);
@@ -23633,7 +23633,7 @@ abs_mmio_write32():
 d000cf24:           c10c                        sw      a1,0(a0)
 d000cf26:           c10c                        sw      a1,0(a0)
 d000cf28:           21692537            lui     a0,0x21692
-d000cf2c:           43650913            addi    s2,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21612436>
+d000cf2c:           43650913            addi    s2,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21652436>
 sec_mmio_write32_shadowed():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:102
   // Shadowed registers require two writes.
@@ -23703,7 +23703,7 @@ d000cf7a:       |            4681                       li      a3,0
   uint32_t offset = ((uint64_t)rnd_offset * (uint64_t)last_index) >> 32;
 d000cf7c:       |            02a63733           mulhu   a4,a2,a0
 d000cf80:       |            21692537           lui     a0,0x21692
-d000cf84:       |            43650893           addi    a7,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21612436>
+d000cf84:       |            43650893           addi    a7,a0,1078 # 21692436 <_rom_ext_virtual_size+0x21652436>
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:117
     uint32_t read_value = abs_mmio_read32(sec_mmio_ctx.addrs[offset]);
 d000cf88:       |  /-------> 00271793           slli    a5,a4,0x2
@@ -23995,7 +23995,7 @@ d000d0d2:       /--\----X 02080263              beqz    a6,d000d0f6 <memset+0x4c
 d000d0d6:       |         00e808b3              add     a7,a6,a4
 d000d0da:       |         0ff5f813              andi    a6,a1,255
 d000d0de:       |         010107b7              lui     a5,0x1010
-d000d0e2:       |         10178793              addi    a5,a5,257 # 1010101 <_rom_ext_virtual_size+0xf90101>
+d000d0e2:       |         10178793              addi    a5,a5,257 # 1010101 <_rom_ext_virtual_size+0xfd0101>
 d000d0e6:       |         02f807b3              mul     a5,a6,a5
 write_32():
 /proc/self/cwd/./sw/device/lib/base/memory.h:145
@@ -24185,54 +24185,54 @@ bitfield_field32_read():
 d000d1c4:                       00c5feb3                and     t4,a1,a2
 d000d1c8:                       e2291637                lui     a2,0xe2291
 d000d1cc:                       1ad6b6b7                lui     a3,0x1ad6b
-d000d1d0:                       5ac68693                addi    a3,a3,1452 # 1ad6b5ac <_rom_ext_virtual_size+0x1aceb5ac>
+d000d1d0:                       5ac68693                addi    a3,a3,1452 # 1ad6b5ac <_rom_ext_virtual_size+0x1ad2b5ac>
 d000d1d4:                       aa560613                addi    a2,a2,-1371 # e2290aa5 <_stack_end+0x2270aa5>
 shutdown_redact_policy_inline():
 /proc/self/cwd/sw/device/silicon_creator/lib/shutdown.c:270
   switch (raw_state) {
 d000d1d8:                   /-- 03d6cb63                blt     a3,t4,d000d20e <shutdown_finalize+0x56>
 d000d1dc:                   |   0e73a6b7                lui     a3,0xe73a
-d000d1e0:                   |   ce668713                addi    a4,a3,-794 # e739ce6 <_rom_ext_virtual_size+0xe6b9ce6>
+d000d1e0:                   |   ce668713                addi    a4,a3,-794 # e739ce6 <_rom_ext_virtual_size+0xe6f9ce6>
 d000d1e4:             /-----|-- 05d74e63                blt     a4,t4,d000d240 <shutdown_finalize+0x88>
 d000d1e8:             |     |   021086b7                lui     a3,0x2108
-d000d1ec:             |     |   42168693                addi    a3,a3,1057 # 2108421 <_rom_ext_virtual_size+0x2088421>
+d000d1ec:             |     |   42168693                addi    a3,a3,1057 # 2108421 <_rom_ext_virtual_size+0x20c8421>
 d000d1f0:       /-----|-----|-- 0ade8263                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d1f4:       |     |     |   063196b7                lui     a3,0x6319
-d000d1f8:       |     |     |   c6368693                addi    a3,a3,-925 # 6318c63 <_rom_ext_virtual_size+0x6298c63>
+d000d1f8:       |     |     |   c6368693                addi    a3,a3,-925 # 6318c63 <_rom_ext_virtual_size+0x62d8c63>
 d000d1fc:       +-----|-----|-- 08de8c63                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d200:       |     |     |   0a5296b7                lui     a3,0xa529
-d000d204:       |     |     |   4a568693                addi    a3,a3,1189 # a5294a5 <_rom_ext_virtual_size+0xa4a94a5>
+d000d204:       |     |     |   4a568693                addi    a3,a3,1189 # a5294a5 <_rom_ext_virtual_size+0xa4e94a5>
 d000d208:       +-----|-----|-- 08de8663                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d20c:       |  /--|-----|-- a041                    j       d000d28c <shutdown_finalize+0xd4>
 d000d20e:       |  |  |     \-> 2318c6b7                lui     a3,0x2318c
-d000d212:       |  |  |         63068713                addi    a4,a3,1584 # 2318c630 <_rom_ext_virtual_size+0x2310c630>
+d000d212:       |  |  |         63068713                addi    a4,a3,1584 # 2318c630 <_rom_ext_virtual_size+0x2314c630>
 d000d216:       |  |  |  /----- 05d74663                blt     a4,t4,d000d262 <shutdown_finalize+0xaa>
 d000d21a:       |  |  |  |      1ad6b6b7                lui     a3,0x1ad6b
-d000d21e:       |  |  |  |      5ad68693                addi    a3,a3,1453 # 1ad6b5ad <_rom_ext_virtual_size+0x1aceb5ad>
+d000d21e:       |  |  |  |      5ad68693                addi    a3,a3,1453 # 1ad6b5ad <_rom_ext_virtual_size+0x1ad2b5ad>
 d000d222:       +--|--|--|----- 06de8963                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d226:       |  |  |  |      1ef7c6b7                lui     a3,0x1ef7c
-d000d22a:       |  |  |  |      def68693                addi    a3,a3,-529 # 1ef7bdef <_rom_ext_virtual_size+0x1eefbdef>
+d000d22a:       |  |  |  |      def68693                addi    a3,a3,-529 # 1ef7bdef <_rom_ext_virtual_size+0x1ef3bdef>
 d000d22e:       +--|--|--|----- 06de8363                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d232:       |  |  |  |      21084637                lui     a2,0x21084
-d000d236:       |  |  |  |      21060613                addi    a2,a2,528 # 21084210 <_rom_ext_virtual_size+0x21004210>
+d000d236:       |  |  |  |      21060613                addi    a2,a2,528 # 21084210 <_rom_ext_virtual_size+0x21044210>
 d000d23a:       |  |  |  |  /-- 04ce8463                beq     t4,a2,d000d282 <shutdown_finalize+0xca>
 d000d23e:       |  +--|--|--|-- a0b9                    j       d000d28c <shutdown_finalize+0xd4>
 d000d240:       |  |  \--|--|-> ce768693                addi    a3,a3,-793
 d000d244:       +--|-----|--|-- 04de8863                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d248:       |  |     |  |   1294a6b7                lui     a3,0x1294a
-d000d24c:       |  |     |  |   52968693                addi    a3,a3,1321 # 1294a529 <_rom_ext_virtual_size+0x128ca529>
+d000d24c:       |  |     |  |   52968693                addi    a3,a3,1321 # 1294a529 <_rom_ext_virtual_size+0x1290a529>
 d000d250:       +--|-----|--|-- 04de8263                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d254:       |  |     |  |   16b5b6b7                lui     a3,0x16b5b
-d000d258:       |  |     |  |   d6b68693                addi    a3,a3,-661 # 16b5ad6b <_rom_ext_virtual_size+0x16adad6b>
+d000d258:       |  |     |  |   d6b68693                addi    a3,a3,-661 # 16b5ad6b <_rom_ext_virtual_size+0x16b1ad6b>
 d000d25c:       +--|-----|--|-- 02de8c63                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d260:       |  +-----|--|-- a035                    j       d000d28c <shutdown_finalize+0xd4>
 d000d262:       |  |     \--|-> 63168693                addi    a3,a3,1585
 d000d266:       |  |        +-- 00de8e63                beq     t4,a3,d000d282 <shutdown_finalize+0xca>
 d000d26a:       |  |        |   2739d6b7                lui     a3,0x2739d
-d000d26e:       |  |        |   e7368693                addi    a3,a3,-397 # 2739ce73 <_rom_ext_virtual_size+0x2731ce73>
+d000d26e:       |  |        |   e7368693                addi    a3,a3,-397 # 2739ce73 <_rom_ext_virtual_size+0x2735ce73>
 d000d272:       +--|--------|-- 02de8163                beq     t4,a3,d000d294 <shutdown_finalize+0xdc>
 d000d276:       |  |        |   25295637                lui     a2,0x25295
-d000d27a:       |  |        |   a5260613                addi    a2,a2,-1454 # 25294a52 <_rom_ext_virtual_size+0x25214a52>
+d000d27a:       |  |        |   a5260613                addi    a2,a2,-1454 # 25294a52 <_rom_ext_virtual_size+0x25254a52>
 d000d27e:       |  +--------|-- 00ce9763                bne     t4,a2,d000d28c <shutdown_finalize+0xd4>
 d000d282:       |  |        \-> c0131637                lui     a2,0xc0131
 abs_mmio_read32():
@@ -24254,10 +24254,10 @@ d000d2a4:             |         aa568693                addi    a3,a3,-1371 # e2
   switch (severity) {
 d000d2a8:             +-------- 02d60963                beq     a2,a3,d000d2da <shutdown_finalize+0x122>
 d000d2ac:             |         3367d6b7                lui     a3,0x3367d
-d000d2b0:             |         3d468693                addi    a3,a3,980 # 3367d3d4 <_rom_ext_virtual_size+0x335fd3d4>
+d000d2b0:             |         3d468693                addi    a3,a3,980 # 3367d3d4 <_rom_ext_virtual_size+0x3363d3d4>
 d000d2b4:             |  /----- 00d60d63                beq     a2,a3,d000d2ce <shutdown_finalize+0x116>
 d000d2b8:             |  |      1e7916b7                lui     a3,0x1e791
-d000d2bc:             |  |      12368693                addi    a3,a3,291 # 1e791123 <_rom_ext_virtual_size+0x1e711123>
+d000d2bc:             |  |      12368693                addi    a3,a3,291 # 1e791123 <_rom_ext_virtual_size+0x1e751123>
 d000d2c0:             |  |  /-- 00d61c63                bne     a2,a3,d000d2d8 <shutdown_finalize+0x120>
 d000d2c4:             |  |  |   ff000637                lui     a2,0xff000
 d000d2c8:             |  |  |   0ff60613                addi    a2,a2,255 # ff0000ff <_stack_end+0x1efe00ff>
@@ -24292,7 +24292,7 @@ d000d2ea:                       3a564837                lui     a6,0x3a564
 d000d2ee:                       64280613                addi    a2,a6,1602 # 3a564642 <_epmp_stack_guard_na4+0x255d642>
 d000d2f2:                       ced0                    sw      a2,28(a3)
 d000d2f4:                       003a58b7                lui     a7,0x3a5
-d000d2f8:                       64688613                addi    a2,a7,1606 # 3a5646 <_rom_ext_virtual_size+0x325646>
+d000d2f8:                       64688613                addi    a2,a7,1606 # 3a5646 <_rom_ext_virtual_size+0x365646>
 d000d2fc:                       ced0                    sw      a2,28(a3)
 d000d2fe:                       6611                    lui     a2,0x4
 d000d300:                       a5660393                addi    t2,a2,-1450 # 3a56 <_static_critical_size+0x1a92>
@@ -24438,7 +24438,7 @@ d000d3dc:                       0006a423                sw      zero,8(a3)
 d000d3e0:                       80000737                lui     a4,0x80000
 d000d3e4:                       177d                    addi    a4,a4,-1
 d000d3e6:                       009897b7                lui     a5,0x989
-d000d3ea:                       d0078793                addi    a5,a5,-768 # 988d00 <_rom_ext_virtual_size+0x908d00>
+d000d3ea:                       d0078793                addi    a5,a5,-768 # 988d00 <_rom_ext_virtual_size+0x948d00>
 d000d3ee:                       4509                    li      a0,2
 shutdown_hang():
 /proc/self/cwd/sw/device/silicon_creator/lib/shutdown.c:452
