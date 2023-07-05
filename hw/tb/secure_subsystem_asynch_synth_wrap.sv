@@ -19,7 +19,7 @@ module secure_subsystem_synth_wrap
    import secure_subsystem_synth_pkg::*;
    import top_earlgrey_pkg::*;
 #(
-   parameter int unsigned HartIdOffs            = 0,
+   parameter int unsigned HartIdOffs            = 0x00000004,
    parameter int unsigned AxiAddrWidth          = SynthAxiAddrWidth,
    parameter int unsigned AxiDataWidth          = SynthAxiDataWidth,
    parameter int unsigned AxiUserWidth          = SynthAxiUserWidth,
