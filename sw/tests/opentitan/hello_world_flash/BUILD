@@ -15,20 +15,16 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 
 package(default_visibility = ["//visibility:public"])
 
-opentitan_ram_binary(
-    name = "preboot_code",
-    srcs = [
-    	"preboot_code.c",
-    ],
-    hdrs = [
-        "preboot_code.h",
-    ],
-    archive_symbol_prefix = "preboot_code",
-    testonly = True,
+opentitan_functest(
+    name = "hello_world_flash",
+    srcs = ["hello_world_flash.c"],
     deps = [
-        "//hw/top_earlgrey/sw/tests/common:common",
-        "//hw/top_earlgrey/sw/tests/common:linker",
-        "//hw/top_earlgrey/sw/tests/common:crt",
+        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//sw/device/lib/arch:device",
+        "//sw/device/lib/base:mmio",
+        "//sw/device/silicon_creator/rom:alsaqr_print",
+        "//sw/device/lib/runtime:log",
+        "//sw/device/lib/testing/test_framework:ottf_main",
 	"//sw/device/silicon_creator/rom:rom_common",
-     ],
+    ],
 )

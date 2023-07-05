@@ -21,6 +21,7 @@
 #include "sw/device/lib/base/macros.h"
 #include "sw/device/lib/base/memory.h"
 #include "sw/device/lib/base/stdasm.h"
+#include "sw/device/lib/runtime/print.h"
 #include "sw/device/silicon_creator/lib/base/boot_measurements.h"
 #include "sw/device/silicon_creator/lib/base/sec_mmio.h"
 #include "sw/device/silicon_creator/lib/boot_data.h"
@@ -57,9 +58,13 @@
 
 int main(int argc, char **argv) {
 
-
-  int uartNCO = 301989888;
-  uart_init(uartNCO);
+  sec_mmio_init();
+  pinmux_init();
+  uart_init(kUartNCOValue);
+  
+  base_printf("Prego, prenda pure una cadrega!\n\r");
+  rom_printf("Prego, prenda pure una cadrega!\n\r");
+  
   uart_putchar('b');
   uart_putchar('o');
   uart_putchar('o');

@@ -16,14 +16,15 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 package(default_visibility = ["//visibility:public"])
 
 opentitan_ram_binary(
-    name = "preboot_code",
+    name = "hello_world",
     srcs = [
-    	"preboot_code.c",
+    	"hello_world.c",
     ],
     hdrs = [
-        "preboot_code.h",
+        "hello_world.h",
     ],
-    archive_symbol_prefix = "preboot_code",
+
+    archive_symbol_prefix = "hello_world",
     testonly = True,
     deps = [
         "//hw/top_earlgrey/sw/tests/common:common",
