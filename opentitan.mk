@@ -75,10 +75,10 @@ scripts/compile_opentitan_vip.tcl: Bender.yml
 	$(call generate_vsim, $@, -t rtl -t test_ot_vip ,..)
 
 secure_boot_jtag:
-	make -B clean sim BOOTMODE=0 SRAM=sw/tests/opentitan/preboot_code_hmac/preboot_code_hmac.elf jtag_sec_boot=1
+	make  clean sim BOOTMODE=0 SRAM=sw/tests/opentitan/preboot_code_hmac/preboot_code_hmac.elf jtag_sec_boot=1
 
 secure_boot_spi:
-	make -B clean sim BOOTMODE=1 vip=1
+	make  clean sim BOOTMODE=1 vip=1
 
 $(OT_ROOT)/hw/tb/vips:
 	rm -rf $@
