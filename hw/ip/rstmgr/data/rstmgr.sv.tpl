@@ -33,8 +33,8 @@ module rstmgr
   input [PowerDomains-1:0] por_n_i,
 
   // Bus Interface
-  input tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -111,7 +111,7 @@ module rstmgr
       );
     end else begin : gen_rst_por_domain
       logic rst_por_aon_premux;
-      prim_flop_2sync #(
+      prim_ot_flop_2sync #(
         .Width(1),
         .ResetValue('0)
       ) u_por_domain_sync (

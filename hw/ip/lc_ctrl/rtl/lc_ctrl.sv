@@ -6,6 +6,7 @@
 //
 
 `include "prim_assert.sv"
+`define DUMMYBOY
 
 module lc_ctrl
   import lc_ctrl_pkg::*;
@@ -32,11 +33,11 @@ module lc_ctrl
   input                                              clk_kmac_i,
   input                                              rst_kmac_ni,
   // Bus Interface (device)
-  input  tlul_pkg::tl_h2d_t                          tl_i,
-  output tlul_pkg::tl_d2h_t                          tl_o,
+  input  tlul_ot_pkg::tl_h2d_t                          tl_i,
+  output tlul_ot_pkg::tl_d2h_t                          tl_o,
   // JTAG TAP.
-  input  jtag_pkg::jtag_req_t                        jtag_i,
-  output jtag_pkg::jtag_rsp_t                        jtag_o,
+  input  jtag_ot_pkg::jtag_req_t                        jtag_i,
+  output jtag_ot_pkg::jtag_rsp_t                        jtag_o,
   // This bypasses the clock inverter inside the JTAG TAP for scanmmode.
   input                                              scan_rst_ni,
   input  prim_mubi_pkg::mubi4_t                      scanmode_i,
@@ -146,8 +147,8 @@ module lc_ctrl
   // Life Cycle TAP //
   ////////////////////
 
-  tlul_pkg::tl_h2d_t tap_tl_h2d;
-  tlul_pkg::tl_d2h_t tap_tl_d2h;
+  tlul_ot_pkg::tl_h2d_t tap_tl_h2d;
+  tlul_ot_pkg::tl_d2h_t tap_tl_d2h;
   lc_ctrl_reg_pkg::lc_ctrl_reg2hw_t tap_reg2hw;
   lc_ctrl_reg_pkg::lc_ctrl_hw2reg_t tap_hw2reg;
 
@@ -212,7 +213,7 @@ module lc_ctrl
     .clk_i,
     .rst_ni,
     .testmode_i       ( scanmode          ),
-    .test_rst_ni      ( scan_rst_ni       ),
+   // .test_rst_ni      ( scan_rst_ni       ),
     .dmi_rst_no       (                   ), // unused
     .dmi_req_o        ( dmi_req           ),
     .dmi_req_valid_o  ( dmi_req_valid     ),
@@ -581,9 +582,9 @@ module lc_ctrl
 
   // Signals going to and coming from power manager.
   logic lc_init;
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1)
-  ) u_prim_flop_2sync_init (
+  ) u_prim_ot_flop_2sync_init (
     .clk_i,
     .rst_ni,
     .d_i(pwr_lc_i.lc_init),
@@ -631,7 +632,7 @@ module lc_ctrl
   ////////////
   // LC FSM //
   ////////////
-
+   
   lc_ctrl_fsm #(
     .RndCnstLcKeymgrDivInvalid     ( RndCnstLcKeymgrDivInvalid     ),
     .RndCnstLcKeymgrDivTestDevRma  ( RndCnstLcKeymgrDivTestDevRma  ),

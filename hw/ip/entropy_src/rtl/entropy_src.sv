@@ -20,8 +20,8 @@ module entropy_src
   input logic rst_ni,
 
   // Bus Interface
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // OTP Interface
   // SEC_CM: INTERSIG.MUBI
@@ -211,7 +211,7 @@ module entropy_src
       stub_hw2reg.entropy_data.d = stub_lfsr_value[31:0];
       stub_hw2reg.debug_status.main_sm_idle.d = 1'b1;
       // need to move this to package so that it can be referenced
-      stub_hw2reg.debug_status.main_sm_state.d = 8'b01110110;
+      //stub_hw2reg.debug_status.main_sm_state.d = 8'b01110110;
 
       stub_hw2reg.intr_state.es_entropy_valid.de = stub_es_valid;
       stub_hw2reg.intr_state.es_entropy_valid.d = 1'b1;

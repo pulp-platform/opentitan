@@ -56,8 +56,8 @@ module aes
   input  keymgr_pkg::hw_key_req_t                   keymgr_key_i,
 
   // Bus interface
-  input  tlul_pkg::tl_h2d_t                         tl_i,
-  output tlul_pkg::tl_d2h_t                         tl_o,
+  input  tlul_ot_pkg::tl_h2d_t                         tl_i,
+  output tlul_ot_pkg::tl_d2h_t                         tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -148,11 +148,11 @@ module aes
   end
 
   // Synchronize EDN interface
-  prim_sync_reqack_data #(
+  prim_ot_sync_reqack_data #(
     .Width(EntropyWidth),
     .DataSrc2Dst(1'b0),
     .DataReg(1'b0)
-  ) u_prim_sync_reqack_data (
+  ) u_prim_ot_sync_reqack_data (
     .clk_src_i  ( clk_i         ),
     .rst_src_ni ( rst_ni        ),
     .clk_dst_i  ( clk_edn_i     ),

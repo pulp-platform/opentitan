@@ -4,7 +4,9 @@
 //
 // Description: I2C finite state machine
 
-module i2c_fsm #(
+`include "prim_assert.sv"
+
+module i2c_fsm_ot #(
   parameter int FifoDepth = 64,
   localparam int FifoDepthWidth = $clog2(FifoDepth+1)
 ) (

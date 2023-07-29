@@ -234,7 +234,7 @@ module ibex_top import ibex_pkg::*; #(
 
   assign core_sleep_o = ~clock_en;
 
-  prim_clock_gating core_clock_gate_i (
+  tc_clk_gating core_clock_gate_i (
     .clk_i    (clk_i),
     .en_i     (clock_en),
     .test_en_i(test_en_i),
@@ -419,7 +419,7 @@ module ibex_top import ibex_pkg::*; #(
       .DummyInstructions(DummyInstructions),
       // SEC_CM: DATA_REG_SW.GLITCH_DETECT
       .WrenCheck        (RegFileWrenCheck),
-      .WordZeroVal      (RegFileDataWidth'(prim_secded_pkg::SecdedInv3932ZeroWord))
+      .WordZeroVal      (RegFileDataWidth'(prim_ot_secded_pkg::SecdedInv3932ZeroWord))
     ) register_file_i (
       .clk_i (clk),
       .rst_ni(rst_ni),
@@ -444,7 +444,7 @@ module ibex_top import ibex_pkg::*; #(
       .DummyInstructions(DummyInstructions),
       // SEC_CM: DATA_REG_SW.GLITCH_DETECT
       .WrenCheck        (RegFileWrenCheck),
-      .WordZeroVal      (RegFileDataWidth'(prim_secded_pkg::SecdedInv3932ZeroWord))
+      .WordZeroVal      (RegFileDataWidth'(prim_ot_secded_pkg::SecdedInv3932ZeroWord))
     ) register_file_i (
       .clk_i (clk),
       .rst_ni(rst_ni),
@@ -469,7 +469,7 @@ module ibex_top import ibex_pkg::*; #(
       .DummyInstructions(DummyInstructions),
       // SEC_CM: DATA_REG_SW.GLITCH_DETECT
       .WrenCheck        (RegFileWrenCheck),
-      .WordZeroVal      (RegFileDataWidth'(prim_secded_pkg::SecdedInv3932ZeroWord))
+      .WordZeroVal      (RegFileDataWidth'(prim_ot_secded_pkg::SecdedInv3932ZeroWord))
     ) register_file_i (
       .clk_i (clk),
       .rst_ni(rst_ni),

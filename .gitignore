@@ -76,12 +76,17 @@ rust-project.json
 
 # Bazel-related cache and output directories
 bazel-*
-
+.bin
 # Site-specific bazel configuration
 .bazelrc-site
-
-# Compilation database generated from build system
-compile_commands.json
-
-# Local binaries that should not be committed to the codebase
-.bin/
+.bender/
+hw/tb/vip/
+modelsim.ini
+scripts/compile_opentitan.tcl
+scripts/compile_opentitan_vip.tcl
+setup.sh
+transcript
+uart
+vsim.wlf
+work/
+hw/tb/vips

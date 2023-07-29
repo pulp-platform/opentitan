@@ -13,8 +13,8 @@ module rv_timer import rv_timer_reg_pkg::*;
   input clk_i,
   input rst_ni,
 
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
   output prim_alert_pkg::alert_tx_t [NumAlerts-1:0] alert_tx_o,
@@ -75,7 +75,7 @@ module rv_timer import rv_timer_reg_pkg::*;
 
 
   for (genvar h = 0 ; h < N_HARTS ; h++) begin : gen_harts
-    prim_intr_hw #(
+    prim_ot_intr_hw #(
       .Width(N_TIMERS)
     ) u_intr_hw (
       .clk_i,

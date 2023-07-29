@@ -5,16 +5,20 @@
 // Synchronous single-port SRAM model
 
 `include "prim_assert.sv"
+`define DUMMYBOY
+
 
 module prim_ram_1p import prim_ram_1p_pkg::*; #(
   parameter  int Width           = 32, // bit
   parameter  int Depth           = 128,
   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask
   parameter      MemInitFile     = "", // VMEM file to initialize the memory with
-
+  parameter  int Otp             = 0,
+  parameter  bit PrintSimCfg     = 1'b1,
   localparam int Aw              = $clog2(Depth)  // derived parameter
 ) (
   input  logic             clk_i,
+  input  logic             rst_ni,
 
   input  logic             req_i,
   input  logic             write_i,
@@ -24,7 +28,9 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
   output logic [Width-1:0] rdata_o, // Read data. Data is returned one cycle after req_i is high.
   input ram_1p_cfg_t       cfg_i
 );
-
+   
+`ifndef TARGET_SYNTHESIS
+   
 // For certain synthesis experiments we compile the design with generic models to get an unmapped
 // netlist (GTECH). In these synthesis experiments, we typically black-box the memory models since
 // these are going to be simulated using plain RTL models in netlist simulations. This can be done
@@ -33,13 +39,14 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
 // of dual port rams they can even trigger elab errors due to multiple processes writing to the
 // same memory variable concurrently. To this end, we exclude the entire logic in this module in
 // these runs with the following macro.
-`ifndef SYNTHESIS_MEMORY_BLACK_BOXING
+  `ifndef SYNTHESIS_MEMORY_BLACK_BOXING
 
   // Width must be fully divisible by DataBitsPerMask
   `ASSERT_INIT(DataBitsPerMaskCheck_A, (Width % DataBitsPerMask) == 0)
 
   logic unused_cfg;
   assign unused_cfg = ^cfg_i;
+
 
   // Width of internal write mask. Note wmask_i input into the module is always assumed
   // to be the full bit mask
@@ -72,8 +79,38 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
         rdata_o <= mem[addr_i];
       end
     end
+  end // always @ (posedge clk_i)
+
+  
+  initial begin
+
+     for(int i; i < Depth; i++)
+        mem[i] = '0;
+     
   end
 
   `include "prim_util_memload.svh"
+ `endif //  `ifndef SYNTHESIS_MEMORY_BLACK_BOXING
+`else // !`ifndef TARGET_SYNTHESIS
+   
+  logic unused_cfg;
+  assign unused_cfg = ^cfg_i;
+  tc_sram #(
+     .NumWords(Depth),
+     .DataWidth(Width),
+     .NumPorts(32'd1),
+     .PrintSimCfg(1)
+  ) ram_primitive (
+     .clk_i,
+     .rst_ni,
+     .req_i,
+     .addr_i,
+     .wdata_i,
+     .rdata_o,
+     .we_i(write_i),
+     .be_i('1)
+  );
+
 `endif
+
 endmodule

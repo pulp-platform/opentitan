@@ -18,7 +18,7 @@
  *   There is however no case where EnableDataIntgGen and EnableDataIntgPt are both true.
  */
 module tlul_adapter_sram
-  import tlul_pkg::*;
+  import tlul_ot_pkg::*;
   import prim_mubi_pkg::mubi4_t;
 #(
   parameter int SramAw            = 12,
@@ -35,7 +35,7 @@ module tlul_adapter_sram
   parameter bit EnableDataIntgPt  = 0,  // 1: Passthrough command/response data integrity
   parameter bit SecFifoPtr        = 0,  // 1: Duplicated fifo pointers
   localparam int WidthMult        = SramDw / top_pkg::TL_DW,
-  localparam int IntgWidth        = tlul_pkg::DataIntgWidth * WidthMult,
+  localparam int IntgWidth        = tlul_ot_pkg::DataIntgWidth * WidthMult,
   localparam int DataOutW         = EnableDataIntgPt ? SramDw + IntgWidth : SramDw
 ) (
   input   clk_i,
@@ -296,7 +296,7 @@ module tlul_adapter_sram
   logic [DataIntgWidth-1:0] data_intg;
   assign data_intg = (vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_integ    : // TL-UL error
                      (vld_rd_rsp)                        ? rspfifo_rdata.data_intg : // valid read
-                     prim_secded_pkg::SecdedInv3932ZeroEcc;                          // valid write
+                     prim_ot_secded_pkg::SecdedInv3932ZeroEcc;                          // valid write
 
   assign tl_o_int = '{
       d_valid  : d_valid ,
@@ -418,7 +418,7 @@ module tlul_adapter_sram
     always_comb begin
       // If the read mask is set to zero, all read data is zeroed out by the mask.
       // We have to set the ECC bits accordingly since we are using an inverted Hsiao code.
-      rdata_tlword = prim_secded_pkg::SecdedInv3932ZeroWord;
+      rdata_tlword = prim_ot_secded_pkg::SecdedInv3932ZeroWord;
       // Otherwise, if at least one mask bit is nonzero, we are passing through the integrity.
       // In that case we need to feed back the entire word since otherwise the integrity
       // will not calculate correctly.
@@ -461,7 +461,7 @@ module tlul_adapter_sram
   //    responses), storing the request is necessary. And if the read entry
   //    is write op, it is safe to return the response right away. If it is
   //    read reqeust, then D response is waiting until read data arrives.
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (ReqFifoWidth),
     .Pass    (1'b0),
     .Depth   (Outstanding)
@@ -484,7 +484,7 @@ module tlul_adapter_sram
   //    While the ReqFIFO holds the request until it is sent back via TL-UL, the
   //    sramreqfifo only needs to hold the mask and word offset until the read
   //    data returns from memory.
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (SramReqFifoWidth),
     .Pass    (1'b0),
     .Depth   (Outstanding)
@@ -509,7 +509,7 @@ module tlul_adapter_sram
   //    back pressured, the response FIFO should store the returned data not to
   //    lose the data from the SRAM interface. Remember, SRAM interface doesn't
   //    have back-pressure signal such as read_ready.
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (RspFifoWidth),
     .Pass    (1'b1),
     .Depth   (Outstanding),

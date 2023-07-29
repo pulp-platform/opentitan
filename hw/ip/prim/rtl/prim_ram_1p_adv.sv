@@ -20,7 +20,7 @@ module prim_ram_1p_adv import prim_ram_1p_pkg::*; #(
   parameter  int Width                = 32,
   parameter  int DataBitsPerMask      = 1,  // Number of data bits per bit of write mask
   parameter      MemInitFile          = "", // VMEM file to initialize the memory with
-
+  parameter  int Otp                  = 0,
   // Configurations
   parameter  bit EnableECC            = 0, // Enables per-word ECC
   parameter  bit EnableParity         = 0, // Enables per-Byte Parity
@@ -82,17 +82,18 @@ module prim_ram_1p_adv import prim_ram_1p_pkg::*; #(
   logic                    rvalid_q, rvalid_d, rvalid_sram_q ;
   logic [Width-1:0]        rdata_q,  rdata_d ;
   logic [TotalWidth-1:0]   rdata_sram ;
-  logic [1:0]              rerror_q, rerror_d ;
+  logic [1:0]              rerror_q, rerror_d;
+ 
 
   prim_ram_1p #(
     .MemInitFile     (MemInitFile),
-
     .Width           (TotalWidth),
     .Depth           (Depth),
-    .DataBitsPerMask (LocalDataBitsPerMask)
+    .DataBitsPerMask (LocalDataBitsPerMask),
+    .Otp(Otp)
   ) u_mem (
     .clk_i,
-
+    .rst_ni,
     .req_i    (req_q),
     .write_i  (write_q),
     .addr_i   (addr_q),

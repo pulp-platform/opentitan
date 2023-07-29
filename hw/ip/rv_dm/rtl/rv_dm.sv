@@ -11,7 +11,7 @@
 // the TL-UL-based lowRISC chip design.
 
 `include "prim_assert.sv"
-
+`define DUMMYBOY
 module rv_dm
   import rv_dm_reg_pkg::*;
 #(
@@ -35,23 +35,23 @@ module rv_dm
                                              // (e.g.: power down)
 
   // bus device for comportable CSR access
-  input  tlul_pkg::tl_h2d_t  regs_tl_d_i,
-  output tlul_pkg::tl_d2h_t  regs_tl_d_o,
+  input  tlul_ot_pkg::tl_h2d_t  regs_tl_d_i,
+  output tlul_ot_pkg::tl_d2h_t  regs_tl_d_o,
 
   // bus device with debug memory, for an execution based technique
-  input  tlul_pkg::tl_h2d_t  mem_tl_d_i,
-  output tlul_pkg::tl_d2h_t  mem_tl_d_o,
+  input  tlul_ot_pkg::tl_h2d_t  mem_tl_d_i,
+  output tlul_ot_pkg::tl_d2h_t  mem_tl_d_o,
 
   // bus host, for system bus accesses
-  output tlul_pkg::tl_h2d_t  sba_tl_h_o,
-  input  tlul_pkg::tl_d2h_t  sba_tl_h_i,
+  output tlul_ot_pkg::tl_h2d_t  sba_tl_h_o,
+  input  tlul_ot_pkg::tl_d2h_t  sba_tl_h_i,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
   output prim_alert_pkg::alert_tx_t [NumAlerts-1:0] alert_tx_o,
 
-  input  jtag_pkg::jtag_req_t jtag_i,
-  output jtag_pkg::jtag_rsp_t jtag_o
+  input  jtag_ot_pkg::jtag_req_t jtag_i,
+  output jtag_ot_pkg::jtag_rsp_t jtag_o
 );
 
   ///////////////////////////
@@ -88,8 +88,8 @@ module rv_dm
   // CSR Nodes //
   ///////////////
 
-  tlul_pkg::tl_h2d_t mem_tl_win_h2d;
-  tlul_pkg::tl_d2h_t mem_tl_win_d2h;
+  tlul_ot_pkg::tl_h2d_t mem_tl_win_h2d;
+  tlul_ot_pkg::tl_d2h_t mem_tl_win_d2h;
   rv_dm_reg_pkg::rv_dm_regs_reg2hw_t regs_reg2hw;
   logic regs_intg_error, rom_intg_error;
   logic sba_gate_intg_error, rom_gate_intg_error;
@@ -168,6 +168,7 @@ module rv_dm
   } rv_dm_pm_en_e;
 
   lc_ctrl_pkg::lc_tx_t [LcEnLastPos-1:0] lc_hw_debug_en;
+   
   prim_lc_sync #(
     .NumCopies(int'(LcEnLastPos))
   ) u_lc_en_sync (
@@ -220,8 +221,8 @@ module rv_dm
   logic                   host_r_other_err;
 
   // SEC_CM: DM_EN.CTRL.LC_GATED
-  tlul_pkg::tl_h2d_t  sba_tl_h_o_int;
-  tlul_pkg::tl_d2h_t  sba_tl_h_i_int;
+  tlul_ot_pkg::tl_h2d_t  sba_tl_h_o_int;
+  tlul_ot_pkg::tl_d2h_t  sba_tl_h_i_int;
   tlul_lc_gate #(
     .NumGatesPerDirection(2)
   ) u_tlul_lc_gate_sba (
@@ -294,8 +295,8 @@ module rv_dm
   assign debug_req_o = debug_req & debug_req_en;
 
   // Gating of JTAG signals
-  jtag_pkg::jtag_req_t jtag_in_int;
-  jtag_pkg::jtag_rsp_t jtag_out_int;
+  jtag_ot_pkg::jtag_req_t jtag_in_int;
+  jtag_ot_pkg::jtag_rsp_t jtag_out_int;
 
   assign jtag_in_int = (lc_tx_test_true_strict(pinmux_hw_debug_en[PmEnJtagIn]))  ? jtag_i : '0;
   assign jtag_o = (lc_tx_test_true_strict(pinmux_hw_debug_en[PmEnJtagOut])) ? jtag_out_int : '0;
@@ -330,7 +331,7 @@ module rv_dm
     .clk_i            (clk_i),
     .rst_ni           (rst_ni),
     .testmode_i       (testmode),
-    .test_rst_ni      (scan_rst_ni),
+    //.test_rst_ni      (scan_rst_ni),
 
     .dmi_rst_no       (dmi_rst_n),
     .dmi_req_o        (dmi_req),
@@ -352,8 +353,8 @@ module rv_dm
 `endif
 
   // SEC_CM: DM_EN.CTRL.LC_GATED
-  tlul_pkg::tl_h2d_t mem_tl_win_h2d_gated;
-  tlul_pkg::tl_d2h_t mem_tl_win_d2h_gated;
+  tlul_ot_pkg::tl_h2d_t mem_tl_win_h2d_gated;
+  tlul_ot_pkg::tl_d2h_t mem_tl_win_d2h_gated;
   tlul_lc_gate #(
     .NumGatesPerDirection(2)
   ) u_tlul_lc_gate_rom (

@@ -26,8 +26,8 @@ module usbdev
   input  logic       rst_aon_ni,
 
   // Register interface
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -118,8 +118,8 @@ module usbdev
     assign rst_n = rst_ni;
   end
 
-  tlul_pkg::tl_h2d_t tl_sram_h2d;
-  tlul_pkg::tl_d2h_t tl_sram_d2h;
+  tlul_ot_pkg::tl_h2d_t tl_sram_h2d;
+  tlul_ot_pkg::tl_d2h_t tl_sram_d2h;
 
   // Dual-port SRAM Interface: Refer prim_ram_2p_adv.sv
   logic              sw_mem_a_req;
@@ -220,7 +220,7 @@ module usbdev
   assign event_av_overflow = reg2hw.avbuffer.qe & (~av_fifo_wready);
   assign hw2reg.usbstat.rx_empty.d = connect_en & ~rx_fifo_rvalid;
 
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width(AVFifoWidth),
     .Pass(1'b0),
     .Depth(AVFifoDepth),
@@ -245,7 +245,7 @@ module usbdev
   assign rx_fifo_re = reg2hw.rxfifo.ep.re | reg2hw.rxfifo.setup.re |
                       reg2hw.rxfifo.size.re | reg2hw.rxfifo.buffer.re;
 
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width(RXFifoWidth),
     .Pass(1'b0),
     .Depth(RXFifoDepth),
@@ -412,12 +412,6 @@ module usbdev
     for (int i = 0; i < NEndpoints; i++) begin
       hw2reg.configin[i].rdy.de = clear_rdybit[i];
       hw2reg.configin[i].rdy.d  = 1'b0;
-    end
-  end
-
-  // Update the pending bit by copying the ready bit that is about to clear
-  always_comb begin : proc_map_pend
-    for (int i = 0; i < NEndpoints; i++) begin
       hw2reg.configin[i].pend.de = update_pend[i];
       hw2reg.configin[i].pend.d  = reg2hw.configin[i].rdy.q | reg2hw.configin[i].pend.q;
     end
@@ -718,7 +712,7 @@ module usbdev
   end
 
   // Interrupts
-  prim_intr_hw #(.Width(1)) intr_hw_pkt_received (
+  prim_ot_intr_hw #(.Width(1)) intr_hw_pkt_received (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_pkt_received),
@@ -731,7 +725,7 @@ module usbdev
     .intr_o                 (intr_pkt_received_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_hw_pkt_sent (
+  prim_ot_intr_hw #(.Width(1)) intr_hw_pkt_sent (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (sent_event_pending),
@@ -744,7 +738,7 @@ module usbdev
     .intr_o                 (intr_pkt_sent_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_disconnected (
+  prim_ot_intr_hw #(.Width(1)) intr_disconnected (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_disconnect),
@@ -757,7 +751,7 @@ module usbdev
     .intr_o                 (intr_disconnected_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_powered (
+  prim_ot_intr_hw #(.Width(1)) intr_powered (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_powered),
@@ -770,7 +764,7 @@ module usbdev
     .intr_o                 (intr_powered_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_host_lost (
+  prim_ot_intr_hw #(.Width(1)) intr_host_lost (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_host_lost),
@@ -783,7 +777,7 @@ module usbdev
     .intr_o                 (intr_host_lost_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_link_reset (
+  prim_ot_intr_hw #(.Width(1)) intr_link_reset (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_link_reset),
@@ -796,7 +790,7 @@ module usbdev
     .intr_o                 (intr_link_reset_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_link_suspend (
+  prim_ot_intr_hw #(.Width(1)) intr_link_suspend (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_link_suspend),
@@ -809,7 +803,7 @@ module usbdev
     .intr_o                 (intr_link_suspend_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_link_resume (
+  prim_ot_intr_hw #(.Width(1)) intr_link_resume (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_link_resume),
@@ -822,7 +816,7 @@ module usbdev
     .intr_o                 (intr_link_resume_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_av_empty (
+  prim_ot_intr_hw #(.Width(1)) intr_av_empty (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_av_empty),
@@ -835,7 +829,7 @@ module usbdev
     .intr_o                 (intr_av_empty_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_rx_full (
+  prim_ot_intr_hw #(.Width(1)) intr_rx_full (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_rx_full),
@@ -848,7 +842,7 @@ module usbdev
     .intr_o                 (intr_rx_full_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_av_overflow (
+  prim_ot_intr_hw #(.Width(1)) intr_av_overflow (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_av_overflow),
@@ -861,7 +855,7 @@ module usbdev
     .intr_o                 (intr_av_overflow_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_link_in_err (
+  prim_ot_intr_hw #(.Width(1)) intr_link_in_err (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_in_err),
@@ -874,7 +868,7 @@ module usbdev
     .intr_o                 (intr_link_in_err_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_link_out_err (
+  prim_ot_intr_hw #(.Width(1)) intr_link_out_err (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_out_err),
@@ -887,7 +881,7 @@ module usbdev
     .intr_o                 (intr_link_out_err_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_rx_crc_err (
+  prim_ot_intr_hw #(.Width(1)) intr_rx_crc_err (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_rx_crc_err),
@@ -900,7 +894,7 @@ module usbdev
     .intr_o                 (intr_rx_crc_err_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_rx_pid_err (
+  prim_ot_intr_hw #(.Width(1)) intr_rx_pid_err (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_rx_pid_err),
@@ -913,7 +907,7 @@ module usbdev
     .intr_o                 (intr_rx_pid_err_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_rx_bitstuff_err (
+  prim_ot_intr_hw #(.Width(1)) intr_rx_bitstuff_err (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_rx_bitstuff_err),
@@ -926,7 +920,7 @@ module usbdev
     .intr_o                 (intr_rx_bitstuff_err_o)
   );
 
-  prim_intr_hw #(.Width(1)) intr_frame (
+  prim_ot_intr_hw #(.Width(1)) intr_frame (
     .clk_i,
     .rst_ni, // not stubbed off so that the interrupt regs still work.
     .event_intr_i           (event_frame),

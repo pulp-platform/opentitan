@@ -328,7 +328,7 @@ module flash_phy_rd
 
   // response order FIFO
   logic rsp_order_fifo_err;
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width  (RspOrderFifoWidth),
     .Pass   (0),
     .Depth  (RspOrderDepth),
@@ -500,7 +500,7 @@ module flash_phy_rd
 
   // See comment above on how FIFO popping can be improved in the future
   logic rd_stage_fifo_err;
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (PlainDataWidth + 3 + NumBuf),
     .Pass    (0),
     .Depth   (2),
@@ -522,7 +522,7 @@ module flash_phy_rd
   );
 
   // storage for mask calculations
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (DataWidth),
     .Pass    (0),
     .Depth   (2),
@@ -660,7 +660,7 @@ module flash_phy_rd
   logic [3:0] unused_intg;
   logic [3:0] truncated_intg;
 
-  prim_secded_hamming_72_64_enc u_plain_enc (
+  prim_ot_secded_hamming_72_64_enc u_plain_enc (
     .data_i(data_out_muxed[DataWidth-1:0]),
     .data_o({unused_intg, truncated_intg, unused_data})
   );

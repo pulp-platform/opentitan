@@ -105,6 +105,16 @@ cc_library(
 )
 
 cc_library(
+    name = "alsaqr_print",
+    srcs = [
+    	"uart.h",
+	"uart.c",
+    	"string_lib.h",
+    	"string_lib.c",
+    ],
+)
+
+cc_library(
     name = "rom_common",
     srcs = [
         "rom.c",
@@ -114,6 +124,7 @@ cc_library(
         ":boot_policy",
         ":bootstrap",
         ":rom_epmp",
+        ":alsaqr_print",
         ":sigverify_keys",
         "//hw/ip/aon_timer/data:aon_timer_regs",
         "//sw/device/lib/arch:device",
@@ -133,7 +144,7 @@ cc_library(
         "//sw/device/silicon_creator/lib:shutdown",
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
-        "//sw/device/silicon_creator/lib/base:static_critical_boot_measurements",
+        "//sw/device/silicon_creator/lib/base:static_critical_boot_measurements",       "//sw/device/silicon_creator/lib:rom_print",
         "//sw/device/silicon_creator/lib/base:static_critical_epmp_state",
         "//sw/device/silicon_creator/lib/base:static_critical_sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:alert",
@@ -149,7 +160,14 @@ cc_library(
         "//sw/device/silicon_creator/lib/drivers:rstmgr",
         "//sw/device/silicon_creator/lib/drivers:uart",
         "//sw/device/silicon_creator/lib/drivers:watchdog",
-        "//sw/device/silicon_creator/lib/sigverify",
+	"//sw/device/silicon_creator/lib/sigverify",
+        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//sw/device/lib/dif:spi_host",
+        "//sw/device/lib/runtime:log",
+        "//sw/device/lib/runtime:print",
+        "//sw/device/lib/testing/test_framework:ottf_main",
+	"//sw/device/lib/testing:rand_testutils"
+        
     ],
 )
 

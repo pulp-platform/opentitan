@@ -3,8 +3,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 `include "prim_assert.sv"
+//`define DUMMYBOY
 
-module prim_otp
+module prim_otp_generic
   import prim_otp_pkg::*;
 #(
   // Native OTP word size. This determines the size_i granule.
@@ -42,8 +43,8 @@ module prim_otp
   input        [TestCtrlWidth-1:0]   test_ctrl_i,
   output logic [TestStatusWidth-1:0] test_status_o,
   output logic [TestVectWidth-1:0]   test_vect_o,
-  input  tlul_pkg::tl_h2d_t          test_tl_i,
-  output tlul_pkg::tl_d2h_t          test_tl_o,
+  input  tlul_ot_pkg::tl_h2d_t          test_tl_i,
+  output tlul_ot_pkg::tl_d2h_t          test_tl_o,
   // Other DFT signals
   input prim_mubi_pkg::mubi4_t   scanmode_i,  // Scan Mode input
   input                          scan_en_i,   // Scan Shift
@@ -309,12 +310,12 @@ module prim_otp
   logic [2**SizeWidth-1:0][Width+EccWidth-1:0] rdata_q;
 
   // Use a standard Hamming ECC for OTP.
-  prim_secded_hamming_22_16_enc u_enc (
+  prim_ot_secded_hamming_22_16_enc u_enc (
     .data_i(wdata_q[cnt_q]),
     .data_o(wdata_ecc)
   );
 
-  prim_secded_hamming_22_16_dec u_dec (
+  prim_ot_secded_hamming_22_16_dec u_dec (
     .data_i     (rdata_ecc),
     .data_o     (rdata_corr),
     .syndrome_o ( ),
@@ -337,13 +338,14 @@ module prim_otp
     end
     rdata_o = rdata_reshaped;
   end
-
-  prim_ram_1p_adv #(
+   
+  prim_otp_wrap_adv #(
     .Depth                (Depth),
     .Width                (Width + EccWidth),
     .MemInitFile          (MemInitFile),
     .EnableInputPipeline  (1),
-    .EnableOutputPipeline (1)
+    .EnableOutputPipeline (1),
+    .Otp                  (1)
   ) u_prim_ram_1p_adv (
     .clk_i,
     .rst_ni,
@@ -400,4 +402,4 @@ module prim_otp
   `ASSERT(CheckCommands1_A, state_q != ResetSt && valid_i && ready_o |-> cmd_i inside {Read, Write})
 
 
-endmodule : prim_otp
+endmodule : prim_otp_generic

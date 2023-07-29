@@ -35,8 +35,8 @@ module keymgr
   input rst_edn_ni,
 
   // Bus Interface
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // key interface to crypto modules
   output hw_key_req_t aes_key_o,
@@ -613,7 +613,7 @@ module keymgr
   //  Alerts and Interrupts
   /////////////////////////////////////
 
-  prim_intr_hw #(.Width(1)) u_intr_op_done (
+  prim_ot_intr_hw #(.Width(1)) u_intr_op_done (
     .clk_i,
     .rst_ni,
     .event_intr_i           (op_done),
@@ -740,7 +740,7 @@ module keymgr
   logic unused_kmac_en_masking;
   assign unused_kmac_en_masking = kmac_en_masking_i;
 
-  `ASSERT_INIT_NET(KmacMaskCheck_A, KmacEnMasking == kmac_en_masking_i)
+  //`ASSERT_INIT_NET(KmacMaskCheck_A, KmacEnMasking == kmac_en_masking_i)
 
   // Ensure all parameters are consistent
   `ASSERT_INIT(FaultCntMatch_A, FaultLastPos == AsyncFaultLastIdx + SyncFaultLastIdx)

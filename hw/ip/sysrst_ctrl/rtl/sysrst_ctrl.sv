@@ -17,8 +17,8 @@ module sysrst_ctrl
   input  rst_aon_ni,  // power-on reset for the 200KHz clock(logic)
 
   // Register interface
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -116,9 +116,9 @@ module sysrst_ctrl
   // Synchronize input signals to AON clock
   logic aon_pwrb_int, aon_key0_int, aon_key1_int, aon_key2_int;
   logic aon_ac_present_int, aon_lid_open_int, aon_ec_rst_l_int, aon_flash_wp_l_int;
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(8)
-  ) u_prim_flop_2sync_input (
+  ) u_prim_ot_flop_2sync_input (
     .clk_i(clk_aon_i),
     .rst_ni(rst_aon_ni),
     .d_i({pwrb_int,
@@ -346,7 +346,7 @@ module sysrst_ctrl
   // If the main bus clock is not active, this will stall the synchronization until
   // the clock becomes live again so that no interrupt requests are missed.
   logic intr_event_pulse;
-  prim_sync_reqack u_prim_sync_reqack (
+  prim_ot_sync_reqack u_prim_ot_sync_reqack (
     .clk_src_i(clk_aon_i),
     .rst_src_ni(rst_aon_ni),
     .clk_dst_i(clk_i),
@@ -359,9 +359,9 @@ module sysrst_ctrl
   );
 
   // Instantiate the interrupt module
-  prim_intr_hw #(
+  prim_ot_intr_hw #(
     .Width(1)
-  ) u_prim_intr_hw (
+  ) u_prim_ot_intr_hw (
     .clk_i,
     .rst_ni,
     .event_intr_i          (intr_event_pulse),

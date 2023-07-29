@@ -15,7 +15,7 @@
  * tlul read transaction is generated out first.  If not required, the
  * incoming tlul transaction is directly muxed out.
  */
-module tlul_sram_byte import tlul_pkg::*; #(
+module tlul_sram_byte import tlul_ot_pkg::*; #(
   parameter bit EnableIntg  = 0,  // Enable integrity handling at byte level
   parameter int Outstanding = 1
 ) (
@@ -152,7 +152,7 @@ module tlul_sram_byte import tlul_pkg::*; #(
       a_user: tl_i.a_user
     };
 
-    prim_fifo_sync #(
+    prim_ot_fifo_sync #(
       .Width(TxnDataWidth),
       .Pass(1'b0),
       .Depth(1),
@@ -196,7 +196,7 @@ module tlul_sram_byte import tlul_pkg::*; #(
     // Compute updated integrity bits for the data.
     // Note that the CMD integrity does not have to be correct, since it is not consumed nor
     // checked further downstream.
-    logic [tlul_pkg::DataIntgWidth-1:0] data_intg;
+    logic [tlul_ot_pkg::DataIntgWidth-1:0] data_intg;
 
     tlul_data_integ_enc u_tlul_data_integ_enc (
       .data_i(combined_data),
@@ -264,7 +264,7 @@ module tlul_sram_byte import tlul_pkg::*; #(
 
     logic size_fifo_rdy;
     logic [top_pkg::TL_SZW-1:0] a_size;
-    prim_fifo_sync #(
+    prim_ot_fifo_sync #(
       .Width(top_pkg::TL_SZW),
       .Pass(1'b0),
       .Depth(Outstanding),

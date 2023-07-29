@@ -15,8 +15,8 @@ module hmac
   input clk_i,
   input rst_ni,
 
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
   output prim_alert_pkg::alert_tx_t [NumAlerts-1:0] alert_tx_o,
@@ -35,8 +35,8 @@ module hmac
   hmac_reg2hw_t reg2hw;
   hmac_hw2reg_t hw2reg;
 
-  tlul_pkg::tl_h2d_t  tl_win_h2d;
-  tlul_pkg::tl_d2h_t  tl_win_d2h;
+  tlul_ot_pkg::tl_h2d_t  tl_win_h2d;
+  tlul_ot_pkg::tl_d2h_t  tl_win_d2h;
 
   logic [255:0] secret_key;
 
@@ -216,7 +216,7 @@ module hmac
   assign event_intr = {err_valid, fifo_empty_event, reg_hash_done};
 
   // instantiate interrupt hardware primitive
-  prim_intr_hw #(.Width(1)) intr_hw_hmac_done (
+  prim_ot_intr_hw #(.Width(1)) intr_hw_hmac_done (
     .clk_i,
     .rst_ni,
     .event_intr_i           (event_intr[0]),
@@ -228,7 +228,7 @@ module hmac
     .hw2reg_intr_state_d_o  (hw2reg.intr_state.hmac_done.d),
     .intr_o                 (intr_hmac_done_o)
   );
-  prim_intr_hw #(.Width(1)) intr_hw_fifo_empty (
+  prim_ot_intr_hw #(.Width(1)) intr_hw_fifo_empty (
     .clk_i,
     .rst_ni,
     .event_intr_i           (event_intr[1]),
@@ -240,7 +240,7 @@ module hmac
     .hw2reg_intr_state_d_o  (hw2reg.intr_state.fifo_empty.d),
     .intr_o                 (intr_fifo_empty_o)
   );
-  prim_intr_hw #(.Width(1)) intr_hw_hmac_err (
+  prim_ot_intr_hw #(.Width(1)) intr_hw_hmac_err (
     .clk_i,
     .rst_ni,
     .event_intr_i           (event_intr[2]),
@@ -273,7 +273,7 @@ module hmac
   assign fifo_wdata  = (hmac_fifo_wsel) ? '{data: digest[hmac_fifo_wdata_sel], mask: '1}
                                        : reg_fifo_wentry;
 
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   ($bits(sha_fifo_t)),
     .Pass    (1'b1),
     .Depth   (MsgFifoDepth)

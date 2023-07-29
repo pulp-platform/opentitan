@@ -43,12 +43,12 @@ module pinmux
   // DFT indication to stop tap strap sampling
   input                            dft_hold_tap_sel_i,
   // Qualified JTAG signals for TAPs
-  output jtag_pkg::jtag_req_t      lc_jtag_o,
-  input  jtag_pkg::jtag_rsp_t      lc_jtag_i,
-  output jtag_pkg::jtag_req_t      rv_jtag_o,
-  input  jtag_pkg::jtag_rsp_t      rv_jtag_i,
-  output jtag_pkg::jtag_req_t      dft_jtag_o,
-  input  jtag_pkg::jtag_rsp_t      dft_jtag_i,
+  output jtag_ot_pkg::jtag_req_t      lc_jtag_o,
+  input  jtag_ot_pkg::jtag_rsp_t      lc_jtag_i,
+  output jtag_ot_pkg::jtag_req_t      rv_jtag_o,
+  input  jtag_ot_pkg::jtag_rsp_t      rv_jtag_i,
+  output jtag_ot_pkg::jtag_req_t      dft_jtag_o,
+  input  jtag_ot_pkg::jtag_rsp_t      dft_jtag_i,
   // Direct USB connection
   input                            usbdev_dppullup_en_i,
   input                            usbdev_dnpullup_en_i,
@@ -60,8 +60,8 @@ module pinmux
   output                           usbdev_sense_lost_o,
   output                           usbdev_wake_detect_active_o,
   // Bus Interface (device)
-  input  tlul_pkg::tl_h2d_t        tl_i,
-  output tlul_pkg::tl_d2h_t        tl_o,
+  input  tlul_ot_pkg::tl_h2d_t        tl_i,
+  output tlul_ot_pkg::tl_d2h_t        tl_o,
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
   output prim_alert_pkg::alert_tx_t [NumAlerts-1:0] alert_tx_o,

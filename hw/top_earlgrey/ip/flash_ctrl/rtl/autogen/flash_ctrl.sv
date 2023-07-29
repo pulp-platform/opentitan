@@ -25,7 +25,8 @@ module flash_ctrl
   parameter lfsr_perm_t           RndCnstLfsrPerm = RndCnstLfsrPermDefault,
   parameter int                   ProgFifoDepth   = MaxFifoDepth,
   parameter int                   RdFifoDepth     = MaxFifoDepth,
-  parameter bit                   SecScrambleEn   = 1'b1
+  parameter bit                   SecScrambleEn   = 1'b1,
+  parameter                       MemInitFile     = ""
 ) (
   input        clk_i,
   input        rst_ni,
@@ -45,12 +46,12 @@ module flash_ctrl
   input lc_ctrl_pkg::lc_tx_t lc_nvm_debug_en_i,
 
   // Bus Interface
-  input        tlul_pkg::tl_h2d_t core_tl_i,
-  output       tlul_pkg::tl_d2h_t core_tl_o,
-  input        tlul_pkg::tl_h2d_t prim_tl_i,
-  output       tlul_pkg::tl_d2h_t prim_tl_o,
-  input        tlul_pkg::tl_h2d_t mem_tl_i,
-  output       tlul_pkg::tl_d2h_t mem_tl_o,
+  input        tlul_ot_pkg::tl_h2d_t core_tl_i,
+  output       tlul_ot_pkg::tl_d2h_t core_tl_o,
+  input        tlul_ot_pkg::tl_h2d_t prim_tl_i,
+  output       tlul_ot_pkg::tl_d2h_t prim_tl_o,
+  input        tlul_ot_pkg::tl_h2d_t mem_tl_i,
+  output       tlul_ot_pkg::tl_d2h_t mem_tl_o,
 
   // otp/lc/pwrmgr/keymgr Interface
   // SEC_CM: SCRAMBLE.KEY.SIDELOAD
@@ -109,8 +110,8 @@ module flash_ctrl
   flash_ctrl_core_reg2hw_t reg2hw;
   flash_ctrl_core_hw2reg_t hw2reg;
 
-  tlul_pkg::tl_h2d_t tl_win_h2d [2];
-  tlul_pkg::tl_d2h_t tl_win_d2h [2];
+  tlul_ot_pkg::tl_h2d_t tl_win_h2d [2];
+  tlul_ot_pkg::tl_d2h_t tl_win_d2h [2];
 
   // Register module
   logic storage_err;
@@ -508,8 +509,8 @@ module flash_ctrl
   // strategy has been identified
   assign prog_op_valid = op_start & prog_op;
 
-  tlul_pkg::tl_h2d_t prog_tl_h2d;
-  tlul_pkg::tl_d2h_t prog_tl_d2h;
+  tlul_ot_pkg::tl_h2d_t prog_tl_h2d;
+  tlul_ot_pkg::tl_d2h_t prog_tl_d2h;
 
   // the program path also needs an lc gate to error back when flash is disabled.
   // This is because tlul_adapter_sram does not actually have a way of signaling
@@ -552,7 +553,7 @@ module flash_ctrl
     .rerror_i    (2'b0)
   );
 
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width(BusFullWidth),
     .Depth(ProgFifoDepth)
   ) u_prog_fifo (
@@ -671,7 +672,7 @@ module flash_ctrl
   assign sw_rfifo_rready = adapter_rvalid;
 
   // the read fifo below is dedicated to the software read path.
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width(BusFullWidth),
     .Depth(RdFifoDepth)
   ) u_sw_rd_fifo (
@@ -1149,7 +1150,7 @@ module flash_ctrl
     .q_negedge_pulse_o()
   );
 
-  prim_intr_hw #(.Width(1)) u_intr_prog_empty (
+  prim_ot_intr_hw #(.Width(1)) u_intr_prog_empty (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[ProgEmpty]),
@@ -1175,7 +1176,7 @@ module flash_ctrl
     .q_negedge_pulse_o()
   );
 
-  prim_intr_hw #(.Width(1)) u_intr_prog_lvl (
+  prim_ot_intr_hw #(.Width(1)) u_intr_prog_lvl (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[ProgLvl]),
@@ -1201,7 +1202,7 @@ module flash_ctrl
     .q_negedge_pulse_o()
   );
 
-  prim_intr_hw #(.Width(1)) u_intr_rd_full (
+  prim_ot_intr_hw #(.Width(1)) u_intr_rd_full (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[RdFull]),
@@ -1227,7 +1228,7 @@ module flash_ctrl
     .q_negedge_pulse_o()
   );
 
-  prim_intr_hw #(.Width(1)) u_intr_rd_lvl (
+  prim_ot_intr_hw #(.Width(1)) u_intr_rd_lvl (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[RdLvl]),
@@ -1243,7 +1244,7 @@ module flash_ctrl
   assign intr_event[OpDone] = sw_ctrl_done;
   assign intr_event[CorrErr] = |flash_phy_rsp.ecc_single_err;
 
-  prim_intr_hw #(.Width(1)) u_intr_op_done (
+  prim_ot_intr_hw #(.Width(1)) u_intr_op_done (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[OpDone]),
@@ -1256,7 +1257,7 @@ module flash_ctrl
     .intr_o                 (intr_op_done_o)
   );
 
-  prim_intr_hw #(.Width(1)) u_intr_corr_err (
+  prim_ot_intr_hw #(.Width(1)) u_intr_corr_err (
     .clk_i,
     .rst_ni,
     .event_intr_i           (intr_event[CorrErr]),
@@ -1293,8 +1294,8 @@ module flash_ctrl
   // if flash disable is activated, error back from the adapter interface immediately
   assign host_enable = lc_ctrl_pkg::mubi4_to_lc_inv(flash_disable[HostDisableIdx]);
 
-  tlul_pkg::tl_h2d_t gate_tl_h2d;
-  tlul_pkg::tl_d2h_t gate_tl_d2h;
+  tlul_ot_pkg::tl_h2d_t gate_tl_h2d;
+  tlul_ot_pkg::tl_d2h_t gate_tl_d2h;
 
   tlul_lc_gate u_tl_gate (
     .clk_i,
@@ -1340,7 +1341,8 @@ module flash_ctrl
   );
 
   flash_phy #(
-    .SecScrambleEn(SecScrambleEn)
+    .SecScrambleEn(SecScrambleEn),
+    .MemInitFile(MemInitFile)
   ) u_eflash (
     .clk_i,
     .rst_ni,
@@ -1485,9 +1487,9 @@ module flash_ctrl
   `ifndef PRIM_DEFAULT_IMPL
     `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric
   `endif
- /* if (`PRIM_DEFAULT_IMPL == prim_pkg::ImplGeneric) begin : gen_reg_we_assert_generic
+/*  if (`PRIM_DEFAULT_IMPL == prim_pkg::ImplGeneric) begin : gen_reg_we_assert_generic
     `ASSERT_PRIM_REG_WE_ONEHOT_ERROR_TRIGGER_ALERT(PrimRegWeOnehotCheck_A,
         u_eflash.u_flash.gen_generic.u_impl_generic.u_reg_top, alert_tx_o[3])
-  end
-*/
+  end*/
+
 endmodule

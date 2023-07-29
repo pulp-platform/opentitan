@@ -39,7 +39,7 @@ package flash_ctrl_pkg;
   });
   parameter int WordsPerPage    = 256; // Number of flash words per page
   parameter int BusWidth        = top_pkg::TL_DW;
-  parameter int BusIntgWidth    = tlul_pkg::DataIntgWidth;
+  parameter int BusIntgWidth    = tlul_ot_pkg::DataIntgWidth;
   parameter int BusFullWidth    = BusWidth + BusIntgWidth;
   parameter int MpRegions       = 8;  // flash controller protection regions
   //parameter int FifoDepth       = 16; // rd / prog fifos
@@ -396,7 +396,7 @@ package flash_ctrl_pkg;
     logic [KeyWidth-1:0]  rand_data_key;
     logic                 alert_trig;
     logic                 alert_ack;
-    jtag_pkg::jtag_req_t  jtag_req;
+    jtag_ot_pkg::jtag_req_t  jtag_req;
     prim_mubi_pkg::mubi4_t flash_disable;
   } flash_req_t;
 
@@ -441,7 +441,7 @@ package flash_ctrl_pkg;
     logic                    macro_err;
     logic [NumBanks-1:0]     ecc_single_err;
     logic [NumBanks-1:0][BusAddrW-1:0] ecc_addr;
-    jtag_pkg::jtag_rsp_t     jtag_rsp;
+    jtag_ot_pkg::jtag_rsp_t     jtag_rsp;
     logic                    prog_intg_err;
     logic                    storage_relbl_err;
     logic                    storage_intg_err;

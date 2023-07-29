@@ -26,8 +26,8 @@ module otbn
   input clk_i,
   input rst_ni,
 
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Inter-module signals
   output prim_mubi_pkg::mubi4_t idle_o,
@@ -129,8 +129,8 @@ module otbn
     TlWinDmem = 1'b1
   } tl_win_e;
 
-  tlul_pkg::tl_h2d_t tl_win_h2d[2];
-  tlul_pkg::tl_d2h_t tl_win_d2h[2];
+  tlul_ot_pkg::tl_h2d_t tl_win_h2d[2];
+  tlul_ot_pkg::tl_d2h_t tl_win_d2h[2];
 
   // The clock can be gated and some registers can be updated as long as OTBN isn't currently
   // running. Other registers can only be updated when OTBN is in the Idle state (which also implies
@@ -203,7 +203,7 @@ module otbn
 
   assign done = is_busy_status(status_q) & ~is_busy_status(status_d) & init_sec_wipe_done_q;
 
-  prim_intr_hw #(
+  prim_ot_intr_hw #(
     .Width(1)
   ) u_intr_hw_done (
     .clk_i,
@@ -446,7 +446,7 @@ module otbn
   // is asserted the cycle the rdata is being returned no locking was ocurring when the request came
   // in so it is reasonable to proceed with returning the supplied integrity.
   assign imem_rdata_bus =
-    {locking_q ? prim_secded_pkg::SecdedInv3932ZeroEcc : imem_rdata_bus_raw[38:32],
+    {locking_q ? prim_ot_secded_pkg::SecdedInv3932ZeroEcc : imem_rdata_bus_raw[38:32],
      imem_rdata_bus_raw[31:0]};
 
   `ASSERT(ImemRDataBusDisabledWhenCoreAccess_A, imem_access_core |-> !imem_rdata_bus_en_q)
@@ -679,7 +679,7 @@ module otbn
   // in so it is reasonable to proceed with returning the supplied integrity.
   for (genvar i_word = 0; i_word < BaseWordsPerWLEN; ++i_word) begin : g_dmem_rdata_bus
     assign dmem_rdata_bus[i_word*39+:39] =
-      {locking_q ? prim_secded_pkg::SecdedInv3932ZeroEcc : dmem_rdata_bus_raw[i_word*39+32+:7],
+      {locking_q ? prim_ot_secded_pkg::SecdedInv3932ZeroEcc : dmem_rdata_bus_raw[i_word*39+32+:7],
        dmem_rdata_bus_raw[i_word*39+:32]};
   end
 

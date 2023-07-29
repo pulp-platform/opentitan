@@ -54,7 +54,6 @@ module rom_ctrl_scrambled_rom
   output logic             rvalid_o,
   output logic [Width-1:0] scr_rdata_o,
   output logic [Width-1:0] clr_rdata_o,
-
   input rom_cfg_t          cfg_i
 );
 

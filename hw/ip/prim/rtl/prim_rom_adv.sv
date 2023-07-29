@@ -20,22 +20,22 @@ module prim_rom_adv import prim_rom_pkg::*; #(
   input  logic [Aw-1:0]    addr_i,
   output logic             rvalid_o,
   output logic [Width-1:0] rdata_o,
-
   input rom_cfg_t          cfg_i
 );
-
+   
   prim_rom #(
     .Width(Width),
     .Depth(Depth),
     .MemInitFile(MemInitFile)
-  ) u_prim_rom (
+  ) u_prim_rom_secure (
     .clk_i,
+    .rst_ni,
+    .fake_i(1'b0),
     .req_i,
     .addr_i,
     .rdata_o,
     .cfg_i
   );
-
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       rvalid_o <= 1'b0;

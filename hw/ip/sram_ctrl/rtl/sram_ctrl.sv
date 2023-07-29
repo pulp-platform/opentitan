@@ -17,6 +17,7 @@ module sram_ctrl
   parameter logic [NumAlerts-1:0] AlertAsyncOn          = {NumAlerts{1'b1}},
   // Enables the execute from SRAM feature.
   parameter bit InstrExec                               = 1,
+  parameter MemInitFile ="",
   // Random netlist constants
   parameter otp_ctrl_pkg::sram_key_t   RndCnstSramKey   = RndCnstSramKeyDefault,
   parameter otp_ctrl_pkg::sram_nonce_t RndCnstSramNonce = RndCnstSramNonceDefault,
@@ -30,11 +31,11 @@ module sram_ctrl
   input  logic                                       clk_otp_i,
   input  logic                                       rst_otp_ni,
   // Bus Interface (device) for SRAM
-  input  tlul_pkg::tl_h2d_t                          ram_tl_i,
-  output tlul_pkg::tl_d2h_t                          ram_tl_o,
+  input  tlul_ot_pkg::tl_h2d_t                          ram_tl_i,
+  output tlul_ot_pkg::tl_d2h_t                          ram_tl_o,
   // Bus Interface (device) for CSRs
-  input  tlul_pkg::tl_h2d_t                          regs_tl_i,
-  output tlul_pkg::tl_d2h_t                          regs_tl_o,
+  input  tlul_ot_pkg::tl_h2d_t                          regs_tl_i,
+  output tlul_ot_pkg::tl_d2h_t                          regs_tl_o,
   // Alert outputs.
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0]  alert_rx_i,
   output prim_alert_pkg::alert_tx_t [NumAlerts-1:0]  alert_tx_o,
@@ -300,10 +301,10 @@ module sram_ctrl
     end
   end
 
-  prim_sync_reqack_data #(
+  prim_ot_sync_reqack_data #(
     .Width($bits(otp_ctrl_pkg::sram_otp_key_rsp_t)-1),
     .DataSrc2Dst(1'b0)
-  ) u_prim_sync_reqack_data (
+  ) u_prim_ot_sync_reqack_data (
     .clk_src_i  ( clk_i              ),
     .rst_src_ni ( rst_ni             ),
     .clk_dst_i  ( clk_otp_i          ),
@@ -388,8 +389,8 @@ module sram_ctrl
   // SRAM TL-UL Access Gate //
   ////////////////////////////
 
-  tlul_pkg::tl_h2d_t ram_tl_in_gated;
-  tlul_pkg::tl_d2h_t ram_tl_out_gated;
+  tlul_ot_pkg::tl_h2d_t ram_tl_in_gated;
+  tlul_ot_pkg::tl_d2h_t ram_tl_out_gated;
 
   tlul_lc_gate #(
     .NumGatesPerDirection(2)
@@ -420,7 +421,7 @@ module sram_ctrl
 
   tlul_adapter_sram #(
     .SramAw(AddrWidth),
-    .SramDw(DataWidth - tlul_pkg::DataIntgWidth),
+    .SramDw(DataWidth - tlul_ot_pkg::DataIntgWidth),
     .Outstanding(2),
     .ByteAccess(1),
     .CmdIntgCheck(1),
@@ -463,7 +464,8 @@ module sram_ctrl
     .Depth(Depth),
     .EnableParity(0),
     .DataBitsPerMask(DataWidth),
-    .DiffWidth(DataWidth)
+    .DiffWidth(DataWidth),
+    .MemInitFile(MemInitFile)                    
   ) u_prim_ram_1p_scr (
     .clk_i,
     .rst_ni,

@@ -16,7 +16,8 @@ module flash_phy
   import flash_ctrl_pkg::*;
   import prim_mubi_pkg::mubi4_t;
 #(
-  parameter bit SecScrambleEn = 1'b1
+  parameter bit SecScrambleEn = 1'b1,
+  parameter     MemInitFile   = ""
 )
 (
   input clk_i,
@@ -29,8 +30,8 @@ module flash_phy
   output logic host_rderr_o,
   input flash_req_t flash_ctrl_i,
   output flash_rsp_t flash_ctrl_o,
-  input tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
   input mubi4_t scanmode_i,
   input scan_en_i,
   input scan_rst_ni,
@@ -41,6 +42,13 @@ module flash_phy
   input mubi4_t flash_bist_enable_i,
   input lc_ctrl_pkg::lc_tx_t lc_nvm_debug_en_i,
   input ast_pkg::ast_obs_ctrl_t obs_ctrl_i,
+  // Debug mode interface
+  input logic        debug_flash_write_i,
+  input logic        debug_flash_req_i,
+  input logic [15:0] debug_flash_addr_i,
+  input logic [75:0] debug_flash_wdata_i,
+  input logic [75:0] debug_flash_wmask_i,
+  input logic        datapath_i, 
   output logic [7:0] fla_obs_o,
   output logic fatal_prim_flash_alert_o,
   output logic recov_prim_flash_alert_o
@@ -146,7 +154,7 @@ module flash_phy
 
 
   // This fifo holds the expected return order
-  prim_fifo_sync #(
+  prim_ot_fifo_sync #(
     .Width   (BankW),
     .Pass    (0),
     .Depth   (SeqFifoDepth)
@@ -224,7 +232,7 @@ module flash_phy
     // pop if the response came from the appropriate fifo
     assign host_rsp_ack[bank] = host_req_done_o & (rsp_bank_sel == bank);
 
-    prim_fifo_sync #(
+    prim_ot_fifo_sync #(
       .Width   (BusFullWidth + 1),
       .Pass    (1'b1),
       .Depth   (FlashMacroOustanding),
@@ -361,6 +369,13 @@ module flash_phy
     .flash_power_down_h_i,
     .flash_test_mode_a_io,
     .flash_test_voltage_h_io,
+    // Debug Mode Interface
+    .debug_flash_write_i,
+    .debug_flash_req_i,  
+    .debug_flash_addr_i,  
+    .debug_flash_wdata_i,
+    .debug_flash_wmask_i, 
+    .datapath_i,        
     .flash_err_o(flash_ctrl_o.macro_err),
     .fatal_alert_o(fatal_prim_flash_alert_o),
     .recov_alert_o(recov_prim_flash_alert_o)

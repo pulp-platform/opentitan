@@ -7,6 +7,10 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include <assert.h>
+#include <stdalign.h>
+#include <stddef.h>
+
 #include "sw/device/lib/arch/device.h"
 #include "sw/device/lib/base/bitfield.h"
 #include "sw/device/lib/base/csr.h"
@@ -36,8 +40,15 @@
 #include "sw/device/silicon_creator/lib/sigverify/sigverify.h"
 #include "sw/device/silicon_creator/rom/boot_policy.h"
 #include "sw/device/silicon_creator/rom/bootstrap.h"
+#include "sw/device/silicon_creator/rom/uart.h"
+#include "sw/device/silicon_creator/rom/string_lib.h"
 #include "sw/device/silicon_creator/rom/rom_epmp.h"
 #include "sw/device/silicon_creator/rom/sigverify_keys.h"
+#include "sw/device/lib/dif/dif_spi_host.h"
+#include "sw/device/silicon_creator/lib/rom_print.h"
+#include "sw/device/lib/testing/test_framework/check.h"
+#include "sw/device/lib/base/mmio.h"
+#include "sw/device/lib/testing/rand_testutils.h"
 
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 #include "otp_ctrl_regs.h"
@@ -68,16 +79,19 @@
   X(kCfiRomTryBoot,      0x235) \
   X(kCfiRomPreBootCheck, 0x43a) \
   X(kCfiRomBoot,         0x2e2)
-// clang-format on
+// clang-format
+
+#define TARGET_SYNTHESIS
 
 // Define counters and constant values required by the CFI counter macros.
 CFI_DEFINE_COUNTERS(rom_counters, ROM_CFI_FUNC_COUNTERS_TABLE);
 
 // Life cycle state of the chip.
 lifecycle_state_t lc_state = (lifecycle_state_t)0;
-// Boot data from flash.
-boot_data_t boot_data = {0};
+// Spi Host handler
+static dif_spi_host_t spi_host;
 
+boot_data_t boot_data = {0};
 OT_ALWAYS_INLINE
 static rom_error_t rom_irq_error(void) {
   uint32_t mcause;
@@ -100,21 +114,97 @@ static rom_error_t rom_irq_error(void) {
  * Prints a status message indicating that the ROM is entering bootstrap mode.
  */
 static void rom_bootstrap_message(void) {
-  uart_putchar('b');
-  uart_putchar('o');
-  uart_putchar('o');
-  uart_putchar('t');
-  uart_putchar('s');
-  uart_putchar('t');
-  uart_putchar('r');
-  uart_putchar('a');
-  uart_putchar('p');
-  uart_putchar(':');
-  uart_putchar('1');
-  uart_putchar('\r');
-  uart_putchar('\n');
+  rom_printf("Bootin some fresh cochina!\r\n");
+  printf("Bootin some fresh cochina!\r\n");
 }
 
+void init_spi_host(dif_spi_host_t *spi_host,
+                   uint32_t peripheral_clock_freq_hz) {
+  dif_spi_host_config_t config = {
+      .spi_clock = peripheral_clock_freq_hz / 2,// 100, for tape out 1MHz, in sim 50MHz
+      .peripheral_clock_freq_hz = peripheral_clock_freq_hz,
+      .chip_select = {.idle = 2, .trail = 2, .lead = 2},
+      .full_cycle = true,
+      .cpha = true,
+      .cpol = true,
+  };
+  CHECK_DIF_OK(dif_spi_host_configure(spi_host, config));
+  CHECK_DIF_OK(dif_spi_host_output_set_enabled(spi_host, /*enabled=*/true));
+}
+
+void spi_flash_load_data(void){
+
+  volatile int * datapath;
+  volatile int * address, * start, * payload_1, * payload_2, * payload_3; 
+
+  int num_iter = 160;
+  int buf_size = 63;
+  uint32_t buf[buf_size];
+  dif_spi_host_segment_t segments[3];
+  uint32_t addr = 0;
+  uint32_t addr_swap = 0;
+  int index = 0;
+  uintptr_t base_addr = TOP_EARLGREY_SPI_HOST0_BASE_ADDR;
+  uint64_t clkHz = 100000000;
+  
+  payload_1  = (int *) 0xff000000;
+  payload_2  = (int *) 0xff000004;
+  payload_3  = (int *) 0xff000008;
+  address    = (int *) 0xff00000C;
+  start      = (int *) 0xff000010;
+  datapath   = (int *) 0xff00001C;
+   
+  CHECK_DIF_OK(dif_spi_host_init(mmio_region_from_addr(base_addr), &spi_host));
+  init_spi_host(&spi_host, (uint32_t)clkHz);
+    
+  *datapath = 1;
+  *address = 0;
+  // load data from SPI flash
+  for(int j=0;j<num_iter;j++){
+     addr = j*sizeof(buf);
+     addr_swap = bitfield_byteswap32(addr);
+     segments[0] = (dif_spi_host_segment_t) {
+                   .type = kDifSpiHostSegmentTypeOpcode,
+                   .opcode = 0x13,
+     };
+     segments[1] = (dif_spi_host_segment_t) {
+                   .type = kDifSpiHostSegmentTypeAddress,
+                   .address =
+                      {
+                          .width = kDifSpiHostWidthStandard,
+                          .mode = kDifSpiHostAddrMode4b,
+                          .address = addr_swap,
+                      },
+     }; 
+     segments[2] = (dif_spi_host_segment_t) {
+                   .type = kDifSpiHostSegmentTypeRx,
+                   .rx =
+                      {
+                          .width = kDifSpiHostWidthStandard,
+                          .buf = buf,
+                          .length= sizeof(buf),
+                      },
+     };
+
+     CHECK_DIF_OK(
+          dif_spi_host_transaction(&spi_host, 0, segments, ARRAYSIZE(segments)));
+     // write data to embdedded emulated flash
+     for(int i = 0; i < buf_size; i += 3) {
+       if(i + 2 < buf_size) {
+         *payload_1 = buf[i];
+         *payload_2 = buf[i+1];
+         *payload_3 = buf[i+2];
+	 *address   = index;
+         *start = 0x1;
+	 index++;
+       }
+     }
+  }
+
+  *datapath = 0;
+  CHECK_DIF_OK(dif_spi_host_output_set_enabled(&spi_host, false));
+}
+  
 /**
  * Performs once-per-boot initialization of ROM modules and peripherals.
  */
@@ -125,6 +215,15 @@ static rom_error_t rom_init(void) {
   pinmux_init();
   // Configure UART0 as stdout.
   uart_init(kUartNCOValue);
+  #ifdef TARGET_SYNTHESIS                
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  #else
+  //set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   // There are no conditional checks before writing to this CSR because it is
   // expected that if relevant Ibex countermeasures are disabled, this will
@@ -202,12 +301,10 @@ static rom_error_t rom_verify(const manifest_t *manifest,
   const sigverify_rsa_key_t *key;
   HARDENED_RETURN_IF_ERROR(sigverify_rsa_key_get(
       sigverify_rsa_key_id_get(&manifest->modulus), lc_state, &key));
-
   uint32_t clobber_value = rnd_uint32();
   for (size_t i = 0; i < ARRAYSIZE(boot_measurements.rom_ext.data); ++i) {
     boot_measurements.rom_ext.data[i] = clobber_value;
   }
-
   hmac_sha256_init();
   // Invalidate the digest if the security version of the manifest is smaller
   // than the minimum required security version.
@@ -227,7 +324,6 @@ static rom_error_t rom_verify(const manifest_t *manifest,
                      sizeof(usage_constraints_from_hw));
   // Hash the remaining part of the image.
   manifest_digest_region_t digest_region = manifest_digest_region_get(manifest);
-
   hmac_sha256_update(digest_region.start, digest_region.length);
   // Verify signature
   hmac_digest_t act_digest;
@@ -237,7 +333,6 @@ static rom_error_t rom_verify(const manifest_t *manifest,
                 "Unexpected ROM_EXT digest size.");
   memcpy(&boot_measurements.rom_ext, &act_digest,
          sizeof(boot_measurements.rom_ext));
-
   CFI_FUNC_COUNTER_INCREMENT(rom_counters, kCfiRomVerify, 2);
   return sigverify_rsa_verify(&manifest->signature, key, &act_digest, lc_state,
                               flash_exec);
@@ -424,7 +519,6 @@ static rom_error_t rom_try_boot(void) {
     HARDENED_RETURN_IF_ERROR(rom_boot(manifests.ordered[0], flash_exec));
     return kErrorRomBootFailed;
   }
-
   CFI_FUNC_COUNTER_PREPCALL(rom_counters, kCfiRomTryBoot, 5, kCfiRomVerify);
   HARDENED_RETURN_IF_ERROR(rom_verify(manifests.ordered[1], &flash_exec));
   CFI_FUNC_COUNTER_INCREMENT(rom_counters, kCfiRomTryBoot, 7);
@@ -436,10 +530,24 @@ static rom_error_t rom_try_boot(void) {
 }
 
 void rom_main(void) {
-  CFI_FUNC_COUNTER_INIT(rom_counters, kCfiRomMain);
+  int * pad_bootmode;
+  pad_bootmode = (int *)0xff000014;
 
+  // Device init performance counters
+  CFI_FUNC_COUNTER_INIT(rom_counters, kCfiRomMain);
   CFI_FUNC_COUNTER_PREPCALL(rom_counters, kCfiRomMain, 1, kCfiRomInit);
+  // Device initialization
   SHUTDOWN_IF_ERROR(rom_init());
+  
+  // Populate embedded emulated Flash (bank 0)
+  if(*pad_bootmode == 0x1){
+    rom_printf("Loading rom_ext from extenal SPI flash\r\n");
+    printf("Loading rom_ext from extenal SPI flash\r\n");
+    spi_flash_load_data();
+  }
+  
+  rom_bootstrap_message();
+  
   CFI_FUNC_COUNTER_INCREMENT(rom_counters, kCfiRomMain, 3);
   CFI_FUNC_COUNTER_CHECK(rom_counters, kCfiRomInit, 3);
 
@@ -453,6 +561,8 @@ void rom_main(void) {
 
   // `rom_try_boot` will not return unless there is an error.
   CFI_FUNC_COUNTER_PREPCALL(rom_counters, kCfiRomMain, 4, kCfiRomTryBoot);
+  
+
   shutdown_finalize(rom_try_boot());
 }
 

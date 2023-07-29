@@ -10,6 +10,7 @@
  */
 
 `include "prim_assert.sv"
+`define DUMMY_BOY
 
 module rv_core_ibex
   import rv_core_ibex_pkg::*;
@@ -62,12 +63,12 @@ module rv_core_ibex
   input  logic [31:0] boot_addr_i,
 
   // Instruction memory interface
-  output tlul_pkg::tl_h2d_t     corei_tl_h_o,
-  input  tlul_pkg::tl_d2h_t     corei_tl_h_i,
+  output tlul_ot_pkg::tl_h2d_t     corei_tl_h_o,
+  input  tlul_ot_pkg::tl_d2h_t     corei_tl_h_i,
 
   // Data memory interface
-  output tlul_pkg::tl_h2d_t     cored_tl_h_o,
-  input  tlul_pkg::tl_d2h_t     cored_tl_h_i,
+  output tlul_ot_pkg::tl_h2d_t     cored_tl_h_o,
+  input  tlul_ot_pkg::tl_d2h_t     cored_tl_h_i,
 
   // Interrupt inputs
   input  logic        irq_software_i,
@@ -91,14 +92,15 @@ module rv_core_ibex
   input lc_ctrl_pkg::lc_tx_t lc_cpu_en_i,
   input lc_ctrl_pkg::lc_tx_t pwrmgr_cpu_en_i,
   output pwrmgr_pkg::pwr_cpu_t pwrmgr_o,
+  input logic ext_cpu_en_i,
 
   // dft bypass
   input scan_rst_ni,
   input prim_mubi_pkg::mubi4_t scanmode_i,
 
   // peripheral interface access
-  input  tlul_pkg::tl_h2d_t cfg_tl_d_i,
-  output tlul_pkg::tl_d2h_t cfg_tl_d_o,
+  input  tlul_ot_pkg::tl_h2d_t cfg_tl_d_i,
+  output tlul_ot_pkg::tl_d2h_t cfg_tl_d_o,
 
   // connection to edn
   output edn_pkg::edn_req_t edn_o,
@@ -120,7 +122,7 @@ module rv_core_ibex
 );
 
   import top_pkg::*;
-  import tlul_pkg::*;
+  import tlul_ot_pkg::*;
 
   // Register module
   rv_core_ibex_cfg_reg2hw_t reg2hw;
@@ -185,6 +187,14 @@ module rv_core_ibex
   logic [ 3:0] rvfi_mem_wmask;
   logic [31:0] rvfi_mem_rdata;
   logic [31:0] rvfi_mem_wdata;
+  logic [31:0] rvfi_ext_mip;
+  logic        rvfi_ext_nmi;
+  logic        rvfi_ext_nmi_int;
+  logic        rvfi_ext_debug_req;
+  logic        rvfi_ext_debug_mode;
+  logic        rvfi_ext_rf_wr_suppress;
+  logic [63:0] rvfi_ext_mcycle;
+  logic        rvfi_ext_ic_scr_key_valid;
 `endif
 
   // core sleeping
@@ -243,7 +253,7 @@ module rv_core_ibex
 
   // Synchronize to fast Ibex clock domain.
   logic alert_irq_nm;
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1)
   ) u_alert_nmi_sync (
     .clk_i,
@@ -253,7 +263,7 @@ module rv_core_ibex
   );
 
   logic wdog_irq_nm;
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1)
   ) u_wdog_nmi_sync (
     .clk_i,
@@ -291,7 +301,7 @@ module rv_core_ibex
   // timer interrupts do not come from
   // rv_plic and may not be synchronous to the ibex core
   logic irq_timer_sync;
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1)
   ) u_intr_timer_sync (
     .clk_i,
@@ -322,10 +332,10 @@ module rv_core_ibex
   logic [ibex_pkg::SCRAMBLE_NONCE_W-1:0] nonce;
   logic unused_seed_valid;
   localparam int PayLoadW = ibex_pkg::SCRAMBLE_KEY_W + ibex_pkg::SCRAMBLE_NONCE_W + 1;
-  prim_sync_reqack_data #(
+  prim_ot_sync_reqack_data #(
     .Width(PayLoadW),
     .DataSrc2Dst(1'b0)
-  ) u_prim_sync_reqack_data (
+  ) u_prim_ot_sync_reqack_data (
     .clk_src_i  ( clk_i                         ),
     .rst_src_ni ( rst_ni                        ),
     .clk_dst_i  ( clk_otp_i                     ),
@@ -365,6 +375,8 @@ module rv_core_ibex
   // Multibit AND computation for fetch enable. Fetch is only enabled when local fetch enable,
   // lifecycle CPU enable and power manager CPU enable are all enabled.
   lc_ctrl_pkg::lc_tx_t fetch_enable;
+  lc_ctrl_pkg::lc_tx_t ext_fetch_enable;
+  assign ext_fetch_enable = ext_cpu_en_i ? lc_ctrl_pkg::On : lc_ctrl_pkg::Off; // to be connected!
   assign fetch_enable = lc_ctrl_pkg::lc_tx_and_hi(local_fetch_enable_q,
                                                   lc_ctrl_pkg::lc_tx_and_hi(lc_cpu_en[0],
                                                                             pwrmgr_cpu_en[0]));
@@ -479,9 +491,23 @@ module rv_core_ibex
     .rvfi_mem_wmask,
     .rvfi_mem_rdata,
     .rvfi_mem_wdata,
+    .rvfi_ext_mip,
+    .rvfi_ext_nmi,
+    .rvfi_ext_nmi_int,
+    .rvfi_ext_debug_req,
+    .rvfi_ext_debug_mode,
+    .rvfi_ext_rf_wr_suppress,
+    .rvfi_ext_mcycle,
+    .rvfi_ext_mhpmcounters(),
+    .rvfi_ext_mhpmcountersh(),
+    .rvfi_ext_ic_scr_key_valid,
 `endif
     // SEC_CM: FETCH.CTRL.LC_GATED
+`ifndef FAKE            
     .fetch_enable_i         (fetch_enable),
+`else
+    .fetch_enable_i         (lc_ctrl_pkg::On),
+`endif    
     .alert_minor_o          (alert_minor),
     .alert_major_internal_o (alert_major_internal),
     .alert_major_bus_o      (alert_major_bus),
@@ -546,7 +572,7 @@ module rv_core_ibex
   logic [6:0]  instr_wdata_intg;
   logic [top_pkg::TL_DW-1:0] unused_data;
   // tl_adapter_host_i_ibex only reads instruction. a_data is always 0
-  assign {instr_wdata_intg, unused_data} = prim_secded_pkg::prim_secded_inv_39_32_enc('0);
+  assign {instr_wdata_intg, unused_data} = prim_ot_secded_pkg::prim_secded_inv_39_32_enc('0);
   // SEC_CM: BUS.INTEGRITY
   tlul_adapter_host #(
     .MAX_REQS(NumOutstandingReqs),
@@ -642,7 +668,6 @@ module rv_core_ibex
     .spare_req_o (),
     .spare_rsp_i (1'b0),
     .spare_rsp_o ());
-
 `ifdef RVFI
   ibex_tracer ibex_tracer_i (
     .clk_i,
@@ -675,14 +700,13 @@ module rv_core_ibex
     .rvfi_mem_wdata
   );
 `endif
-
   //////////////////////////////////
   // Peripheral functions
   //////////////////////////////////
 
   logic intg_err;
-  tlul_pkg::tl_h2d_t tl_win_h2d;
-  tlul_pkg::tl_d2h_t tl_win_d2h;
+  tlul_ot_pkg::tl_h2d_t tl_win_h2d;
+  tlul_ot_pkg::tl_d2h_t tl_win_d2h;
   rv_core_ibex_cfg_reg_top u_reg_cfg (
     .clk_i,
     .rst_ni,
@@ -852,8 +876,8 @@ module rv_core_ibex
   // The carved out space is for DV emulation purposes only
   /////////////////////////////////////
 
-  import tlul_pkg::tl_h2d_t;
-  import tlul_pkg::tl_d2h_t;
+  import tlul_ot_pkg::tl_h2d_t;
+  import tlul_ot_pkg::tl_d2h_t;
   localparam int TlH2DWidth = $bits(tl_h2d_t);
   localparam int TlD2HWidth = $bits(tl_d2h_t);
 

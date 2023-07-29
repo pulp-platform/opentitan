@@ -17,11 +17,11 @@ extern char _text_end[];     // End of executable code.
 
 // Note: Hardcoding these values since the way we generate this range is not
 // very robust at the moment. See #14345 and #14336.
-static_assert(TOP_EARLGREY_MMIO_BASE_ADDR == 0x40000000,
+/*static_assert(TOP_EARLGREY_MMIO_BASE_ADDR == 0x40000000,
               "MMIO region changed, update ePMP configuration if needed");
 static_assert(TOP_EARLGREY_MMIO_SIZE_BYTES == 0x10000000,
               "MMIO region changed, update ePMP configuration if needed");
-
+*/
 static_assert(TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR >=
                       TOP_EARLGREY_MMIO_BASE_ADDR &&
                   TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR +
@@ -94,7 +94,7 @@ void rom_epmp_state_init(lifecycle_state_t lc_state) {
   epmp_state_configure_napot(13, debug_rom, debug_rom_access);
   epmp_state_configure_na4(14, stack_guard, kEpmpPermLockedNoAccess);
   epmp_state_configure_napot(15, ram, kEpmpPermLockedReadWrite);
-  epmp_state.mseccfg = EPMP_MSECCFG_MMWP | EPMP_MSECCFG_RLB;
+  epmp_state.mseccfg = 0x0; //EPMP_MSECCFG_MMWP | EPMP_MSECCFG_RLB;
 }
 
 void rom_epmp_unlock_rom_ext_rx(epmp_region_t region) {

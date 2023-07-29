@@ -14,7 +14,7 @@
 
 `include "prim_assert.sv"
 
-module ${module_instance_name}_target #(
+module ${module_instance_name}_ot_target #(
   parameter int N_SOURCE = 32,
   parameter int MAX_PRIO = 7,
 
@@ -39,10 +39,10 @@ module ${module_instance_name}_target #(
   logic max_valid;
   logic [PrioWidth-1:0] max_value;
   logic [SrcWidth-1:0] max_idx;
-  prim_max_tree #(
+  prim_ot_max_tree #(
     .NumSrc(N_SOURCE),
     .Width(PrioWidth)
-  ) u_prim_max_tree (
+  ) u_prim_ot_max_tree (
     .clk_i,
     .rst_ni,
     .values_i(prio_i),

@@ -46,8 +46,8 @@ from topgen.lib import Name
 % endfor
 
   // Bus Interface
-  input tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -430,7 +430,7 @@ from topgen.lib import Name
 % endfor
 
 % for k,v in typed_clocks.sw_clks.items():
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1)
   ) u_${k}_sw_en_sync (
     .clk_i(clk_${v.src.name}_i),
@@ -453,8 +453,7 @@ from topgen.lib import Name
 
   logic ${k}_combined_en;
   assign ${k}_combined_en = ${k}_sw_en & clk_${v.src.name}_en;
-  prim_clock_gating #(
-    .FpgaBufGlobal(1'b1) // This clock spans across multiple clock regions.
+  tc_clk_gating #(
   ) u_${k}_cg (
     .clk_i(clk_${v.src.name}_i),
     .en_i(${k}_combined_en),

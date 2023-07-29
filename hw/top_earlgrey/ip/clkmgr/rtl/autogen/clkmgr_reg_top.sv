@@ -20,8 +20,8 @@ module clkmgr_reg_top (
   input rst_main_ni,
   input clk_usb_i,
   input rst_usb_ni,
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
   // To HW
   output clkmgr_reg_pkg::clkmgr_reg2hw_t reg2hw, // Write
   input  clkmgr_reg_pkg::clkmgr_hw2reg_t hw2reg, // Read
@@ -56,8 +56,8 @@ module clkmgr_reg_top (
   logic [DW-1:0] reg_rdata_next;
   logic reg_busy;
 
-  tlul_pkg::tl_h2d_t tl_reg_h2d;
-  tlul_pkg::tl_d2h_t tl_reg_d2h;
+  tlul_ot_pkg::tl_h2d_t tl_reg_h2d;
+  tlul_ot_pkg::tl_d2h_t tl_reg_d2h;
 
 
   // incoming payload check
@@ -94,7 +94,7 @@ module clkmgr_reg_top (
   assign intg_err_o = err_q | intg_err | reg_we_err;
 
   // outgoing integrity generation
-  tlul_pkg::tl_d2h_t tl_o_pre;
+  tlul_ot_pkg::tl_d2h_t tl_o_pre;
   tlul_rsp_intg_gen #(
     .EnableRspIntgGen(1),
     .EnableDataIntgGen(1)
@@ -160,10 +160,10 @@ module clkmgr_reg_top (
   logic clk_enables_we;
   logic clk_enables_clk_io_div4_peri_en_qs;
   logic clk_enables_clk_io_div4_peri_en_wd;
-  logic clk_enables_clk_io_peri_en_qs;
-  logic clk_enables_clk_io_peri_en_wd;
   logic clk_enables_clk_io_div2_peri_en_qs;
   logic clk_enables_clk_io_div2_peri_en_wd;
+  logic clk_enables_clk_io_peri_en_qs;
+  logic clk_enables_clk_io_peri_en_wd;
   logic clk_enables_clk_usb_peri_en_qs;
   logic clk_enables_clk_usb_peri_en_wd;
   logic clk_hints_we;
@@ -915,33 +915,7 @@ module clkmgr_reg_top (
     .qs     (clk_enables_clk_io_div4_peri_en_qs)
   );
 
-  //   F[clk_io_peri_en]: 1:1
-  prim_ot_subreg #(
-    .DW      (1),
-    .SwAccess(prim_ot_subreg_pkg::SwAccessRW),
-    .RESVAL  (1'h1)
-  ) u_clk_enables_clk_io_peri_en (
-    .clk_i   (clk_i),
-    .rst_ni  (rst_ni),
-
-    // from register interface
-    .we     (clk_enables_we),
-    .wd     (clk_enables_clk_io_peri_en_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.clk_enables.clk_io_peri_en.q),
-    .ds     (),
-
-    // to register interface (read)
-    .qs     (clk_enables_clk_io_peri_en_qs)
-  );
-
-  //   F[clk_io_div2_peri_en]: 2:2
+  //   F[clk_io_div2_peri_en]: 1:1
   prim_ot_subreg #(
     .DW      (1),
     .SwAccess(prim_ot_subreg_pkg::SwAccessRW),
@@ -965,6 +939,32 @@ module clkmgr_reg_top (
 
     // to register interface (read)
     .qs     (clk_enables_clk_io_div2_peri_en_qs)
+  );
+
+  //   F[clk_io_peri_en]: 2:2
+  prim_ot_subreg #(
+    .DW      (1),
+    .SwAccess(prim_ot_subreg_pkg::SwAccessRW),
+    .RESVAL  (1'h1)
+  ) u_clk_enables_clk_io_peri_en (
+    .clk_i   (clk_i),
+    .rst_ni  (rst_ni),
+
+    // from register interface
+    .we     (clk_enables_we),
+    .wd     (clk_enables_clk_io_peri_en_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.clk_enables.clk_io_peri_en.q),
+    .ds     (),
+
+    // to register interface (read)
+    .qs     (clk_enables_clk_io_peri_en_qs)
   );
 
   //   F[clk_usb_peri_en]: 3:3
@@ -1275,7 +1275,7 @@ module clkmgr_reg_top (
   logic async_io_meas_ctrl_shadowed_hi_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_meas_ctrl_shadowed_hi_err_storage_sync (
@@ -1286,7 +1286,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_meas_ctrl_shadowed_hi_err_update_sync (
+  prim_ot_pulse_sync u_io_meas_ctrl_shadowed_hi_err_update_sync (
     .clk_src_i(clk_io_i),
     .rst_src_ni(rst_io_ni),
     .src_pulse_i(async_io_meas_ctrl_shadowed_hi_err_update),
@@ -1333,7 +1333,7 @@ module clkmgr_reg_top (
   logic async_io_meas_ctrl_shadowed_lo_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_meas_ctrl_shadowed_lo_err_storage_sync (
@@ -1344,7 +1344,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_meas_ctrl_shadowed_lo_err_update_sync (
+  prim_ot_pulse_sync u_io_meas_ctrl_shadowed_lo_err_update_sync (
     .clk_src_i(clk_io_i),
     .rst_src_ni(rst_io_ni),
     .src_pulse_i(async_io_meas_ctrl_shadowed_lo_err_update),
@@ -1430,7 +1430,7 @@ module clkmgr_reg_top (
   logic async_io_div2_meas_ctrl_shadowed_hi_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_div2_meas_ctrl_shadowed_hi_err_storage_sync (
@@ -1441,7 +1441,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_div2_meas_ctrl_shadowed_hi_err_update_sync (
+  prim_ot_pulse_sync u_io_div2_meas_ctrl_shadowed_hi_err_update_sync (
     .clk_src_i(clk_io_div2_i),
     .rst_src_ni(rst_io_div2_ni),
     .src_pulse_i(async_io_div2_meas_ctrl_shadowed_hi_err_update),
@@ -1488,7 +1488,7 @@ module clkmgr_reg_top (
   logic async_io_div2_meas_ctrl_shadowed_lo_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_div2_meas_ctrl_shadowed_lo_err_storage_sync (
@@ -1499,7 +1499,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_div2_meas_ctrl_shadowed_lo_err_update_sync (
+  prim_ot_pulse_sync u_io_div2_meas_ctrl_shadowed_lo_err_update_sync (
     .clk_src_i(clk_io_div2_i),
     .rst_src_ni(rst_io_div2_ni),
     .src_pulse_i(async_io_div2_meas_ctrl_shadowed_lo_err_update),
@@ -1585,7 +1585,7 @@ module clkmgr_reg_top (
   logic async_io_div4_meas_ctrl_shadowed_hi_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_div4_meas_ctrl_shadowed_hi_err_storage_sync (
@@ -1596,7 +1596,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_div4_meas_ctrl_shadowed_hi_err_update_sync (
+  prim_ot_pulse_sync u_io_div4_meas_ctrl_shadowed_hi_err_update_sync (
     .clk_src_i(clk_io_div4_i),
     .rst_src_ni(rst_io_div4_ni),
     .src_pulse_i(async_io_div4_meas_ctrl_shadowed_hi_err_update),
@@ -1643,7 +1643,7 @@ module clkmgr_reg_top (
   logic async_io_div4_meas_ctrl_shadowed_lo_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_io_div4_meas_ctrl_shadowed_lo_err_storage_sync (
@@ -1654,7 +1654,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_io_div4_meas_ctrl_shadowed_lo_err_update_sync (
+  prim_ot_pulse_sync u_io_div4_meas_ctrl_shadowed_lo_err_update_sync (
     .clk_src_i(clk_io_div4_i),
     .rst_src_ni(rst_io_div4_ni),
     .src_pulse_i(async_io_div4_meas_ctrl_shadowed_lo_err_update),
@@ -1740,7 +1740,7 @@ module clkmgr_reg_top (
   logic async_main_meas_ctrl_shadowed_hi_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_main_meas_ctrl_shadowed_hi_err_storage_sync (
@@ -1751,7 +1751,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_main_meas_ctrl_shadowed_hi_err_update_sync (
+  prim_ot_pulse_sync u_main_meas_ctrl_shadowed_hi_err_update_sync (
     .clk_src_i(clk_main_i),
     .rst_src_ni(rst_main_ni),
     .src_pulse_i(async_main_meas_ctrl_shadowed_hi_err_update),
@@ -1798,7 +1798,7 @@ module clkmgr_reg_top (
   logic async_main_meas_ctrl_shadowed_lo_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_main_meas_ctrl_shadowed_lo_err_storage_sync (
@@ -1809,7 +1809,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_main_meas_ctrl_shadowed_lo_err_update_sync (
+  prim_ot_pulse_sync u_main_meas_ctrl_shadowed_lo_err_update_sync (
     .clk_src_i(clk_main_i),
     .rst_src_ni(rst_main_ni),
     .src_pulse_i(async_main_meas_ctrl_shadowed_lo_err_update),
@@ -1894,7 +1894,7 @@ module clkmgr_reg_top (
   logic async_usb_meas_ctrl_shadowed_hi_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_usb_meas_ctrl_shadowed_hi_err_storage_sync (
@@ -1905,7 +1905,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_usb_meas_ctrl_shadowed_hi_err_update_sync (
+  prim_ot_pulse_sync u_usb_meas_ctrl_shadowed_hi_err_update_sync (
     .clk_src_i(clk_usb_i),
     .rst_src_ni(rst_usb_ni),
     .src_pulse_i(async_usb_meas_ctrl_shadowed_hi_err_update),
@@ -1952,7 +1952,7 @@ module clkmgr_reg_top (
   logic async_usb_meas_ctrl_shadowed_lo_err_storage;
 
   // storage error is persistent and can be sampled at any time
-  prim_flop_2sync #(
+  prim_ot_flop_2sync #(
     .Width(1),
     .ResetValue('0)
   ) u_usb_meas_ctrl_shadowed_lo_err_storage_sync (
@@ -1963,7 +1963,7 @@ module clkmgr_reg_top (
   );
 
   // update error is transient and must be immediately captured
-  prim_pulse_sync u_usb_meas_ctrl_shadowed_lo_err_update_sync (
+  prim_ot_pulse_sync u_usb_meas_ctrl_shadowed_lo_err_update_sync (
     .clk_src_i(clk_usb_i),
     .rst_src_ni(rst_usb_ni),
     .src_pulse_i(async_usb_meas_ctrl_shadowed_lo_err_update),
@@ -2456,9 +2456,9 @@ module clkmgr_reg_top (
 
   assign clk_enables_clk_io_div4_peri_en_wd = reg_wdata[0];
 
-  assign clk_enables_clk_io_peri_en_wd = reg_wdata[1];
+  assign clk_enables_clk_io_div2_peri_en_wd = reg_wdata[1];
 
-  assign clk_enables_clk_io_div2_peri_en_wd = reg_wdata[2];
+  assign clk_enables_clk_io_peri_en_wd = reg_wdata[2];
 
   assign clk_enables_clk_usb_peri_en_wd = reg_wdata[3];
   assign clk_hints_we = addr_hit[7] & reg_we & !reg_error;
@@ -2586,8 +2586,8 @@ module clkmgr_reg_top (
 
       addr_hit[6]: begin
         reg_rdata_next[0] = clk_enables_clk_io_div4_peri_en_qs;
-        reg_rdata_next[1] = clk_enables_clk_io_peri_en_qs;
-        reg_rdata_next[2] = clk_enables_clk_io_div2_peri_en_qs;
+        reg_rdata_next[1] = clk_enables_clk_io_div2_peri_en_qs;
+        reg_rdata_next[2] = clk_enables_clk_io_peri_en_qs;
         reg_rdata_next[3] = clk_enables_clk_usb_peri_en_qs;
       end
 
@@ -2776,6 +2776,6 @@ module clkmgr_reg_top (
 
   // this is formulated as an assumption such that the FPV testbenches do disprove this
   // property by mistake
-  //`ASSUME(reqParity, tl_reg_h2d.a_valid |-> tl_reg_h2d.a_user.chk_en == tlul_pkg::CheckDis)
+  //`ASSUME(reqParity, tl_reg_h2d.a_valid |-> tl_reg_h2d.a_user.chk_en == tlul_ot_pkg::CheckDis)
 
 endmodule

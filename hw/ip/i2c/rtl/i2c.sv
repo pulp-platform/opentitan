@@ -6,8 +6,8 @@
 
 `include "prim_assert.sv"
 
-module i2c
-  import i2c_reg_pkg::*;
+module i2c_ot
+  import i2c_ot_reg_pkg::*;
 #(
   parameter logic [NumAlerts-1:0] AlertAsyncOn = {NumAlerts{1'b1}}
 ) (
@@ -15,8 +15,8 @@ module i2c
   input                     rst_ni,
 
   // Bus Interface
-  input  tlul_pkg::tl_h2d_t tl_i,
-  output tlul_pkg::tl_d2h_t tl_o,
+  input  tlul_ot_pkg::tl_h2d_t tl_i,
+  output tlul_ot_pkg::tl_d2h_t tl_o,
 
   // Alerts
   input  prim_alert_pkg::alert_rx_t [NumAlerts-1:0] alert_rx_i,
@@ -53,7 +53,7 @@ module i2c
 
   logic [NumAlerts-1:0] alert_test, alerts;
 
-  i2c_reg_top u_reg (
+  i2c_ot_reg_top u_reg (
     .clk_i,
     .rst_ni,
     .tl_i,
@@ -89,7 +89,7 @@ module i2c
   logic scl_int;
   logic sda_int;
 
-  i2c_core i2c_core (
+  i2c_core_ot i2c_core (
     .clk_i,
     .rst_ni,
     .reg2hw,

@@ -81,7 +81,7 @@ INSTANCE: tb.dut.u_tlul_adapter_sram
 ANNOTATION: "VC_COV_UNR"
 Block 20 "3478134645" "d_valid = 1'b1;"
 CHECKSUM: "3839527590 2385261621"
-INSTANCE: tb.dut.u_prim_edn_req.u_prim_sync_reqack_data.u_prim_sync_reqack
+INSTANCE: tb.dut.u_prim_edn_req.u_prim_ot_sync_reqack_data.u_prim_ot_sync_reqack
 ANNOTATION: "VC_COV_UNR"
 Block 11 "170878399" ";"
 ANNOTATION: "VC_COV_UNR"
@@ -471,7 +471,7 @@ Condition 15 "1798941048" "(d_valid && d_error) 1 -1" (1 "01")
 ANNOTATION: "VC_COV_UNR"
 Condition 9 "3130851184" "(vld_rd_rsp && reqfifo_rdata.error) 1 -1" (3 "11")
 ANNOTATION: "VC_COV_UNR"
-Condition 8 "561780173" "((vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_integ : (vld_rd_rsp ? rspfifo_rdata.data_intg : prim_secded_pkg::SecdedInv3932ZeroEcc)) 1 -1" (2 "1")
+Condition 8 "561780173" "((vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_integ : (vld_rd_rsp ? rspfifo_rdata.data_intg : prim_ot_secded_pkg::SecdedInv3932ZeroEcc)) 1 -1" (2 "1")
 ANNOTATION: "VC_COV_UNR"
 Condition 6 "2745829604" "(vld_rd_rsp && reqfifo_rdata.error) 1 -1" (3 "11")
 ANNOTATION: "VC_COV_UNR"
@@ -483,13 +483,13 @@ Condition 15 "1798941048" "(d_valid && d_error) 1 -1" (1 "01")
 ANNOTATION: "VC_COV_UNR"
 Condition 9 "3130851184" "(vld_rd_rsp && reqfifo_rdata.error) 1 -1" (3 "11")
 ANNOTATION: "VC_COV_UNR"
-Condition 8 "561780173" "((vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_integ : (vld_rd_rsp ? rspfifo_rdata.data_intg : prim_secded_pkg::SecdedInv3932ZeroEcc)) 1 -1" (2 "1")
+Condition 8 "561780173" "((vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_integ : (vld_rd_rsp ? rspfifo_rdata.data_intg : prim_ot_secded_pkg::SecdedInv3932ZeroEcc)) 1 -1" (2 "1")
 ANNOTATION: "VC_COV_UNR"
 Condition 6 "2745829604" "(vld_rd_rsp && reqfifo_rdata.error) 1 -1" (3 "11")
 ANNOTATION: "VC_COV_UNR"
 Condition 5 "800561441" "((vld_rd_rsp && reqfifo_rdata.error) ? error_blanking_data : (vld_rd_rsp ? rspfifo_rdata.data : '0)) 1 -1" (2 "1")
 CHECKSUM: "4013022403 3210232798"
-INSTANCE: tb.dut.u_prim_edn_req.u_prim_packer_fifo
+INSTANCE: tb.dut.u_prim_edn_req.u_prim_ot_packer_fifo
 ANNOTATION: "VC_COV_UNR"
 Condition 10 "2853235687" "((depth_q == FullDepth) && ((!clr_q))) 1 -1" (2 "10")
 CHECKSUM: "739651683 1037342755"
@@ -531,7 +531,7 @@ INSTANCE: tb.dut.u_otp.gen_generic.u_impl_generic.u_tlul_adapter_sram.u_sramreqf
 ANNOTATION: "VC_COV_UNR"
 Condition 2 "1926118060" "((gen_normal_fifo.wptr_msb == gen_normal_fifo.rptr_msb) ? ((1'(gen_normal_fifo.wptr_value) - 1'(gen_normal_fifo.rptr_value))) : (((1'(Depth) - 1'(gen_normal_fifo.rptr_value)) + 1'(gen_normal_fifo.wptr_value)))) 1 -1" (1 "0")
 CHECKSUM: "3839527590 2212754372"
-INSTANCE: tb.dut.u_prim_edn_req.u_prim_sync_reqack_data.u_prim_sync_reqack
+INSTANCE: tb.dut.u_prim_edn_req.u_prim_ot_sync_reqack_data.u_prim_ot_sync_reqack
 ANNOTATION: "VC_COV_UNR"
 Branch 1 "814912860" "dst_fsm_cs" (4) "dst_fsm_cs default,-,-"
 ANNOTATION: "VC_COV_UNR"
