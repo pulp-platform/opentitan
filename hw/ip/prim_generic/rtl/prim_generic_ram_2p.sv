@@ -45,26 +45,18 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
 
   logic  [1:0]   req_i;
   logic  [1:0]   we_i;
+
+  logic  [1:0]   [Width-1:0] be_i;
+
   addr_t [1:0]   addr_i;
   data_t [1:0]   wdata_i;
   data_t [1:0]   rdata_o;
-
-  localparam int MaskWidth = (Width % 8 == 0) ? Width / 8 : (Width / 8) + 1;
-  logic [MaskWidth-1:0] a_wmask, b_wmask;
-  logic [1:0][MaskWidth-1:0] be_i;
-
-  for (genvar k = 0; k < MaskWidth; k++) begin : gen_wmask_a
-    assign a_wmask[k] = a_wmask_i[k*8] ? 1'b1 : 1'b0;
-  end
-  for (genvar k = 0; k < MaskWidth; k++) begin : gen_wmask_b
-    assign b_wmask[k] = b_wmask_i[k*8] ? 1'b1 : 1'b0;
-  end
 
   assign req_i[0]   = a_req_i;
   assign we_i[0]    = a_write_i;
   assign addr_i[0]  = a_addr_i;
   assign wdata_i[0] = a_wdata_i;
-  assign be_i[0]    = a_wmask;
+  assign be_i[0]    = a_wmask_i;
   assign a_rdata_o  = rdata_o[0];
 
 
@@ -72,7 +64,7 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
   assign we_i[1]    = b_write_i;
   assign addr_i[1]  = b_addr_i;
   assign wdata_i[1] = b_wdata_i;
-  assign be_i[1]    = b_wmask;
+  assign be_i[1]    = b_wmask_i;
   assign b_rdata_o  = rdata_o[1];
 
   //port A assignment
@@ -81,6 +73,7 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
      .DataWidth(Width),
      .NumPorts(32'd2),
      .PrintSimCfg(1),
+     .ByteWidth(1),
      .SimInit("zeros")
   ) ram_primitive (
      .clk_i(clk_a_i),

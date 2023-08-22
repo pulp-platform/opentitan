@@ -29,64 +29,24 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
   input ram_1p_cfg_t       cfg_i
 );
 
-  assign unused_cfg = ^cfg_i;
+ logic  unused;
+ assign unused = ^cfg_i;
 
-  if (Width == 312 && Depth == 128) begin: otbn_bank
-
-     logic [7:0][39:0] rdata;
-     logic [7:0][39:0] wdata;
-     logic [7:0][4:0]  be;
-
-     assign rdata_o = { rdata[7][38:0], rdata[6][38:0], rdata[5][38:0], rdata[4][38:0],
-                        rdata[3][38:0], rdata[2][38:0], rdata[1][38:0], rdata[0][38:0] };
-
-     for(genvar i=0; i<8; i++) begin
-        for(genvar j=0; j<5; j++) begin
-           assign be[i][j] = wmask_i[j*8 + i*39];
-        end
-        assign wdata[i] = { 1'b0, wdata_i[i*39 +: 39] };
-        tc_sram #(
-           .NumWords(Depth),
-           .DataWidth(40),
-           .NumPorts(1),
-           .SimInit("zeros")
-        ) ram_primitive (
-           .clk_i,
-           .rst_ni,
-           .req_i,
-           .addr_i,
-           .wdata_i(wdata[i]),
-           .rdata_o(rdata[i]),
-           .we_i(write_i),
-           .be_i(be[i])
-        );
-     end // for (genvar i=0; i<8; i++)
-
-  end else begin : other_banks
-
-     logic unused_cfg;
-     localparam int MaskWidth = (Width % 8 == 0) ? Width / 8 : (Width / 8) + 1;
-     logic [MaskWidth-1:0] wmask;
-
-     for (genvar k = 0; k < MaskWidth; k++) begin : gen_wmask
-       assign wmask[k] = wmask_i[k*8] ? 1'b1 : 1'b0;
-     end
-
-     tc_sram #(
-        .NumWords(Depth),
-        .DataWidth(Width),
-        .NumPorts(1),
-        .SimInit("zeros")
-     ) ram_primitive (
-        .clk_i,
-        .rst_ni,
-        .req_i,
-        .addr_i,
-        .wdata_i,
-        .rdata_o,
-        .we_i(write_i),
-        .be_i(wmask)
-     );
-  end
+ tc_sram #(
+    .NumWords(Depth),
+    .DataWidth(Width),
+    .ByteWidth(1),
+    .NumPorts(1),
+    .SimInit("zeros")
+ ) ram_primitive (
+    .clk_i,
+    .rst_ni,
+    .req_i,
+    .addr_i,
+    .wdata_i,
+    .rdata_o,
+    .we_i(write_i),
+    .be_i(wmask_i)
+ );
 
 endmodule
