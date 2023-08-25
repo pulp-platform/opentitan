@@ -115,7 +115,6 @@ static rom_error_t rom_irq_error(void) {
  */
 static void rom_bootstrap_message(void) {
   rom_printf("Bootin some fresh cochina!\r\n");
-  printf("Bootin some fresh cochina!\r\n");
 }
 
 void init_spi_host(dif_spi_host_t *spi_host,
@@ -215,15 +214,6 @@ static rom_error_t rom_init(void) {
   pinmux_init();
   // Configure UART0 as stdout.
   uart_init(kUartNCOValue);
-  #ifdef TARGET_SYNTHESIS                
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  //set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   // There are no conditional checks before writing to this CSR because it is
   // expected that if relevant Ibex countermeasures are disabled, this will
@@ -542,7 +532,6 @@ void rom_main(void) {
   // Populate embedded emulated Flash (bank 0)
   if(*pad_bootmode == 0x1){
     rom_printf("Loading rom_ext from extenal SPI flash\r\n");
-    printf("Loading rom_ext from extenal SPI flash\r\n");
     spi_flash_load_data();
   }
   
