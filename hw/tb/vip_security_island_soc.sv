@@ -7,8 +7,6 @@
 // collects all existing verification ip (vip) for carfield SoC
 
 module vip_security_island_soc
-  import carfield_pkg::*;
-  import cheshire_pkg::*;
 #(
   // Timing
   parameter time         ClkPeriodSys      = 10ns,
@@ -326,7 +324,6 @@ module vip_security_island_soc
 	     do jtag_secd_dbg.read_dmi(dm_ot::SBCS, sbcs);
 	     while (sbcs.sbbusy);
        jtag_secd_dbg.read_dmi(dm_ot::SBData0, retval);
-       $display(retval);
        # 400ns;
     end while (~retval[0]);
 
@@ -336,7 +333,7 @@ module vip_security_island_soc
     $finish;
 
   endtask // jtag_read_eoc
-
+/*
   //////////
   // UART //
   //////////
@@ -510,5 +507,5 @@ module vip_security_island_soc
     if (exit_code) $error("[UART] FAILED: return code %0d", exit_code);
     else $display("[UART] SUCCESS");
   endtask
- 
+*/
 endmodule
