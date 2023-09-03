@@ -33,7 +33,7 @@ module vip_security_island_soc
   output logic       jtag_trst_n,
   output logic       jtag_tms,
   output logic       jtag_tdi,
-  input logic        jtag_tdo
+  input logic        jtag_tdo,
   // SPI host wires
   inout wire SPI_D0,
   inout wire SPI_D1,
