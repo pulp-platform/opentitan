@@ -22,8 +22,6 @@ module vip_security_island_soc
 ) (
   output logic       clk_vip,
   output logic       rst_n_vip,
-  // secure boot enabled
-  output logic       secure_boot,
   output logic [1:0] bootmode,
   // UART interface
   input logic        uart_tx,
@@ -69,13 +67,6 @@ module vip_security_island_soc
   task set_secd_boot_mode(input logic [1:0] mode);
     bootmode = mode;
   endtask
-
-  /////////////////
-  // Secure boot //
-  /////////////////
-
-  // TODO: secure boot emulation mode is currently not tested
-  assign secure_boot = bootmode[0];
 
   ////////////////
   //  SPI Host  //
