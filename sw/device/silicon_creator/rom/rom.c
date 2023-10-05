@@ -114,13 +114,13 @@ static rom_error_t rom_irq_error(void) {
  * Prints a status message indicating that the ROM is entering bootstrap mode.
  */
 static void rom_bootstrap_message(void) {
-  rom_printf("Bootin some fresh cochina!\r\n");
+  rom_printf("Secure Boot ongoing!\r\n");
 }
 
 void init_spi_host(dif_spi_host_t *spi_host,
                    uint32_t peripheral_clock_freq_hz) {
   dif_spi_host_config_t config = {
-      .spi_clock = peripheral_clock_freq_hz / 2,// 100, for tape out 1MHz, in sim 50MHz
+      .spi_clock = peripheral_clock_freq_hz / 20,// 5MHz, 100MHz boot clock divided by 20
       .peripheral_clock_freq_hz = peripheral_clock_freq_hz,
       .chip_select = {.idle = 2, .trail = 2, .lead = 2},
       .full_cycle = true,
