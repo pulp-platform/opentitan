@@ -62,20 +62,20 @@ int main(int argc, char **argv) {
   pinmux_init();
   uart_init(kUartNCOValue);
   
-  base_printf("Prego, prenda pure una cadrega!\n\r");
-  rom_printf("Prego, prenda pure una cadrega!\n\r");
+  rom_printf("Hello World!\r\n");
   
-  uart_putchar('b');
+  uart_putchar('h');
+  uart_putchar('e');
+  uart_putchar('l');
+  uart_putchar('l');
   uart_putchar('o');
+  uart_putchar(' ');
+  uart_putchar('w');
   uart_putchar('o');
-  uart_putchar('t');
-  uart_putchar('s');
-  uart_putchar('t');
   uart_putchar('r');
-  uart_putchar('a');
-  uart_putchar('p');
-  uart_putchar(':');
-  uart_putchar('1');
+  uart_putchar('l');
+  uart_putchar('d');
+  uart_putchar('!');
   uart_putchar('\r');
   uart_putchar('\n');
 
