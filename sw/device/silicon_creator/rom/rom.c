@@ -113,9 +113,10 @@ static rom_error_t rom_irq_error(void) {
 /**
  * Prints a status message indicating that the ROM is entering bootstrap mode.
  */
+/*
 static void rom_bootstrap_message(void) {
   rom_printf("Secure Boot ongoing!\r\n");
-}
+}*/
 
 void init_spi_host(dif_spi_host_t *spi_host,
                    uint32_t peripheral_clock_freq_hz) {
@@ -136,7 +137,7 @@ void spi_flash_load_data(void){
   volatile int * datapath;
   volatile int * address, * start, * payload_1, * payload_2, * payload_3; 
 
-  int num_iter = 160;
+  int num_iter = 1560;
   int buf_size = 63;
   uint32_t buf[buf_size];
   dif_spi_host_segment_t segments[3];
@@ -263,7 +264,7 @@ static rom_error_t rom_init(void) {
   rstmgr_reason_clear(reset_reasons);
 
   // This function is a NOP unless ROM is built for an fpga.
-  device_fpga_version_print();
+  //  device_fpga_version_print();
 
   sec_mmio_check_values(rnd_uint32());
   sec_mmio_check_counters(/*expected_check_count=*/1);
@@ -531,11 +532,11 @@ void rom_main(void) {
   
   // Populate embedded emulated Flash (bank 0)
   if(*pad_bootmode == 0x1){
-    rom_printf("Loading rom_ext from extenal SPI flash\r\n");
+    //   rom_printf("Loading rom_ext from extenal SPI flash\r\n");
     spi_flash_load_data();
   }
   
-  rom_bootstrap_message();
+  //  rom_bootstrap_message();
   
   CFI_FUNC_COUNTER_INCREMENT(rom_counters, kCfiRomMain, 3);
   CFI_FUNC_COUNTER_CHECK(rom_counters, kCfiRomInit, 3);
@@ -543,7 +544,7 @@ void rom_main(void) {
   hardened_bool_t bootstrap_req = bootstrap_requested();
   if (launder32(bootstrap_req) == kHardenedBoolTrue) {
     HARDENED_CHECK_EQ(bootstrap_req, kHardenedBoolTrue);
-    rom_bootstrap_message();
+    //    rom_bootstrap_message();
     watchdog_disable();
     shutdown_finalize(bootstrap());
   }
