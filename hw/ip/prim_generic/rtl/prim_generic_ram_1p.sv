@@ -15,6 +15,7 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
   parameter      MemInitFile     = "", // VMEM file to initialize the memory with
   parameter  int Otp             = 0,
   parameter  bit PrintSimCfg     = 1'b1,
+  parameter      FPGAMemMacro    = "auto", // Select memory macro for FPGA
   localparam int Aw              = $clog2(Depth)  // derived parameter
 ) (
   input  logic             clk_i,
@@ -37,6 +38,10 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
     .DataWidth(Width),
     .ByteWidth(1),
     .NumPorts(1),
+    // Note: ifdef can be removed when all tc_sram instantiations will be compliant
+`ifdef TARGET_XILINX
+    .FPGAImplKey(FPGAMemMacro),
+`endif
     .SimInit("zeros")
  ) ram_primitive (
     .clk_i,

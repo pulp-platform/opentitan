@@ -12,7 +12,7 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
   parameter  int Depth           = 128,
   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask
   parameter      MemInitFile     = "", // VMEM file to initialize the memory with
-
+  parameter      FPGAMemMacro    = "auto", // Select memory macro for FPGA
   localparam int Aw              = $clog2(Depth)  // derived parameter
 ) (
   input                    clk_a_i,
@@ -74,6 +74,10 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
      .NumPorts(32'd2),
      .PrintSimCfg(1),
      .ByteWidth(1),
+    // Note: ifdef can be removed when all tc_sram instantiations will be compliant
+`ifdef TARGET_XILINX
+    .FPGAImplKey(FPGAMemMacro),
+`endif
      .SimInit("zeros")
   ) ram_primitive (
      .clk_i(clk_a_i),
