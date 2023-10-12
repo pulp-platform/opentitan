@@ -140,6 +140,8 @@ module secure_subsystem_synth_wrap
    wire [1:0] flash_testmode_tieoff;
    wire otp_ext_tieoff, flash_testvolt_tieoff;
 
+   logic unused = clk_ref_i & test_enable_i;
+
    assign flash_testmode_tieoff = '0;
    assign otp_ext_tieoff = '0;
    assign flash_testvolt_tieoff = '0;
@@ -184,15 +186,7 @@ module secure_subsystem_synth_wrap
    assign jtag_tdo_o     = jtag_o.tdo;
    assign jtag_tdo_oe_o  = jtag_o.tdo_oe;
 
-   assign test_en_tieoff = test_enable_i;
-
-   rstgen rstgen_i (
-     .clk_i      ( clk_i         ),
-     .rst_ni     ( rst_ni        ),
-     .test_mode_i( test_enable_i ),
-     .rst_no     ( s_rst_n       ),
-     .init_no    ( s_init_n      )
-   );
+   assign s_rst_n = rst_ni;
 
    sync #(
      .STAGES     ( SyncStages ),
