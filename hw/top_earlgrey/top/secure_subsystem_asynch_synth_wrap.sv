@@ -394,7 +394,7 @@ module secure_subsystem_synth_wrap
       .rst_ni         ( s_rst_n               ),
       .clk_ast_rng_i  ( clk_i                 ),
       .rst_ast_rng_ni ( s_rst_n               ),
-      .rng_en_i       ( '1                    ), //es_rng_req.rng_enable ),
+      .rng_en_i       ( es_rng_req.rng_enable ),
       .rng_fips_i     ( es_rng_fips           ),
       .scan_mode_i    ( '0                    ),
       .rng_b_o        ( es_rng_rsp.rng_b      ),
