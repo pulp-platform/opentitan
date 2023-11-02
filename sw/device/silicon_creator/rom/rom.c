@@ -121,7 +121,7 @@ static void rom_bootstrap_message(void) {
 void init_spi_host(dif_spi_host_t *spi_host,
                    uint32_t peripheral_clock_freq_hz) {
   dif_spi_host_config_t config = {
-      .spi_clock = peripheral_clock_freq_hz / 20,// 5MHz, 100MHz boot clock divided by 20
+      .spi_clock = peripheral_clock_freq_hz / 2,// 50MHz, 100MHz boot clock divided by 2
       .peripheral_clock_freq_hz = peripheral_clock_freq_hz,
       .chip_select = {.idle = 2, .trail = 2, .lead = 2},
       .full_cycle = true,
