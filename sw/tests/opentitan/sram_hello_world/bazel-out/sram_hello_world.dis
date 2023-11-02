@@ -7,7 +7,7 @@ start address 0xe0000080
 
 Program Header:
     LOAD off    0x00001000 vaddr 0xe0000000 paddr 0xe0000000 align 2**12
-         filesz 0x000023f0 memsz 0x000023f0 flags rwx
+         filesz 0x00002394 memsz 0x00002394 flags rwx
     LOAD off    0x00000000 vaddr 0xe0008000 paddr 0xe0008000 align 2**12
          filesz 0x00000000 memsz 0x00002000 flags rw-
    STACK off    0x00000000 vaddr 0x00000000 paddr 0x00000000 align 2**4
@@ -16,31 +16,31 @@ Program Header:
 Sections:
 Idx Name                          Size      VMA       LMA       File off  Algn  Flags
   0 .vectors                      00000084  e0000000  e0000000  00001000  2**0  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .text                         000003f6  e0000084  e0000084  00001084  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata                       00000024  e000047c  e000047c  0000147c  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .data                         00000000  e00004a0  e00023f0  000033f0  2**0  CONTENTS, ALLOC, LOAD, DATA
-  4 .static_critical.sec_mmio_ctx 00001f50  e00004a0  e00004a0  000014a0  2**2  CONTENTS, ALLOC, LOAD, DATA
-  5 .bss                          00000000  e00023f0  e00023f0  00000000  2**0  ALLOC
-  6 .logs.fields                  00000000  e00023f0  e00023f0  000033f0  2**0  CONTENTS
+  1 .text                         000003a6  e0000084  e0000084  00001084  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata                       00000018  e000042c  e000042c  0000142c  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .data                         00000000  e0000444  e0002394  00003394  2**0  CONTENTS, ALLOC, LOAD, DATA
+  4 .static_critical.sec_mmio_ctx 00001f50  e0000444  e0000444  00001444  2**2  CONTENTS, ALLOC, LOAD, DATA
+  5 .bss                          00000000  e0002394  e0002394  00000000  2**0  ALLOC
+  6 .logs.fields                  00000000  e0002394  e0002394  00003394  2**0  CONTENTS
   7 .stack                        00002000  e0008000  e0008000  00004000  2**0  ALLOC
-  8 .debug_loc                    0000134e  00000000  00000000  000033f0  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_abbrev                 00000b57  00000000  00000000  0000473e  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_info                   00002d44  00000000  00000000  00005295  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_str                    000033e9  00000000  00000000  00007fd9  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .comment                      00000074  00000000  00000000  0000b3c2  2**0  CONTENTS, READONLY
- 13 .riscv.attributes             00000026  00000000  00000000  0000b436  2**0  CONTENTS, READONLY
- 14 .debug_frame                  00000354  00000000  00000000  0000b45c  2**2  CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line                   00001c4f  00000000  00000000  0000b7b0  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_ranges                 00000308  00000000  00000000  0000d3ff  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_aranges                00000028  00000000  00000000  0000d707  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  8 .debug_loc                    0000134e  00000000  00000000  00003394  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+  9 .debug_abbrev                 00000b46  00000000  00000000  000046e2  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 10 .debug_info                   00002cb2  00000000  00000000  00005228  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 11 .debug_str                    000033e9  00000000  00000000  00007eda  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 12 .comment                      00000074  00000000  00000000  0000b2c3  2**0  CONTENTS, READONLY
+ 13 .riscv.attributes             00000026  00000000  00000000  0000b337  2**0  CONTENTS, READONLY
+ 14 .debug_frame                  00000354  00000000  00000000  0000b360  2**2  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .debug_line                   00001bfb  00000000  00000000  0000b6b4  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 16 .debug_ranges                 00000308  00000000  00000000  0000d2af  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 17 .debug_aranges                00000028  00000000  00000000  0000d5b7  2**0  CONTENTS, READONLY, DEBUGGING, OCTETS
 SYMBOL TABLE:
 e0000000 l    d  .vectors       00000000 .vectors
 e0000084 l    d  .text  00000000 .text
-e000047c l    d  .rodata        00000000 .rodata
-e00004a0 l    d  .data  00000000 .data
-e00004a0 l    d  .static_critical.sec_mmio_ctx  00000000 .static_critical.sec_mmio_ctx
-e00023f0 l    d  .bss   00000000 .bss
-e00023f0 l    d  .logs.fields   00000000 .logs.fields
+e000042c l    d  .rodata        00000000 .rodata
+e0000444 l    d  .data  00000000 .data
+e0000444 l    d  .static_critical.sec_mmio_ctx  00000000 .static_critical.sec_mmio_ctx
+e0002394 l    d  .bss   00000000 .bss
+e0002394 l    d  .logs.fields   00000000 .logs.fields
 e0008000 l    d  .stack 00000000 .stack
 00000000 l    d  .debug_loc     00000000 .debug_loc
 00000000 l    d  .debug_abbrev  00000000 .debug_abbrev
@@ -76,8 +76,8 @@ e000002c l       .vectors       00000000
 e0000030 l       .vectors       00000000 
 e000007c l       .vectors       00000000 
 e0000080 l       .vectors       00000000 
-00000af9 l       .debug_info    00000000 
-0000037a l       .debug_abbrev  00000000 
+00000a67 l       .debug_info    00000000 
+00000369 l       .debug_abbrev  00000000 
 e0000104 l       .text  00000000 
 e0000084 l       .vectors       00000000 
 00000140 l       .debug_ranges  00000000 
@@ -97,36 +97,8 @@ e0000118 l       .text  00000000
 e0000118 l       .text  00000000 
 e0000122 l       .text  00000000 
 e0000122 l       .text  00000000 
-e0000128 l       .text  00000000 
-e0000128 l       .text  00000000 
-e000012e l       .text  00000000 
-e000012e l       .text  00000000 
-e0000134 l       .text  00000000 
-e0000134 l       .text  00000000 
-e000013a l       .text  00000000 
-e000013a l       .text  00000000 
-e0000140 l       .text  00000000 
-e0000140 l       .text  00000000 
-e0000146 l       .text  00000000 
-e0000146 l       .text  00000000 
-e000014c l       .text  00000000 
-e000014c l       .text  00000000 
-e0000152 l       .text  00000000 
-e0000152 l       .text  00000000 
-e0000158 l       .text  00000000 
-e0000158 l       .text  00000000 
-e000015e l       .text  00000000 
-e000015e l       .text  00000000 
-e0000164 l       .text  00000000 
-e0000164 l       .text  00000000 
-e000016a l       .text  00000000 
-e000016a l       .text  00000000 
-e000016e l       .text  00000000 
-e000016e l       .text  00000000 
-e0000172 l       .text  00000000 
-e0000172 l       .text  00000000 
-e000017a l       .text  00000000 
-e000017a l       .text  00000000 
+e000012a l       .text  00000000 
+e000012a l       .text  00000000 
 00000000 l       .debug_loc     00000000 
 00000013 l       .debug_loc     00000000 
 00000000 l       .debug_str     00000000 
@@ -177,58 +149,56 @@ e000017a l       .text  00000000
 0000049a l       .debug_str     00000000 
 000004b9 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
-0000052e l       .debug_str     00000000 
-00000533 l       .debug_str     00000000 
-00000538 l       .debug_str     00000000 
+00000513 l       .debug_str     00000000 
+00000518 l       .debug_str     00000000 
+0000051d l       .debug_str     00000000 
 000004d8 l       .debug_str     00000000 
 000004e6 l       .debug_str     00000000 
 000004f2 l       .debug_str     00000000 
 000004fc l       .debug_str     00000000 
 00000507 l       .debug_str     00000000 
-00000529 l       .debug_str     00000000 
-00000513 l       .debug_str     00000000 
-00000520 l       .debug_str     00000000 
+0000071c l       .debug_str     00000000 
 00003029 l       .debug_str     00000000 
 00000000 l       .debug_frame   00000000 
-e000017a l       .text  00000000 
+e000012a l       .text  00000000 
 00000000 l    df *ABS*  00000000 utils.c
-e000017a l       .text  00000000 
-e000017a l       .text  00000000 
-e000017a l       .text  00000000 
-e000017c l       .text  00000000 
-e000017c l       .text  00000000 
-e000018a l       .text  00000000 
+e000012a l       .text  00000000 
+e000012a l       .text  00000000 
+e000012a l       .text  00000000 
+e000012c l       .text  00000000 
+e000012c l       .text  00000000 
+e000013a l       .text  00000000 
+e0000142 l       .text  00000000 
+e0000144 l       .text  00000000 
+e0000148 l       .text  00000000 
+e000014c l       .text  00000000 
+e0000158 l       .text  00000000 
+e000015a l       .text  00000000 
+e000015c l       .text  00000000 
+e000015c l       .text  00000000 
+e000015e l       .text  00000000 
+e000015e l       .text  00000000 
+e0000160 l       .text  00000000 
+e0000160 l       .text  00000000 
+e0000162 l       .text  00000000 
+e0000162 l       .text  00000000 
+e0000166 l       .text  00000000 
+e0000166 l       .text  00000000 
+e000016e l       .text  00000000 
+e0000170 l       .text  00000000 
+e0000170 l       .text  00000000 
+e0000172 l       .text  00000000 
+e0000172 l       .text  00000000 
+e0000188 l       .text  00000000 
+e000018c l       .text  00000000 
+e000018e l       .text  00000000 
+e0000190 l       .text  00000000 
+e0000190 l       .text  00000000 
 e0000192 l       .text  00000000 
-e0000194 l       .text  00000000 
+e0000196 l       .text  00000000 
 e0000198 l       .text  00000000 
-e000019c l       .text  00000000 
-e00001a8 l       .text  00000000 
-e00001aa l       .text  00000000 
-e00001ac l       .text  00000000 
-e00001ac l       .text  00000000 
-e00001ae l       .text  00000000 
-e00001ae l       .text  00000000 
-e00001b0 l       .text  00000000 
-e00001b0 l       .text  00000000 
-e00001b2 l       .text  00000000 
-e00001b2 l       .text  00000000 
-e00001b6 l       .text  00000000 
-e00001b6 l       .text  00000000 
-e00001be l       .text  00000000 
-e00001c0 l       .text  00000000 
-e00001c0 l       .text  00000000 
-e00001c2 l       .text  00000000 
-e00001c2 l       .text  00000000 
-e00001d8 l       .text  00000000 
-e00001dc l       .text  00000000 
-e00001de l       .text  00000000 
-e00001e0 l       .text  00000000 
-e00001e0 l       .text  00000000 
-e00001e2 l       .text  00000000 
-e00001e6 l       .text  00000000 
-e00001e8 l       .text  00000000 
-e00001f4 l       .text  00000000 
-e00001f4 l       .text  00000000 
+e00001a4 l       .text  00000000 
+e00001a4 l       .text  00000000 
 00000026 l       .debug_loc     00000000 
 0000004c l       .debug_loc     00000000 
 00000074 l       .debug_loc     00000000 
@@ -284,164 +254,164 @@ e00001f4 l       .text  00000000
 00000945 l       .debug_loc     00000000 
 00000962 l       .debug_loc     00000000 
 00000000 l       .debug_str     00000000 
-0000053d l       .debug_str     00000000 
+00000522 l       .debug_str     00000000 
 000000ab l       .debug_str     00000000 
 000000d8 l       .debug_ranges  00000000 
-0000055f l       .debug_str     00000000 
-00000529 l       .debug_str     00000000 
-0000056c l       .debug_str     00000000 
+00000544 l       .debug_str     00000000 
+0000071c l       .debug_str     00000000 
+00000551 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
 00003029 l       .debug_str     00000000 
-000005e1 l       .debug_str     00000000 
+000005c6 l       .debug_str     00000000 
 00000500 l       .debug_str     00000000 
-00000587 l       .debug_str     00000000 
-0000058e l       .debug_str     00000000 
-000005a7 l       .debug_str     00000000 
-00000580 l       .debug_str     00000000 
+0000056c l       .debug_str     00000000 
+00000573 l       .debug_str     00000000 
+0000058c l       .debug_str     00000000 
+00000565 l       .debug_str     00000000 
 000021e9 l       .debug_str     00000000 
-000005a3 l       .debug_str     00000000 
-000005aa l       .debug_str     00000000 
-000005b0 l       .debug_str     00000000 
+00000588 l       .debug_str     00000000 
+0000058f l       .debug_str     00000000 
+00000595 l       .debug_str     00000000 
 00001be4 l       .debug_str     00000000 
-0000059b l       .debug_str     00000000 
-00000591 l       .debug_str     00000000 
-000005b4 l       .debug_str     00000000 
+00000580 l       .debug_str     00000000 
+00000576 l       .debug_str     00000000 
+00000599 l       .debug_str     00000000 
 000000a9 l       .debug_str     00000000 
-00000518 l       .debug_str     00000000 
-000005c2 l       .debug_str     00000000 
-000005cd l       .debug_str     00000000 
-00000644 l       .debug_str     00000000 
-000006bf l       .debug_str     00000000 
-000006c6 l       .debug_str     00000000 
-000006ce l       .debug_str     00000000 
-0000067f l       .debug_str     00000000 
+0000070b l       .debug_str     00000000 
+000005a7 l       .debug_str     00000000 
+000005b2 l       .debug_str     00000000 
+00000629 l       .debug_str     00000000 
+000006a4 l       .debug_str     00000000 
+000006ab l       .debug_str     00000000 
+000006b3 l       .debug_str     00000000 
+00000664 l       .debug_str     00000000 
 00000030 l       .debug_ranges  00000000 
 00000048 l       .debug_ranges  00000000 
 00000060 l       .debug_ranges  00000000 
 00000078 l       .debug_ranges  00000000 
 00000090 l       .debug_ranges  00000000 
 000000a8 l       .debug_ranges  00000000 
-0000064c l       .debug_str     00000000 
+00000631 l       .debug_str     00000000 
 00000f58 l       .debug_str     00000000 
 0000297e l       .debug_str     00000000 
-000006dc l       .debug_str     00000000 
-000006df l       .debug_str     00000000 
-000006d2 l       .debug_str     00000000 
-000006e7 l       .debug_str     00000000 
-000006e9 l       .debug_str     00000000 
+000006c1 l       .debug_str     00000000 
+000006c4 l       .debug_str     00000000 
+000006b7 l       .debug_str     00000000 
+000006cc l       .debug_str     00000000 
+000006ce l       .debug_str     00000000 
 00002eff l       .debug_str     00000000 
 000000c0 l       .debug_ranges  00000000 
-000005f4 l       .debug_str     00000000 
-00000654 l       .debug_str     00000000 
-0000065b l       .debug_str     00000000 
-00000601 l       .debug_str     00000000 
-0000060b l       .debug_str     00000000 
-00000618 l       .debug_str     00000000 
-0000062a l       .debug_str     00000000 
+000005d9 l       .debug_str     00000000 
+00000639 l       .debug_str     00000000 
+00000640 l       .debug_str     00000000 
+000005e6 l       .debug_str     00000000 
+000005f0 l       .debug_str     00000000 
+000005fd l       .debug_str     00000000 
+0000060f l       .debug_str     00000000 
 00000000 l       .debug_ranges  00000000 
 00000018 l       .debug_ranges  00000000 
-0000062f l       .debug_str     00000000 
-00000683 l       .debug_str     00000000 
-0000068b l       .debug_str     00000000 
+00000614 l       .debug_str     00000000 
+00000668 l       .debug_str     00000000 
+00000670 l       .debug_str     00000000 
 000026ee l       .debug_str     00000000 
 000002d8 l       .debug_str     00000000 
 000000f0 l       .debug_str     00000000 
-00000691 l       .debug_str     00000000 
-00000698 l       .debug_str     00000000 
-000006a3 l       .debug_str     00000000 
-000006aa l       .debug_str     00000000 
-000006b1 l       .debug_str     00000000 
-000006b8 l       .debug_str     00000000 
-000005d1 l       .debug_str     00000000 
-00000fbf l       .debug_str     00000000 
-000005d8 l       .debug_str     00000000 
-000005df l       .debug_str     00000000 
-0000052c l       .debug_str     00000000 
 00000676 l       .debug_str     00000000 
-00000667 l       .debug_str     00000000 
+0000067d l       .debug_str     00000000 
+00000688 l       .debug_str     00000000 
+0000068f l       .debug_str     00000000 
+00000696 l       .debug_str     00000000 
+0000069d l       .debug_str     00000000 
+000005b6 l       .debug_str     00000000 
+00000fbf l       .debug_str     00000000 
+000005bd l       .debug_str     00000000 
+000005c4 l       .debug_str     00000000 
+0000071f l       .debug_str     00000000 
+0000065b l       .debug_str     00000000 
+0000064c l       .debug_str     00000000 
 0000002c l       .debug_frame   00000000 
-e00001f4 l       .text  00000000 
+e00001a4 l       .text  00000000 
 00000000 l    df *ABS*  00000000 rom_print.c
-e00001f4 l       .text  00000000 
-e00001f4 l       .text  00000000 
+e00001a4 l       .text  00000000 
+e00001a4 l       .text  00000000 
+e00001a4 l       .text  00000000 
+e00001a6 l       .text  00000000 
+e00001b8 l       .text  00000000 
+e00001ba l       .text  00000000 
+e00001ca l       .text  00000000 
+e00001ca l       .text  00000000 
+e00001dc l       .text  00000000 
+e0000430 l     O .rodata        00000010 rom_printf.kHexTable
+e00001dc l       .text  00000000 
+e00001e8 l       .text  00000000 
+e00001e8 l       .text  00000000 
+e00001ec l       .text  00000000 
+e00001f2 l       .text  00000000 
 e00001f4 l       .text  00000000 
 e00001f6 l       .text  00000000 
+e00001f6 l       .text  00000000 
+e00001f8 l       .text  00000000 
+e00001f8 l       .text  00000000 
+e00001fc l       .text  00000000 
+e0000200 l       .text  00000000 
+e0000200 l       .text  00000000 
+e0000208 l       .text  00000000 
 e0000208 l       .text  00000000 
 e000020a l       .text  00000000 
+e000020e l       .text  00000000 
+e0000212 l       .text  00000000 
+e0000212 l       .text  00000000 
+e0000218 l       .text  00000000 
 e000021a l       .text  00000000 
 e000021a l       .text  00000000 
-e000022c l       .text  00000000 
-e000048b l     O .rodata        00000010 rom_printf.kHexTable
-e000022c l       .text  00000000 
+e000021e l       .text  00000000 
+e000021e l       .text  00000000 
+e0000224 l       .text  00000000 
+e0000224 l       .text  00000000 
+e0000228 l       .text  00000000 
+e000022e l       .text  00000000 
+e000022e l       .text  00000000 
+e0000230 l       .text  00000000 
+e0000234 l       .text  00000000 
 e0000238 l       .text  00000000 
 e0000238 l       .text  00000000 
-e000023c l       .text  00000000 
-e0000242 l       .text  00000000 
+e000023a l       .text  00000000 
+e000023a l       .text  00000000 
+e000023e l       .text  00000000 
 e0000244 l       .text  00000000 
 e0000246 l       .text  00000000 
 e0000246 l       .text  00000000 
 e0000248 l       .text  00000000 
 e0000248 l       .text  00000000 
+e000024a l       .text  00000000 
+e000024a l       .text  00000000 
 e000024c l       .text  00000000 
-e0000250 l       .text  00000000 
-e0000250 l       .text  00000000 
-e0000258 l       .text  00000000 
-e0000258 l       .text  00000000 
-e000025a l       .text  00000000 
-e000025e l       .text  00000000 
-e0000262 l       .text  00000000 
-e0000262 l       .text  00000000 
-e0000268 l       .text  00000000 
-e000026a l       .text  00000000 
-e000026a l       .text  00000000 
-e000026e l       .text  00000000 
-e000026e l       .text  00000000 
-e0000274 l       .text  00000000 
-e0000274 l       .text  00000000 
-e0000278 l       .text  00000000 
-e000027e l       .text  00000000 
-e000027e l       .text  00000000 
-e0000280 l       .text  00000000 
-e0000284 l       .text  00000000 
-e0000288 l       .text  00000000 
-e0000288 l       .text  00000000 
-e000028a l       .text  00000000 
-e000028a l       .text  00000000 
-e000028e l       .text  00000000 
-e0000294 l       .text  00000000 
-e0000296 l       .text  00000000 
-e0000296 l       .text  00000000 
-e0000298 l       .text  00000000 
-e0000298 l       .text  00000000 
-e000029a l       .text  00000000 
-e000029a l       .text  00000000 
-e000029c l       .text  00000000 
-e000029c l       .text  00000000 
-e000029e l       .text  00000000 
-e00002a4 l       .text  00000000 
-e00002a4 l       .text  00000000 
-e00002bc l       .text  00000000 
-e00002bc l       .text  00000000 
+e000024c l       .text  00000000 
+e000024e l       .text  00000000 
+e0000254 l       .text  00000000 
+e0000254 l       .text  00000000 
+e000026c l       .text  00000000 
+e000026c l       .text  00000000 
 00000983 l       .debug_loc     00000000 
 000009cf l       .debug_loc     00000000 
 00000a0f l       .debug_loc     00000000 
 00000a22 l       .debug_loc     00000000 
 00000a35 l       .debug_loc     00000000 
 00000000 l       .debug_str     00000000 
-000006ed l       .debug_str     00000000 
+000006d2 l       .debug_str     00000000 
 000000ab l       .debug_str     00000000 
 000004fc l       .debug_str     00000000 
-00000717 l       .debug_str     00000000 
-00000587 l       .debug_str     00000000 
+000006fc l       .debug_str     00000000 
+0000056c l       .debug_str     00000000 
 00000721 l       .debug_str     00000000 
 00000168 l       .debug_ranges  00000000 
-000005cd l       .debug_str     00000000 
-0000053b l       .debug_str     00000000 
+000005b2 l       .debug_str     00000000 
+00000520 l       .debug_str     00000000 
 00000f58 l       .debug_str     00000000 
 00000180 l       .debug_ranges  00000000 
 00000726 l       .debug_str     00000000 
-00000529 l       .debug_str     00000000 
-0000056c l       .debug_str     00000000 
+0000071c l       .debug_str     00000000 
+00000551 l       .debug_str     00000000 
 000004ce l       .debug_str     00000000 
 000000ba l       .debug_str     00000000 
 000000c3 l       .debug_str     00000000 
@@ -487,53 +457,53 @@ e00002bc l       .text  00000000
 0000049a l       .debug_str     00000000 
 000004b9 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
-00000513 l       .debug_str     00000000 
-00000520 l       .debug_str     00000000 
+00000706 l       .debug_str     00000000 
+00000713 l       .debug_str     00000000 
 00000507 l       .debug_str     00000000 
-0000059b l       .debug_str     00000000 
-00000591 l       .debug_str     00000000 
+00000580 l       .debug_str     00000000 
+00000576 l       .debug_str     00000000 
 00003029 l       .debug_str     00000000 
 0000013c l       .debug_frame   00000000 
-e00002bc l       .text  00000000 
+e000026c l       .text  00000000 
 00000000 l    df *ABS*  00000000 pinmux.c
-e00002bc l       .text  00000000 
-e00002bc l       .text  00000000 
-e00002bc l       .text  00000000 
-e00002be l       .text  00000000 
-e00002be l       .text  00000000 
+e000026c l       .text  00000000 
+e000026c l       .text  00000000 
+e000026c l       .text  00000000 
+e000026e l       .text  00000000 
+e000026e l       .text  00000000 
+e0000270 l       .text  00000000 
+e0000276 l       .text  00000000 
+e0000276 l       .text  00000000 
+e0000278 l       .text  00000000 
+e0000278 l       .text  00000000 
+e000027c l       .text  00000000 
+e000027c l       .text  00000000 
+e0000280 l       .text  00000000 
+e0000280 l       .text  00000000 
+e0000290 l       .text  00000000 
+e0000290 l       .text  00000000 
+e0000292 l       .text  00000000 
+e0000292 l       .text  00000000 
+e0000296 l       .text  00000000 
+e0000296 l       .text  00000000 
+e000029a l       .text  00000000 
+e000029a l       .text  00000000 
+e00002a0 l       .text  00000000 
+e00002a0 l       .text  00000000 
+e00002a6 l       .text  00000000 
+e00002a6 l       .text  00000000 
+e00002b0 l       .text  00000000 
+e00002b0 l       .text  00000000 
+e00002b2 l       .text  00000000 
+e00002b2 l       .text  00000000 
+e00002b8 l       .text  00000000 
+e00002b8 l       .text  00000000 
 e00002c0 l       .text  00000000 
-e00002c6 l       .text  00000000 
-e00002c6 l       .text  00000000 
-e00002c8 l       .text  00000000 
-e00002c8 l       .text  00000000 
-e00002cc l       .text  00000000 
-e00002cc l       .text  00000000 
-e00002d0 l       .text  00000000 
-e00002d0 l       .text  00000000 
-e00002e0 l       .text  00000000 
-e00002e0 l       .text  00000000 
-e00002e2 l       .text  00000000 
-e00002e2 l       .text  00000000 
-e00002e6 l       .text  00000000 
-e00002e6 l       .text  00000000 
-e00002ea l       .text  00000000 
-e00002ea l       .text  00000000 
-e00002f0 l       .text  00000000 
-e00002f0 l       .text  00000000 
-e00002f6 l       .text  00000000 
-e00002f6 l       .text  00000000 
-e0000300 l       .text  00000000 
-e0000300 l       .text  00000000 
-e0000302 l       .text  00000000 
-e0000302 l       .text  00000000 
-e0000308 l       .text  00000000 
-e0000308 l       .text  00000000 
-e0000310 l       .text  00000000 
-e0000310 l       .text  00000000 
-e0000314 l       .text  00000000 
-e0000314 l       .text  00000000 
-e000031a l       .text  00000000 
-e000031a l       .text  00000000 
+e00002c0 l       .text  00000000 
+e00002c4 l       .text  00000000 
+e00002c4 l       .text  00000000 
+e00002ca l       .text  00000000 
+e00002ca l       .text  00000000 
 00000a66 l       .debug_loc     00000000 
 00000a84 l       .debug_loc     00000000 
 00000a97 l       .debug_loc     00000000 
@@ -549,7 +519,7 @@ e000031a l       .text  00000000
 00001c00 l       .debug_str     00000000 
 0000076a l       .debug_str     00000000 
 000016c2 l       .debug_str     00000000 
-000005b0 l       .debug_str     00000000 
+00000595 l       .debug_str     00000000 
 000010f9 l       .debug_str     00000000 
 000010d7 l       .debug_str     00000000 
 00000771 l       .debug_str     00000000 
@@ -863,7 +833,7 @@ e000031a l       .text  00000000
 00002e29 l       .debug_str     00000000 
 00003207 l       .debug_str     00000000 
 00002e2e l       .debug_str     00000000 
-0000068d l       .debug_str     00000000 
+00000672 l       .debug_str     00000000 
 00002e3f l       .debug_str     00000000 
 00002e49 l       .debug_str     00000000 
 00002e4f l       .debug_str     00000000 
@@ -872,59 +842,59 @@ e000031a l       .text  00000000
 00002e6b l       .debug_str     00000000 
 00002e60 l       .debug_str     00000000 
 00000178 l       .debug_frame   00000000 
-e000031a l       .text  00000000 
+e00002ca l       .text  00000000 
 00000000 l    df *ABS*  00000000 uart.c
-e000031a l       .text  00000000 
-e000031a l       .text  00000000 
-e000031a l       .text  00000000 
-e000031e l       .text  00000000 
-e000031e l       .text  00000000 
-e0000324 l       .text  00000000 
-e0000324 l       .text  00000000 
-e0000326 l       .text  00000000 
-e0000326 l       .text  00000000 
-e000032a l       .text  00000000 
-e000032a l       .text  00000000 
-e000032e l       .text  00000000 
-e000032e l       .text  00000000 
-e0000334 l       .text  00000000 
-e0000334 l       .text  00000000 
-e0000336 l       .text  00000000 
-e0000336 l       .text  00000000 
-e0000338 l       .text  00000000 
-e0000338 l       .text  00000000 
-e000033c l       .text  00000000 
-e000033c l       .text  00000000 
-e000033e l       .text  00000000 
-e000033e l       .text  00000000 
-e0000342 l       .text  00000000 
-e0000342 l       .text  00000000 
-e0000346 l       .text  00000000 
-e0000346 l       .text  00000000 
-e0000348 l       .text  00000000 
-e0000348 l       .text  00000000 
-e0000348 l       .text  00000000 
-e0000348 l       .text  00000000 
-e0000348 l       .text  00000000 
-e000034c l       .text  00000000 
-e000034c l       .text  00000000 
-e000034e l       .text  00000000 
-e000034e l       .text  00000000 
-e0000350 l       .text  00000000 
-e0000350 l       .text  00000000 
-e0000352 l       .text  00000000 
-e0000352 l       .text  00000000 
-e000035a l       .text  00000000 
-e000035a l       .text  00000000 
-e000035c l       .text  00000000 
-e000035c l       .text  00000000 
-e000035e l       .text  00000000 
-e000035e l       .text  00000000 
-e0000360 l       .text  00000000 
-e0000360 l       .text  00000000 
-e0000362 l       .text  00000000 
-e0000364 l       .text  00000000 
-e0000364 l       .text  00000000 
+e00002ca l       .text  00000000 
+e00002ca l       .text  00000000 
+e00002ca l       .text  00000000 
+e00002ce l       .text  00000000 
+e00002ce l       .text  00000000 
+e00002d4 l       .text  00000000 
+e00002d4 l       .text  00000000 
+e00002d6 l       .text  00000000 
+e00002d6 l       .text  00000000 
+e00002da l       .text  00000000 
+e00002da l       .text  00000000 
+e00002de l       .text  00000000 
+e00002de l       .text  00000000 
+e00002e4 l       .text  00000000 
+e00002e4 l       .text  00000000 
+e00002e6 l       .text  00000000 
+e00002e6 l       .text  00000000 
+e00002e8 l       .text  00000000 
+e00002e8 l       .text  00000000 
+e00002ec l       .text  00000000 
+e00002ec l       .text  00000000 
+e00002ee l       .text  00000000 
+e00002ee l       .text  00000000 
+e00002f2 l       .text  00000000 
+e00002f2 l       .text  00000000 
+e00002f6 l       .text  00000000 
+e00002f6 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e00002fc l       .text  00000000 
+e00002fc l       .text  00000000 
+e00002fe l       .text  00000000 
+e00002fe l       .text  00000000 
+e0000300 l       .text  00000000 
+e0000300 l       .text  00000000 
+e0000302 l       .text  00000000 
+e0000302 l       .text  00000000 
+e000030a l       .text  00000000 
+e000030a l       .text  00000000 
+e000030c l       .text  00000000 
+e000030c l       .text  00000000 
+e000030e l       .text  00000000 
+e000030e l       .text  00000000 
+e0000310 l       .text  00000000 
+e0000310 l       .text  00000000 
+e0000312 l       .text  00000000 
+e0000314 l       .text  00000000 
+e0000314 l       .text  00000000 
 00000b1b l       .debug_loc     00000000 
 00000b36 l       .debug_loc     00000000 
 00000b52 l       .debug_loc     00000000 
@@ -998,13 +968,13 @@ e0000364 l       .text  00000000
 000004b9 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
 00002ea5 l       .debug_str     00000000 
-00000520 l       .debug_str     00000000 
+00000713 l       .debug_str     00000000 
 00002e01 l       .debug_str     00000000 
 00002e18 l       .debug_str     00000000 
 00002e29 l       .debug_str     00000000 
 00003207 l       .debug_str     00000000 
 00002ead l       .debug_str     00000000 
-0000068d l       .debug_str     00000000 
+00000672 l       .debug_str     00000000 
 00002eb8 l       .debug_str     00000000 
 00002ecf l       .debug_str     00000000 
 00002ed2 l       .debug_str     00000000 
@@ -1022,30 +992,30 @@ e0000364 l       .text  00000000
 00002f4d l       .debug_str     00000000 
 00002f5a l       .debug_str     00000000 
 00002f6e l       .debug_str     00000000 
-00000513 l       .debug_str     00000000 
+00000706 l       .debug_str     00000000 
 00002f7b l       .debug_str     00000000 
 00002f80 l       .debug_str     00000000 
 00002f92 l       .debug_str     00000000 
-0000067f l       .debug_str     00000000 
+00000664 l       .debug_str     00000000 
 00002f97 l       .debug_str     00000000 
 00002f8b l       .debug_str     00000000 
 00002f9d l       .debug_str     00000000 
 00002fb9 l       .debug_str     00000000 
 00000507 l       .debug_str     00000000 
-00000529 l       .debug_str     00000000 
+0000071c l       .debug_str     00000000 
 000001a4 l       .debug_frame   00000000 
-e0000348 l       .text  00000000 
-e0000364 l       .text  00000000 
+e00002f8 l       .text  00000000 
+e0000314 l       .text  00000000 
 00000000 l    df *ABS*  00000000 otp.c
-e0000364 l       .text  00000000 
-e0000364 l       .text  00000000 
-e0000364 l       .text  00000000 
-e0000368 l       .text  00000000 
-e000036a l       .text  00000000 
-e000036a l       .text  00000000 
-e000036c l       .text  00000000 
-e000036c l       .text  00000000 
-e000036c l       .text  00000000 
+e0000314 l       .text  00000000 
+e0000314 l       .text  00000000 
+e0000314 l       .text  00000000 
+e0000318 l       .text  00000000 
+e000031a l       .text  00000000 
+e000031a l       .text  00000000 
+e000031c l       .text  00000000 
+e000031c l       .text  00000000 
+e000031c l       .text  00000000 
 00000de9 l       .debug_loc     00000000 
 00000e04 l       .debug_loc     00000000 
 00000e1f l       .debug_loc     00000000 
@@ -1078,125 +1048,125 @@ e000036c l       .text  00000000
 00003016 l       .debug_str     00000000 
 00002f8b l       .debug_str     00000000 
 000001f8 l       .debug_frame   00000000 
-e000036c l       .text  00000000 
+e000031c l       .text  00000000 
 00000000 l    df *ABS*  00000000 sec_mmio.c
-e000036c l       .text  00000000 
-e000036c l       .text  00000000 
-e000036c l       .text  00000000 
-e000036c l       .text  00000000 
-e000036e l       .text  00000000 
-e000036e l       .text  00000000 
-e0000370 l       .text  00000000 
-e0000370 l       .text  00000000 
-e0000372 l       .text  00000000 
-e0000372 l       .text  00000000 
+e000031c l       .text  00000000 
+e000031c l       .text  00000000 
+e000031c l       .text  00000000 
+e000031c l       .text  00000000 
+e000031e l       .text  00000000 
+e000031e l       .text  00000000 
+e0000320 l       .text  00000000 
+e0000320 l       .text  00000000 
+e0000322 l       .text  00000000 
+e0000322 l       .text  00000000 
+e0000324 l       .text  00000000 
+e0000324 l       .text  00000000 
+e0000324 l       .text  00000000 
+e0000324 l       .text  00000000 
+e000032c l       .text  00000000 
+e000032e l       .text  00000000 
+e000032e l       .text  00000000 
+e000032e l       .text  00000000 
+e000032e l       .text  00000000 
+e0000330 l       .text  00000000 
+e0000330 l       .text  00000000 
+e0000330 l       .text  00000000 
+e0000330 l       .text  00000000 
+e0000332 l       .text  00000000 
+e0000332 l       .text  00000000 
+e0000332 l       .text  00000000 
+e0000332 l       .text  00000000 
+e000033a l       .text  00000000 
+e000033a l       .text  00000000 
+e0000342 l       .text  00000000 
+e0000344 l       .text  00000000 
+e0000344 l       .text  00000000 
+e0000346 l       .text  00000000 
+e0000348 l       .text  00000000 
+e000034a l       .text  00000000 
+e000034a l       .text  00000000 
+e0000352 l       .text  00000000 
+e0000354 l       .text  00000000 
+e0000354 l       .text  00000000 
+e0000356 l       .text  00000000 
+e0000356 l       .text  00000000 
+e0000358 l       .text  00000000 
+e000035a l       .text  00000000 
+e0000368 l       .text  00000000 
+e0000368 l       .text  00000000 
 e0000374 l       .text  00000000 
-e0000374 l       .text  00000000 
-e0000374 l       .text  00000000 
-e0000374 l       .text  00000000 
-e000037c l       .text  00000000 
-e000037e l       .text  00000000 
-e000037e l       .text  00000000 
-e000037e l       .text  00000000 
-e000037e l       .text  00000000 
-e0000380 l       .text  00000000 
-e0000380 l       .text  00000000 
-e0000380 l       .text  00000000 
-e0000380 l       .text  00000000 
+e0000376 l       .text  00000000 
+e0000376 l       .text  00000000 
+e0000376 l       .text  00000000 
+e0000376 l       .text  00000000 
+e0000376 l       .text  00000000 
+e0000378 l       .text  00000000 
 e0000382 l       .text  00000000 
-e0000382 l       .text  00000000 
-e0000382 l       .text  00000000 
-e0000382 l       .text  00000000 
-e000038a l       .text  00000000 
-e000038a l       .text  00000000 
-e0000392 l       .text  00000000 
+e0000384 l       .text  00000000 
+e0000384 l       .text  00000000 
+e0000388 l       .text  00000000 
+e0000388 l       .text  00000000 
+e0000390 l       .text  00000000 
+e0000390 l       .text  00000000 
 e0000394 l       .text  00000000 
 e0000394 l       .text  00000000 
-e0000396 l       .text  00000000 
-e0000398 l       .text  00000000 
+e0000394 l       .text  00000000 
+e0000394 l       .text  00000000 
+e00003bc l     F .text  0000006e upsert_register
 e000039a l       .text  00000000 
 e000039a l       .text  00000000 
-e00003a2 l       .text  00000000 
-e00003a4 l       .text  00000000 
-e00003a4 l       .text  00000000 
-e00003a6 l       .text  00000000 
-e00003a6 l       .text  00000000 
-e00003a8 l       .text  00000000 
-e00003aa l       .text  00000000 
-e00003b8 l       .text  00000000 
-e00003b8 l       .text  00000000 
-e00003c4 l       .text  00000000 
-e00003c6 l       .text  00000000 
-e00003c6 l       .text  00000000 
-e00003c6 l       .text  00000000 
-e00003c6 l       .text  00000000 
-e00003c6 l       .text  00000000 
+e000039c l       .text  00000000 
+e000039c l       .text  00000000 
+e00003ac l       .text  00000000 
+e00003b2 l       .text  00000000 
+e00003b4 l       .text  00000000 
+e00003b6 l       .text  00000000 
+e00003bc l       .text  00000000 
+e00003bc l       .text  00000000 
+e00003bc l       .text  00000000 
+e00003bc l       .text  00000000 
+e00003bc l       .text  00000000 
+e00003bc l       .text  00000000 
 e00003c8 l       .text  00000000 
-e00003d2 l       .text  00000000 
+e00003c8 l       .text  00000000 
+e00003ca l       .text  00000000 
+e00003ca l       .text  00000000 
+e00003cc l       .text  00000000 
+e00003cc l       .text  00000000 
+e00003d0 l       .text  00000000 
+e00003d0 l       .text  00000000 
 e00003d4 l       .text  00000000 
 e00003d4 l       .text  00000000 
-e00003d8 l       .text  00000000 
-e00003d8 l       .text  00000000 
+e00003dc l       .text  00000000 
 e00003e0 l       .text  00000000 
-e00003e0 l       .text  00000000 
+e00003e2 l       .text  00000000 
+e00003e2 l       .text  00000000 
 e00003e4 l       .text  00000000 
 e00003e4 l       .text  00000000 
-e00003e4 l       .text  00000000 
-e00003e4 l       .text  00000000 
-e000040c l     F .text  0000006e upsert_register
-e00003ea l       .text  00000000 
-e00003ea l       .text  00000000 
 e00003ec l       .text  00000000 
 e00003ec l       .text  00000000 
-e00003fc l       .text  00000000 
-e0000402 l       .text  00000000 
-e0000404 l       .text  00000000 
-e0000406 l       .text  00000000 
+e00003ee l       .text  00000000 
+e00003ee l       .text  00000000 
+e00003f0 l       .text  00000000 
+e00003f0 l       .text  00000000 
+e00003f4 l       .text  00000000 
+e00003f4 l       .text  00000000 
+e00003f6 l       .text  00000000 
+e00003f6 l       .text  00000000 
+e00003fa l       .text  00000000 
+e00003fa l       .text  00000000 
+e00003fe l       .text  00000000 
+e00003fe l       .text  00000000 
+e0000408 l       .text  00000000 
 e000040c l       .text  00000000 
-e000040c l       .text  00000000 
-e000040c l       .text  00000000 
-e000040c l       .text  00000000 
-e000040c l       .text  00000000 
-e000040c l       .text  00000000 
+e000040e l       .text  00000000 
+e0000412 l       .text  00000000 
 e0000418 l       .text  00000000 
-e0000418 l       .text  00000000 
-e000041a l       .text  00000000 
-e000041a l       .text  00000000 
 e000041c l       .text  00000000 
-e000041c l       .text  00000000 
-e0000420 l       .text  00000000 
-e0000420 l       .text  00000000 
-e0000424 l       .text  00000000 
-e0000424 l       .text  00000000 
-e000042c l       .text  00000000 
-e0000430 l       .text  00000000 
-e0000432 l       .text  00000000 
-e0000432 l       .text  00000000 
-e0000434 l       .text  00000000 
-e0000434 l       .text  00000000 
-e000043c l       .text  00000000 
-e000043c l       .text  00000000 
-e000043e l       .text  00000000 
-e000043e l       .text  00000000 
-e0000440 l       .text  00000000 
-e0000440 l       .text  00000000 
-e0000444 l       .text  00000000 
-e0000444 l       .text  00000000 
-e0000446 l       .text  00000000 
-e0000446 l       .text  00000000 
-e000044a l       .text  00000000 
-e000044a l       .text  00000000 
-e000044e l       .text  00000000 
-e000044e l       .text  00000000 
-e0000458 l       .text  00000000 
-e000045c l       .text  00000000 
-e000045e l       .text  00000000 
-e0000462 l       .text  00000000 
-e0000468 l       .text  00000000 
-e000046c l       .text  00000000 
-e0000478 l       .text  00000000 
-e000047a l       .text  00000000 
-e000047a l       .text  00000000 
+e0000428 l       .text  00000000 
+e000042a l       .text  00000000 
+e000042a l       .text  00000000 
 00000f1a l       .debug_loc     00000000 
 00000f41 l       .debug_loc     00000000 
 00000f68 l       .debug_loc     00000000 
@@ -1240,7 +1210,7 @@ e000047a l       .text  00000000
 000030e3 l       .debug_str     00000000 
 00002e01 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
-0000056c l       .debug_str     00000000 
+00000551 l       .debug_str     00000000 
 00003126 l       .debug_str     00000000 
 00003136 l       .debug_str     00000000 
 00003146 l       .debug_str     00000000 
@@ -1258,7 +1228,7 @@ e000047a l       .text  00000000
 00002e0a l       .debug_str     00000000 
 00002e14 l       .debug_str     00000000 
 000004d8 l       .debug_str     00000000 
-0000069d l       .debug_str     00000000 
+00000682 l       .debug_str     00000000 
 000001e8 l       .debug_ranges  00000000 
 00000200 l       .debug_ranges  00000000 
 00000218 l       .debug_ranges  00000000 
@@ -1281,9 +1251,9 @@ e000047a l       .text  00000000
 00003222 l       .debug_str     00000000 
 00002f8b l       .debug_str     00000000 
 00000264 l       .debug_frame   00000000 
-e00003c6 l       .text  00000000 
-e000040c l       .text  00000000 
-e000047a l       .text  00000000 
+e0000376 l       .text  00000000 
+e00003bc l       .text  00000000 
+e000042a l       .text  00000000 
 00000000 l    df *ABS*  00000000 device_sim_verilator.c
 0000131f l       .debug_loc     00000000 
 00000000 l       .debug_str     00000000 
@@ -1333,31 +1303,31 @@ e000047a l       .text  00000000
 000030e3 l       .debug_str     00000000 
 00002e01 l       .debug_str     00000000 
 00003020 l       .debug_str     00000000 
-0000056c l       .debug_str     00000000 
-e00003c6 g     F .text  00000046 sec_mmio_read32
-e000017a g     F .text  0000007a external_irq_handler
+00000551 l       .debug_str     00000000 
+e0000376 g     F .text  00000046 sec_mmio_read32
+e000012a g     F .text  0000007a external_irq_handler
 00008000 g       *ABS*  00000000 _stack_len
-e00023f0 g       .bss   00000000 _bss_start
+e0002394 g       .bss   00000000 _bss_start
 e000a000 g       .stack 00000000 stack
 e0000080 g       *ABS*  00000000 _entry_point
-e00023f0 g       .bss   00000000 _bss_end
-e0000364 g     F .text  00000008 otp_read32
-e000031a g     F .text  0000002e uart_init
-e000036c g     F .text  0000005a sec_mmio_init
+e0002394 g       .bss   00000000 _bss_end
+e0000314 g     F .text  00000008 otp_read32
+e00002ca g     F .text  0000002e uart_init
+e000031c g     F .text  0000005a sec_mmio_init
 e00000cc g       .text  00000000 _start
-e00004a0 g     O .static_critical.sec_mmio_ctx  00001f50 sec_mmio_ctx
-e0000104 g     F .text  00000076 main
-e000049c g     O .rodata        00000004 kUartNCOValue
+e0000444 g     O .static_critical.sec_mmio_ctx  00001f50 sec_mmio_ctx
+e0000104 g     F .text  00000026 main
+e0000440 g     O .rodata        00000004 kUartNCOValue
 e0000084 g       .vectors       00000000 _vectors_end
 e0010000 g       .vectors       00000000 _stack_start
 00002000 g       *ABS*  00000000 _min_stack
 e0010010 g       *ABS*  00000000 fromhost
 00020008 g       *ABS*  00000000 tohost
-e00001f4 g     F .text  000000c8 rom_printf
+e00001a4 g     F .text  000000c8 rom_printf
 e000a000 g       .stack 00000000 _stack
 e0000000 g       .vectors       00000000 _vectors_start
-e00002bc g     F .text  0000005e pinmux_init
-e0000348 g     F .text  0000001c uart_putchar
+e000026c g     F .text  0000005e pinmux_init
+e00002f8 g     F .text  0000001c uart_putchar
 
 
 
@@ -1375,7 +1345,7 @@ e000001c:       0680006f                j       e0000084 <_vectors_end>
 e0000020:       0640006f                j       e0000084 <_vectors_end>
 e0000024:       0600006f                j       e0000084 <_vectors_end>
 e0000028:       05c0006f                j       e0000084 <_vectors_end>
-e000002c:       14e0006f                j       e000017a <external_irq_handler>
+e000002c:       0fe0006f                j       e000012a <external_irq_handler>
 e0000030:       0540006f                j       e0000084 <_vectors_end>
 e0000034:       0500006f                j       e0000084 <_vectors_end>
 e0000038:       04c0006f                j       e0000084 <_vectors_end>
@@ -1442,9 +1412,9 @@ e00000c8:       f3c10113                addi    sp,sp,-196 # e0010000 <_stack_st
 
 e00000cc <_start>:
 e00000cc:       00002d17                auipc   s10,0x2
-e00000d0:       324d0d13                addi    s10,s10,804 # e00023f0 <_bss_end>
+e00000d0:       2c8d0d13                addi    s10,s10,712 # e0002394 <_bss_end>
 e00000d4:       00002d97                auipc   s11,0x2
-e00000d8:       31cd8d93                addi    s11,s11,796 # e00023f0 <_bss_end>
+e00000d8:       2c0d8d93                addi    s11,s11,704 # e0002394 <_bss_end>
 e00000dc:       01bd5763                bge     s10,s11,e00000ea <main_entry>
 
 e00000e0 <zero_loop>:
@@ -1482,88 +1452,30 @@ e0000104:       1141                    addi    sp,sp,-16
 
   sec_mmio_init();
 e0000106:       c606                    sw      ra,12(sp)
-e0000108:       2495                    jal     e000036c <sec_mmio_init>
+e0000108:       2c11                    jal     e000031c <sec_mmio_init>
 /proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:62
   pinmux_init();
-e000010a:       2a4d                    jal     e00002bc <pinmux_init>
+e000010a:       228d                    jal     e000026c <pinmux_init>
 /proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:63
   uart_init(kUartNCOValue);
 e000010c:       00000517                auipc   a0,0x0
-e0000110:       39050513                addi    a0,a0,912 # e000049c <kUartNCOValue>
+e0000110:       33450513                addi    a0,a0,820 # e0000440 <kUartNCOValue>
 e0000114:       4108                    lw      a0,0(a0)
-e0000116:       2411                    jal     e000031a <uart_init>
+e0000116:       2a55                    jal     e00002ca <uart_init>
 /proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:65
   
-  rom_printf("Hello World!\r\n");
+  rom_printf("HW\n");
 e0000118:       00000517                auipc   a0,0x0
-e000011c:       36450513                addi    a0,a0,868 # e000047c <upsert_register+0x70>
-e0000120:       28d1                    jal     e00001f4 <rom_printf>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:67
-  
-  uart_putchar('h');
-e0000122:       06800513                li      a0,104
-e0000126:       240d                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:68
-  uart_putchar('e');
-e0000128:       06500513                li      a0,101
-e000012c:       2c31                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:69
-  uart_putchar('l');
-e000012e:       06c00513                li      a0,108
-e0000132:       2c19                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:70
-  uart_putchar('l');
-e0000134:       06c00513                li      a0,108
-e0000138:       2c01                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:71
-  uart_putchar('o');
-e000013a:       06f00513                li      a0,111
-e000013e:       2429                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:72
-  uart_putchar(' ');
-e0000140:       02000513                li      a0,32
-e0000144:       2411                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:73
-  uart_putchar('w');
-e0000146:       07700513                li      a0,119
-e000014a:       2afd                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:74
-  uart_putchar('o');
-e000014c:       06f00513                li      a0,111
-e0000150:       2ae5                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:75
-  uart_putchar('r');
-e0000152:       07200513                li      a0,114
-e0000156:       2acd                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:76
-  uart_putchar('l');
-e0000158:       06c00513                li      a0,108
-e000015c:       22f5                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:77
-  uart_putchar('d');
-e000015e:       06400513                li      a0,100
-e0000162:       22dd                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:78
-  uart_putchar('!');
-e0000164:       02100513                li      a0,33
-e0000168:       22c5                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:79
-  uart_putchar('\r');
-e000016a:       4535                    li      a0,13
-e000016c:       2af1                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:80
-  uart_putchar('\n');
-e000016e:       4529                    li      a0,10
-e0000170:       2ae1                    jal     e0000348 <uart_putchar>
-/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:82
-
+e000011c:       31450513                addi    a0,a0,788 # e000042c <upsert_register+0x70>
+e0000120:       2051                    jal     e00001a4 <rom_printf>
+/proc/self/cwd/sw/tests/opentitan/sram_hello_world/sram_hello_world.c:66
   return 0;
-e0000172:       4501                    li      a0,0
-e0000174:       40b2                    lw      ra,12(sp)
-e0000176:       0141                    addi    sp,sp,16
-e0000178:       8082                    ret
+e0000122:       4501                    li      a0,0
+e0000124:       40b2                    lw      ra,12(sp)
+e0000126:       0141                    addi    sp,sp,16
+e0000128:       8082                    ret
 
-e000017a <external_irq_handler>:
+e000012a <external_irq_handler>:
 external_irq_handler():
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:338
   putchar('\n');
@@ -1572,16 +1484,16 @@ external_irq_handler():
 }
 
 void external_irq_handler(void)  {
-e000017a:           1101                        addi    sp,sp,-32
-e000017c:           ce2a                        sw      a0,28(sp)
-e000017e:           cc2e                        sw      a1,24(sp)
-e0000180:           ca32                        sw      a2,20(sp)
-e0000182:           c836                        sw      a3,16(sp)
-e0000184:           c63a                        sw      a4,12(sp)
-e0000186:           c43e                        sw      a5,8(sp)
-e0000188:           c242                        sw      a6,4(sp)
-e000018a:           c8200537            lui     a0,0xc8200
-e000018e:           09f00593            li      a1,159
+e000012a:           1101                        addi    sp,sp,-32
+e000012c:           ce2a                        sw      a0,28(sp)
+e000012e:           cc2e                        sw      a1,24(sp)
+e0000130:           ca32                        sw      a2,20(sp)
+e0000132:           c836                        sw      a3,16(sp)
+e0000134:           c63a                        sw      a4,12(sp)
+e0000136:           c43e                        sw      a5,8(sp)
+e0000138:           c242                        sw      a6,4(sp)
+e000013a:           c8200537            lui     a0,0xc8200
+e000013e:           09f00593            li      a1,159
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:355
   p_reg5 = (int *) 0x1040401C;
 
@@ -1589,74 +1501,74 @@ e000018e:           09f00593            li      a1,159
   
   plic_check = (int *) 0xC8200004;
   while(*plic_check != mbox_id);   //check wether the intr is the correct one
-e0000192:       /-> 4150                        lw      a2,4(a0)
-e0000194:       \-- feb61fe3            bne     a2,a1,e0000192 <external_irq_handler+0x18>
-e0000198:           10404537            lui     a0,0x10404
+e0000142:       /-> 4150                        lw      a2,4(a0)
+e0000144:       \-- feb61fe3            bne     a2,a1,e0000142 <external_irq_handler+0x18>
+e0000148:           10404537            lui     a0,0x10404
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:358
   
   p_reg = (int *) 0x10404020;
  *p_reg = 0x00000000;        //clearing the pending interrupt signal
-e000019c:           02052023            sw      zero,32(a0) # 10404020 <tohost+0x103e4018>
-e00001a0:           c82005b7            lui     a1,0xc8200
-e00001a4:           09f00613            li      a2,159
+e000014c:           02052023            sw      zero,32(a0) # 10404020 <tohost+0x103e4018>
+e0000150:           c82005b7            lui     a1,0xc8200
+e0000154:           09f00613            li      a2,159
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:360
  
  *plic_check = mbox_id;      //completing interrupt
-e00001a8:           c1d0                        sw      a2,4(a1)
+e0000158:           c1d0                        sw      a2,4(a1)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:362
  
   a = *p_reg1;
-e00001aa:           450c                        lw      a1,8(a0)
+e000015a:           450c                        lw      a1,8(a0)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:363
   b = *p_reg2;
-e00001ac:           4910                        lw      a2,16(a0)
+e000015c:           4910                        lw      a2,16(a0)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:364
   c = *p_reg3;
-e00001ae:           4954                        lw      a3,20(a0)
+e000015e:           4954                        lw      a3,20(a0)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:365
   d = *p_reg4;
-e00001b0:           4d18                        lw      a4,24(a0)
+e0000160:           4d18                        lw      a4,24(a0)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:366
   e = *p_reg5;
-e00001b2:           01c52803            lw      a6,28(a0)
-e00001b6:           baadc7b7            lui     a5,0xbaadc
-e00001ba:           0de78793            addi    a5,a5,222 # baadc0de <fromhost+0xdaacc0ce>
+e0000162:           01c52803            lw      a6,28(a0)
+e0000166:           baadc7b7            lui     a5,0xbaadc
+e000016a:           0de78793            addi    a5,a5,222 # baadc0de <fromhost+0xdaacc0ce>
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:369
   
   
   if( a == 0xBAADC0DE &&  b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
-e00001be:           8dbd                        xor     a1,a1,a5
-e00001c0:           8e3d                        xor     a2,a2,a5
-e00001c2:           8dd1                        or      a1,a1,a2
-e00001c4:           00f6c633            xor     a2,a3,a5
-e00001c8:           8dd1                        or      a1,a1,a2
-e00001ca:           00f74633            xor     a2,a4,a5
-e00001ce:           8dd1                        or      a1,a1,a2
-e00001d0:           00f84633            xor     a2,a6,a5
-e00001d4:           8dd1                        or      a1,a1,a2
-e00001d6:       /-- e589                        bnez    a1,e00001e0 <external_irq_handler+0x66>
-e00001d8:       |   02450513            addi    a0,a0,36
-e00001dc:       |   4585                        li      a1,1
+e000016e:           8dbd                        xor     a1,a1,a5
+e0000170:           8e3d                        xor     a2,a2,a5
+e0000172:           8dd1                        or      a1,a1,a2
+e0000174:           00f6c633            xor     a2,a3,a5
+e0000178:           8dd1                        or      a1,a1,a2
+e000017a:           00f74633            xor     a2,a4,a5
+e000017e:           8dd1                        or      a1,a1,a2
+e0000180:           00f84633            xor     a2,a6,a5
+e0000184:           8dd1                        or      a1,a1,a2
+e0000186:       /-- e589                        bnez    a1,e0000190 <external_irq_handler+0x66>
+e0000188:       |   02450513            addi    a0,a0,36
+e000018c:       |   4585                        li      a1,1
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:371
       p_reg = (int *) 0x10404024; // completion interrupt to ariane agent
      *p_reg = 0x00000001;
-e00001de:       |   c10c                        sw      a1,0(a0)
+e000018e:       |   c10c                        sw      a1,0(a0)
 /proc/self/cwd/sw/tests/opentitan/common/utils.c:375
   }
   
   return;
 }
-e00001e0:       \-> 4812                        lw      a6,4(sp)
-e00001e2:           47a2                        lw      a5,8(sp)
-e00001e4:           4732                        lw      a4,12(sp)
-e00001e6:           46c2                        lw      a3,16(sp)
-e00001e8:           4652                        lw      a2,20(sp)
-e00001ea:           45e2                        lw      a1,24(sp)
-e00001ec:           4572                        lw      a0,28(sp)
-e00001ee:           6105                        addi    sp,sp,32
-e00001f0:           30200073            mret
+e0000190:       \-> 4812                        lw      a6,4(sp)
+e0000192:           47a2                        lw      a5,8(sp)
+e0000194:           4732                        lw      a4,12(sp)
+e0000196:           46c2                        lw      a3,16(sp)
+e0000198:           4652                        lw      a2,20(sp)
+e000019a:           45e2                        lw      a1,24(sp)
+e000019c:           4572                        lw      a0,28(sp)
+e000019e:           6105                        addi    sp,sp,32
+e00001a0:           30200073            mret
 
-e00001f4 <rom_printf>:
+e00001a4 <rom_printf>:
 rom_printf():
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:13
 #include <stdarg.h>
@@ -1665,84 +1577,84 @@ rom_printf():
 #include "sw/device/silicon_creator/lib/drivers/uart.h"
 
 rom_error_t rom_printf(const char *format, ...) {
-e00001f4:                          715d                 addi    sp,sp,-80
-e00001f6:                          d606                 sw      ra,44(sp)
-e00001f8:                          d422                 sw      s0,40(sp)
-e00001fa:                          d226                 sw      s1,36(sp)
-e00001fc:                          d04a                 sw      s2,32(sp)
-e00001fe:                          ce4e                 sw      s3,28(sp)
-e0000200:                          cc52                 sw      s4,24(sp)
-e0000202:                          ca56                 sw      s5,20(sp)
-e0000204:                          c85a                 sw      s6,16(sp)
-e0000206:                          c65e                 sw      s7,12(sp)
-e0000208:                          84aa                 mv      s1,a0
-e000020a:                          c6c6                 sw      a7,76(sp)
-e000020c:                          c4c2                 sw      a6,72(sp)
-e000020e:                          c2be                 sw      a5,68(sp)
-e0000210:                          c0ba                 sw      a4,64(sp)
-e0000212:                          de36                 sw      a3,60(sp)
-e0000214:                          dc32                 sw      a2,56(sp)
-e0000216:                          da2e                 sw      a1,52(sp)
-e0000218:                          1848                 addi    a0,sp,52
+e00001a4:                          715d                 addi    sp,sp,-80
+e00001a6:                          d606                 sw      ra,44(sp)
+e00001a8:                          d422                 sw      s0,40(sp)
+e00001aa:                          d226                 sw      s1,36(sp)
+e00001ac:                          d04a                 sw      s2,32(sp)
+e00001ae:                          ce4e                 sw      s3,28(sp)
+e00001b0:                          cc52                 sw      s4,24(sp)
+e00001b2:                          ca56                 sw      s5,20(sp)
+e00001b4:                          c85a                 sw      s6,16(sp)
+e00001b6:                          c65e                 sw      s7,12(sp)
+e00001b8:                          84aa                 mv      s1,a0
+e00001ba:                          c6c6                 sw      a7,76(sp)
+e00001bc:                          c4c2                 sw      a6,72(sp)
+e00001be:                          c2be                 sw      a5,68(sp)
+e00001c0:                          c0ba                 sw      a4,64(sp)
+e00001c2:                          de36                 sw      a3,60(sp)
+e00001c4:                          dc32                 sw      a2,56(sp)
+e00001c6:                          da2e                 sw      a1,52(sp)
+e00001c8:                          1848                 addi    a0,sp,52
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:15
   va_list args;
   va_start(args, format);
-e000021a:                          c42a                 sw      a0,8(sp)
-e000021c:                          02500a13             li      s4,37
-e0000220:                          014c4537             lui     a0,0x14c4
-e0000224:                          70d50913             addi    s2,a0,1805 # 14c470d <tohost+0x14a4705>
-e0000228:                          07800993             li      s3,120
-e000022c:                          00000b97             auipc   s7,0x0
-e0000230:                          25fb8b93             addi    s7,s7,607 # e000048b <rom_printf.kHexTable>
-e0000234:                          07300a93             li      s5,115
+e00001ca:                          c42a                 sw      a0,8(sp)
+e00001cc:                          02500a13             li      s4,37
+e00001d0:                          014c4537             lui     a0,0x14c4
+e00001d4:                          70d50913             addi    s2,a0,1805 # 14c470d <tohost+0x14a4705>
+e00001d8:                          07800993             li      s3,120
+e00001dc:                          00000b97             auipc   s7,0x0
+e00001e0:                          254b8b93             addi    s7,s7,596 # e0000430 <rom_printf.kHexTable>
+e00001e4:                          07300a93             li      s5,115
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:17
 
   while (*format != '\0') {
-e0000238:       /----------------> 0004c503             lbu     a0,0(s1)
-e000023c:       |              /-- 01450663             beq     a0,s4,e0000248 <rom_printf+0x54>
-e0000240:       |  /-----------|-- c125                 beqz    a0,e00002a0 <rom_printf+0xac>
+e00001e8:       /----------------> 0004c503             lbu     a0,0(s1)
+e00001ec:       |              /-- 01450663             beq     a0,s4,e00001f8 <rom_printf+0x54>
+e00001f0:       |  /-----------|-- c125                 beqz    a0,e0000250 <rom_printf+0xac>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:19
     if (*format != '%') {
       uart_putchar(*format++);
-e0000242:       |  |           |   0485                 addi    s1,s1,1
-e0000244:       |  |           |   2211                 jal     e0000348 <uart_putchar>
-e0000246:       +--|-----------|-- bfcd                 j       e0000238 <rom_printf+0x44>
+e00001f2:       |  |           |   0485                 addi    s1,s1,1
+e00001f4:       |  |           |   2211                 jal     e00002f8 <uart_putchar>
+e00001f6:       +--|-----------|-- bfcd                 j       e00001e8 <rom_printf+0x44>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:24
       continue;
     }
 
     ++format;  // Skip over the '%'.
     switch (*format++) {
-e0000248:       |  |           \-> 0014c503             lbu     a0,1(s1)
-e000024c:       |  |               00248b13             addi    s6,s1,2
-e0000250:       |  |     /-------- 03350763             beq     a0,s3,e000027e <rom_printf+0x8a>
-e0000254:       |  |  /--|-------- 05551863             bne     a0,s5,e00002a4 <rom_printf+0xb0>
+e00001f8:       |  |           \-> 0014c503             lbu     a0,1(s1)
+e00001fc:       |  |               00248b13             addi    s6,s1,2
+e0000200:       |  |     /-------- 03350763             beq     a0,s3,e000022e <rom_printf+0x8a>
+e0000204:       |  |  /--|-------- 05551863             bne     a0,s5,e0000254 <rom_printf+0xb0>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:27
       case 's': {
         // Print a null-terminated string.
         const char *str = va_arg(args, const char *);
-e0000258:       |  |  |  |         4522                 lw      a0,8(sp)
-e000025a:       |  |  |  |         00450593             addi    a1,a0,4
-e000025e:       |  |  |  |         c42e                 sw      a1,8(sp)
-e0000260:       |  |  |  |         410c                 lw      a1,0(a0)
+e0000208:       |  |  |  |         4522                 lw      a0,8(sp)
+e000020a:       |  |  |  |         00450593             addi    a1,a0,4
+e000020e:       |  |  |  |         c42e                 sw      a1,8(sp)
+e0000210:       |  |  |  |         410c                 lw      a1,0(a0)
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:28
         while (*str != '\0') {
-e0000262:       |  |  |  |         0005c503             lbu     a0,0(a1)
-e0000266:       |  |  |  |         84da                 mv      s1,s6
-e0000268:       +--|--|--|-------- d961                 beqz    a0,e0000238 <rom_printf+0x44>
+e0000212:       |  |  |  |         0005c503             lbu     a0,0(a1)
+e0000216:       |  |  |  |         84da                 mv      s1,s6
+e0000218:       +--|--|--|-------- d961                 beqz    a0,e00001e8 <rom_printf+0x44>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:17
   while (*format != '\0') {
-e000026a:       |  |  |  |         00158413             addi    s0,a1,1
+e000021a:       |  |  |  |         00158413             addi    s0,a1,1
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:29
           uart_putchar(*str++);
-e000026e:       |  |  |  |     /-> 0ff57513             andi    a0,a0,255
-e0000272:       |  |  |  |     |   28d9                 jal     e0000348 <uart_putchar>
+e000021e:       |  |  |  |     /-> 0ff57513             andi    a0,a0,255
+e0000222:       |  |  |  |     |   28d9                 jal     e00002f8 <uart_putchar>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:28
         while (*str != '\0') {
-e0000274:       |  |  |  |     |   00044503             lbu     a0,0(s0)
-e0000278:       |  |  |  |     |   0405                 addi    s0,s0,1
-e000027a:       |  |  |  |     \-- f975                 bnez    a0,e000026e <rom_printf+0x7a>
-e000027c:       |  |  |  |  /----- a005                 j       e000029c <rom_printf+0xa8>
+e0000224:       |  |  |  |     |   00044503             lbu     a0,0(s0)
+e0000228:       |  |  |  |     |   0405                 addi    s0,s0,1
+e000022a:       |  |  |  |     \-- f975                 bnez    a0,e000021e <rom_printf+0x7a>
+e000022c:       |  |  |  |  /----- a005                 j       e000024c <rom_printf+0xa8>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:36
         break;
       }
@@ -1750,31 +1662,31 @@ e000027c:       |  |  |  |  /----- a005                 j       e000029c <rom_pr
         // Print an `unsigned int` in hexadecimal.
         static const char kHexTable[16] = "0123456789abcdef";
         unsigned int v = va_arg(args, unsigned int);
-e000027e:       |  |  |  \--|----> 4522                 lw      a0,8(sp)
-e0000280:       |  |  |     |      00450593             addi    a1,a0,4
-e0000284:       |  |  |     |      c42e                 sw      a1,8(sp)
-e0000286:       |  |  |     |      4104                 lw      s1,0(a0)
-e0000288:       |  |  |     |      4421                 li      s0,8
+e000022e:       |  |  |  \--|----> 4522                 lw      a0,8(sp)
+e0000230:       |  |  |     |      00450593             addi    a1,a0,4
+e0000234:       |  |  |     |      c42e                 sw      a1,8(sp)
+e0000236:       |  |  |     |      4104                 lw      s1,0(a0)
+e0000238:       |  |  |     |      4421                 li      s0,8
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:39
         for (int i = 0; i < sizeof(v) * 2; ++i) {
           int shift = sizeof(v) * 8 - 4;
           uart_putchar(kHexTable[v >> shift]);
-e000028a:       |  |  |     |  /-> 01c4d513             srli    a0,s1,0x1c
-e000028e:       |  |  |     |  |   955e                 add     a0,a0,s7
-e0000290:       |  |  |     |  |   00054503             lbu     a0,0(a0)
-e0000294:       |  |  |     |  |   2855                 jal     e0000348 <uart_putchar>
+e000023a:       |  |  |     |  /-> 01c4d513             srli    a0,s1,0x1c
+e000023e:       |  |  |     |  |   955e                 add     a0,a0,s7
+e0000240:       |  |  |     |  |   00054503             lbu     a0,0(a0)
+e0000244:       |  |  |     |  |   2855                 jal     e00002f8 <uart_putchar>
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:37
         for (int i = 0; i < sizeof(v) * 2; ++i) {
-e0000296:       |  |  |     |  |   147d                 addi    s0,s0,-1
+e0000246:       |  |  |     |  |   147d                 addi    s0,s0,-1
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:40
           v <<= 4;
-e0000298:       |  |  |     |  |   0492                 slli    s1,s1,0x4
+e0000248:       |  |  |     |  |   0492                 slli    s1,s1,0x4
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:37
         for (int i = 0; i < sizeof(v) * 2; ++i) {
-e000029a:       |  |  |     |  \-- f865                 bnez    s0,e000028a <rom_printf+0x96>
-e000029c:       |  |  |     \----> 84da                 mv      s1,s6
-e000029e:       \--|--|----------- bf69                 j       e0000238 <rom_printf+0x44>
-e00002a0:          \--|----------> 73900913             li      s2,1849
+e000024a:       |  |  |     |  \-- f865                 bnez    s0,e000023a <rom_printf+0x96>
+e000024c:       |  |  |     \----> 84da                 mv      s1,s6
+e000024e:       \--|--|----------- bf69                 j       e00001e8 <rom_printf+0x44>
+e0000250:          \--|----------> 73900913             li      s2,1849
 /proc/self/cwd/sw/device/silicon_creator/lib/rom_print.c:52
     }
   }
@@ -1782,20 +1694,20 @@ e00002a0:          \--|----------> 73900913             li      s2,1849
   va_end(args);
   return kErrorOk;
 }
-e00002a4:             \----------> 854a                 mv      a0,s2
-e00002a6:                          4bb2                 lw      s7,12(sp)
-e00002a8:                          4b42                 lw      s6,16(sp)
-e00002aa:                          4ad2                 lw      s5,20(sp)
-e00002ac:                          4a62                 lw      s4,24(sp)
-e00002ae:                          49f2                 lw      s3,28(sp)
-e00002b0:                          5902                 lw      s2,32(sp)
-e00002b2:                          5492                 lw      s1,36(sp)
-e00002b4:                          5422                 lw      s0,40(sp)
-e00002b6:                          50b2                 lw      ra,44(sp)
-e00002b8:                          6161                 addi    sp,sp,80
-e00002ba:                          8082                 ret
+e0000254:             \----------> 854a                 mv      a0,s2
+e0000256:                          4bb2                 lw      s7,12(sp)
+e0000258:                          4b42                 lw      s6,16(sp)
+e000025a:                          4ad2                 lw      s5,20(sp)
+e000025c:                          4a62                 lw      s4,24(sp)
+e000025e:                          49f2                 lw      s3,28(sp)
+e0000260:                          5902                 lw      s2,32(sp)
+e0000262:                          5492                 lw      s1,36(sp)
+e0000264:                          5422                 lw      s0,40(sp)
+e0000266:                          50b2                 lw      ra,44(sp)
+e0000268:                          6161                 addi    sp,sp,80
+e000026a:                          8082                 ret
 
-e00002bc <pinmux_init>:
+e000026c <pinmux_init>:
 pinmux_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/pinmux.c:127
   abs_mmio_write32(
@@ -1804,13 +1716,13 @@ pinmux_init():
 }
 
 void pinmux_init(void) {
-e00002bc:              1141                     addi    sp,sp,-16
+e000026c:              1141                     addi    sp,sp,-16
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/pinmux.c:129
   uint32_t bootstrap_en =
       otp_read32(OTP_CTRL_PARAM_OWNER_SW_CFG_ROM_BOOTSTRAP_EN_OFFSET);
-e00002be:              c606                     sw      ra,12(sp)
-e00002c0:              36400513                 li      a0,868
-e00002c4:              2045                     jal     e0000364 <otp_read32>
+e000026e:              c606                     sw      ra,12(sp)
+e0000270:              36400513                 li      a0,868
+e0000274:              2045                     jal     e0000314 <otp_read32>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
   // > of statements.
@@ -1819,21 +1731,21 @@ launder32():
   // means that not only does the black box depend on `val`, but it also mutates
   // it in an unspecified way.
   asm volatile("" : "+r"(val));
-e00002c6:              862a                     mv      a2,a0
-e00002c8:              73900593                 li      a1,1849
+e0000276:              862a                     mv      a2,a0
+e0000278:              73900593                 li      a1,1849
 pinmux_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/pinmux.c:130
   if (launder32(bootstrap_en) == kHardenedBoolTrue) {
-e00002cc:       /----- 02b61b63                 bne     a2,a1,e0000302 <pinmux_init+0x46>
+e000027c:       /----- 02b61b63                 bne     a2,a1,e00002b2 <pinmux_init+0x46>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/pinmux.c:131
     HARDENED_CHECK_EQ(bootstrap_en, kHardenedBoolTrue);
-e00002d0:       |  /-- 00b50663                 beq     a0,a1,e00002dc <pinmux_init+0x20>
-e00002d4:       |  |   0000                     unimp
-e00002d6:       |  |   0000                     unimp
-e00002d8:       |  |   0000                     unimp
-e00002da:       |  |   0000                     unimp
-e00002dc:       |  \-> c0460537                 lui     a0,0xc0460
-e00002e0:       |      4591                     li      a1,4
+e0000280:       |  /-- 00b50663                 beq     a0,a1,e000028c <pinmux_init+0x20>
+e0000284:       |  |   0000                     unimp
+e0000286:       |  |   0000                     unimp
+e0000288:       |  |   0000                     unimp
+e000028a:       |  |   0000                     unimp
+e000028c:       |  \-> c0460537                 lui     a0,0xc0460
+e0000290:       |      4591                     li      a1,4
 abs_mmio_write32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:83
  *
@@ -1842,21 +1754,21 @@ abs_mmio_write32():
  */
 inline void abs_mmio_write32(uint32_t addr, uint32_t value) {
   *((volatile uint32_t *)addr) = value;
-e00002e2:       |      44b52c23                 sw      a1,1112(a0) # c0460458 <fromhost+0xe0450448>
-e00002e6:       |      44b52e23                 sw      a1,1116(a0)
-e00002ea:       |      46b52023                 sw      a1,1120(a0)
-e00002ee:       |      45e1                     li      a1,24
-e00002f0:       |      14b52023                 sw      a1,320(a0)
-e00002f4:       |      45e5                     li      a1,25
-e00002f6:       |      14b52223                 sw      a1,324(a0)
-e00002fa:       |      14850513                 addi    a0,a0,328
-e00002fe:       |      45e9                     li      a1,26
-e0000300:       |      c10c                     sw      a1,0(a0)
-e0000302:       \----> c0460537                 lui     a0,0xc0460
-e0000306:              45ed                     li      a1,27
-e0000308:              18b52823                 sw      a1,400(a0) # c0460190 <fromhost+0xe0450180>
-e000030c:              02d00593                 li      a1,45
-e0000310:              2eb52823                 sw      a1,752(a0)
+e0000292:       |      44b52c23                 sw      a1,1112(a0) # c0460458 <fromhost+0xe0450448>
+e0000296:       |      44b52e23                 sw      a1,1116(a0)
+e000029a:       |      46b52023                 sw      a1,1120(a0)
+e000029e:       |      45e1                     li      a1,24
+e00002a0:       |      14b52023                 sw      a1,320(a0)
+e00002a4:       |      45e5                     li      a1,25
+e00002a6:       |      14b52223                 sw      a1,324(a0)
+e00002aa:       |      14850513                 addi    a0,a0,328
+e00002ae:       |      45e9                     li      a1,26
+e00002b0:       |      c10c                     sw      a1,0(a0)
+e00002b2:       \----> c0460537                 lui     a0,0xc0460
+e00002b6:              45ed                     li      a1,27
+e00002b8:              18b52823                 sw      a1,400(a0) # c0460190 <fromhost+0xe0450180>
+e00002bc:              02d00593                 li      a1,45
+e00002c0:              2eb52823                 sw      a1,752(a0)
 pinmux_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/pinmux.c:144
     configure_input(kInputSwStrap2);
@@ -1865,11 +1777,11 @@ pinmux_init():
   configure_input(kInputUart0);
   configure_output(kOutputUart0);
 }
-e0000314:              40b2                     lw      ra,12(sp)
-e0000316:              0141                     addi    sp,sp,16
-e0000318:              8082                     ret
+e00002c4:              40b2                     lw      ra,12(sp)
+e00002c6:              0141                     addi    sp,sp,16
+e00002c8:              8082                     ret
 
-e000031a <uart_init>:
+e00002ca <uart_init>:
 uart_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:37
                    0u);
@@ -1878,17 +1790,17 @@ uart_init():
 }
 
 rom_error_t uart_init(uint32_t precalculated_nco) {
-e000031a:       c00005b7                lui     a1,0xc0000
+e00002ca:       c00005b7                lui     a1,0xc0000
 abs_mmio_write32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:83
-e000031e:       0005a823                sw      zero,16(a1) # c0000010 <fromhost+0xdfff0000>
-e0000322:       460d                    li      a2,3
-e0000324:       d190                    sw      a2,32(a1)
-e0000326:       0205a423                sw      zero,40(a1)
-e000032a:       0205a823                sw      zero,48(a1)
-e000032e:       0005a223                sw      zero,4(a1)
-e0000332:       567d                    li      a2,-1
-e0000334:       c190                    sw      a2,0(a1)
+e00002ce:       0005a823                sw      zero,16(a1) # c0000010 <fromhost+0xdfff0000>
+e00002d2:       460d                    li      a2,3
+e00002d4:       d190                    sw      a2,32(a1)
+e00002d6:       0205a423                sw      zero,40(a1)
+e00002da:       0205a823                sw      zero,48(a1)
+e00002de:       0005a223                sw      zero,4(a1)
+e00002e2:       567d                    li      a2,-1
+e00002e4:       c190                    sw      a2,0(a1)
 bitfield_field32_write():
 /proc/self/cwd/./sw/device/lib/base/bitfield.h:76
 OT_WARN_UNUSED_RESULT
@@ -1897,11 +1809,11 @@ inline uint32_t bitfield_field32_write(uint32_t bitfield,
                                        uint32_t value) {
   bitfield &= ~(field.mask << field.index);
   bitfield |= (value & field.mask) << field.index;
-e0000336:       0542                    slli    a0,a0,0x10
-e0000338:       00156513                ori     a0,a0,1
+e00002e6:       0542                    slli    a0,a0,0x10
+e00002e8:       00156513                ori     a0,a0,1
 abs_mmio_write32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:83
-e000033c:       c988                    sw      a0,16(a1)
+e00002ec:       c988                    sw      a0,16(a1)
 uart_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:51
   abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_CTRL_REG_OFFSET, reg);
@@ -1910,15 +1822,15 @@ uart_init():
   abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET,
                    0u);
   return kErrorOk;
-e000033e:       73900513                li      a0,1849
+e00002ee:       73900513                li      a0,1849
 abs_mmio_write32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:83
-e0000342:       0005a223                sw      zero,4(a1)
+e00002f2:       0005a223                sw      zero,4(a1)
 uart_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:51
-e0000346:       8082                    ret
+e00002f6:       8082                    ret
 
-e0000348 <uart_putchar>:
+e00002f8 <uart_putchar>:
 uart_putchar():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:66
   uint32_t reg =
@@ -1927,11 +1839,11 @@ uart_putchar():
 }
 
 void uart_putchar(uint8_t byte) {
-e0000348:           c00005b7            lui     a1,0xc0000
+e00002f8:           c00005b7            lui     a1,0xc0000
 abs_mmio_read32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:73
   return *((volatile uint32_t *)addr);
-e000034c:       /-> 49d0                        lw      a2,20(a1)
+e00002fc:       /-> 49d0                        lw      a2,20(a1)
 bitfield_bit32_read():
 /proc/self/cwd/./sw/device/lib/base/bitfield.h:122
  */
@@ -1940,25 +1852,25 @@ inline bool bitfield_bit32_read(uint32_t bitfield,
                                 bitfield_bit32_index_t bit_index) {
   return bitfield_field32_read(bitfield,
                                bitfield_bit32_to_field32(bit_index)) == 0x1u;
-e000034e:       |   8a05                        andi    a2,a2,1
+e00002fe:       |   8a05                        andi    a2,a2,1
 uart_putchar():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:68
   // If the transmit FIFO is full, wait.
   while (uart_tx_full()) {
-e0000350:       \-- fe75                        bnez    a2,e000034c <uart_putchar+0x4>
-e0000352:           c00005b7            lui     a1,0xc0000
-e0000356:           01c58613            addi    a2,a1,28 # c000001c <fromhost+0xdfff000c>
+e0000300:       \-- fe75                        bnez    a2,e00002fc <uart_putchar+0x4>
+e0000302:           c00005b7            lui     a1,0xc0000
+e0000306:           01c58613            addi    a2,a1,28 # c000001c <fromhost+0xdfff000c>
 abs_mmio_write32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:83
   *((volatile uint32_t *)addr) = value;
-e000035a:           c208                        sw      a0,0(a2)
+e000030a:           c208                        sw      a0,0(a2)
 abs_mmio_read32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:73
   return *((volatile uint32_t *)addr);
-e000035c:       /-> 49c8                        lw      a0,20(a1)
+e000030c:       /-> 49c8                        lw      a0,20(a1)
 bitfield_bit32_read():
 /proc/self/cwd/./sw/device/lib/base/bitfield.h:122
-e000035e:       |   8921                        andi    a0,a0,8
+e000030e:       |   8921                        andi    a0,a0,8
 uart_putchar():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:74
   }
@@ -1967,13 +1879,13 @@ uart_putchar():
 
   // If the transmitter is active, wait.
   while (!uart_tx_idle()) {
-e0000360:       \-- dd75                        beqz    a0,e000035c <uart_putchar+0x14>
+e0000310:       \-- dd75                        beqz    a0,e000030c <uart_putchar+0x14>
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/uart.c:76
   }
 }
-e0000362:           8082                        ret
+e0000312:           8082                        ret
 
-e0000364 <otp_read32>:
+e0000314 <otp_read32>:
 otp_read32():
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otp.c:18
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
@@ -1982,21 +1894,21 @@ otp_read32():
 enum { kBase = TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR };
 
 uint32_t otp_read32(uint32_t address) {
-e0000364:       c01315b7                lui     a1,0xc0131
+e0000314:       c01315b7                lui     a1,0xc0131
 /proc/self/cwd/sw/device/silicon_creator/lib/drivers/otp.c:19
   return sec_mmio_read32(kBase + OTP_CTRL_SW_CFG_WINDOW_REG_OFFSET + address);
-e0000368:       952e                    add     a0,a0,a1
-e000036a:       a8b1                    j       e00003c6 <sec_mmio_read32>
+e0000318:       952e                    add     a0,a0,a1
+e000031a:       a8b1                    j       e0000376 <sec_mmio_read32>
 
-e000036c <sec_mmio_init>:
+e000031c <sec_mmio_init>:
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
-e000036c:           4601                        li      a2,0
-e000036e:           4681                        li      a3,0
-e0000370:           4701                        li      a4,0
-e0000372:           4501                        li      a0,0
-e0000374:           00000597            auipc   a1,0x0
-e0000378:           12c58593            addi    a1,a1,300 # e00004a0 <sec_mmio_ctx>
+e000031c:           4601                        li      a2,0
+e000031e:           4681                        li      a3,0
+e0000320:           4701                        li      a4,0
+e0000322:           4501                        li      a0,0
+e0000324:           00000597            auipc   a1,0x0
+e0000328:           12058593            addi    a1,a1,288 # e0000444 <sec_mmio_ctx>
 sec_mmio_init():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:53
   // mechanism.
@@ -2005,63 +1917,63 @@ sec_mmio_init():
 
 void sec_mmio_init(void) {
   sec_mmio_ctx.last_index = launder32(0);
-e000037c:           c190                        sw      a2,0(a1)
+e000032c:           c190                        sw      a2,0(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:54
   sec_mmio_ctx.write_count = launder32(0);
-e000037e:           c1d4                        sw      a3,4(a1)
+e000032e:           c1d4                        sw      a3,4(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:55
   sec_mmio_ctx.check_count = launder32(0);
-e0000380:           c5d8                        sw      a4,12(a1)
+e0000330:           c5d8                        sw      a4,12(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:56
   sec_mmio_ctx.expected_write_count = launder32(0);
-e0000382:           c588                        sw      a0,8(a1)
-e0000384:           3e800613            li      a2,1000
-e0000388:           56fd                        li      a3,-1
+e0000332:           c588                        sw      a0,8(a1)
+e0000334:           3e800613            li      a2,1000
+e0000338:           56fd                        li      a3,-1
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:58
   for (size_t i = 0; i < ARRAYSIZE(sec_mmio_ctx.addrs); ++i) {
     sec_mmio_ctx.addrs[i] = UINT32_MAX;
-e000038a:       /-> 7d858713            addi    a4,a1,2008
-e000038e:       |   7cd72c23            sw      a3,2008(a4)
+e000033a:       /-> 7d858713            addi    a4,a1,2008
+e000033e:       |   7cd72c23            sw      a3,2008(a4)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:59
     sec_mmio_ctx.values[i] = UINT32_MAX;
-e0000392:       |   c994                        sw      a3,16(a1)
+e0000342:       |   c994                        sw      a3,16(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:57
   for (size_t i = 0; i < ARRAYSIZE(sec_mmio_ctx.addrs); ++i) {
-e0000394:       |   167d                        addi    a2,a2,-1
-e0000396:       |   0591                        addi    a1,a1,4
-e0000398:       \-- fa6d                        bnez    a2,e000038a <sec_mmio_init+0x1e>
-e000039a:           00000597            auipc   a1,0x0
-e000039e:           10658593            addi    a1,a1,262 # e00004a0 <sec_mmio_ctx>
+e0000344:       |   167d                        addi    a2,a2,-1
+e0000346:       |   0591                        addi    a1,a1,4
+e0000348:       \-- fa6d                        bnez    a2,e000033a <sec_mmio_init+0x1e>
+e000034a:           00000597            auipc   a1,0x0
+e000034e:           0fa58593            addi    a1,a1,250 # e0000444 <sec_mmio_ctx>
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:61
   }
   uint32_t check = kSecMmioValZero ^ sec_mmio_ctx.last_index;
-e00003a2:           4190                        lw      a2,0(a1)
+e0000352:           4190                        lw      a2,0(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:62
   check ^= sec_mmio_ctx.write_count;
-e00003a4:           41d4                        lw      a3,4(a1)
+e0000354:           41d4                        lw      a3,4(a1)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:63
   check ^= sec_mmio_ctx.check_count;
-e00003a6:           45cc                        lw      a1,12(a1)
-e00003a8:           8e35                        xor     a2,a2,a3
+e0000356:           45cc                        lw      a1,12(a1)
+e0000358:           8e35                        xor     a2,a2,a3
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:64
   check ^= sec_mmio_ctx.expected_write_count;
-e00003aa:           8db1                        xor     a1,a1,a2
-e00003ac:           8d2d                        xor     a0,a0,a1
-e00003ae:           3ca595b7            lui     a1,0x3ca59
-e00003b2:           65a58593            addi    a1,a1,1626 # 3ca5965a <tohost+0x3ca39652>
-e00003b6:           8d2d                        xor     a0,a0,a1
+e000035a:           8db1                        xor     a1,a1,a2
+e000035c:           8d2d                        xor     a0,a0,a1
+e000035e:           3ca595b7            lui     a1,0x3ca59
+e0000362:           65a58593            addi    a1,a1,1626 # 3ca5965a <tohost+0x3ca39652>
+e0000366:           8d2d                        xor     a0,a0,a1
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:65
   HARDENED_CHECK_EQ(check, kSecMmioValZero);
-e00003b8:       /-- 00b50663            beq     a0,a1,e00003c4 <sec_mmio_init+0x58>
-e00003bc:       |   0000                        unimp
-e00003be:       |   0000                        unimp
-e00003c0:       |   0000                        unimp
-e00003c2:       |   0000                        unimp
+e0000368:       /-- 00b50663            beq     a0,a1,e0000374 <sec_mmio_init+0x58>
+e000036c:       |   0000                        unimp
+e000036e:       |   0000                        unimp
+e0000370:       |   0000                        unimp
+e0000372:       |   0000                        unimp
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:66
 }
-e00003c4:       \-> 8082                        ret
+e0000374:       \-> 8082                        ret
 
-e00003c6 <sec_mmio_read32>:
+e0000376 <sec_mmio_read32>:
 sec_mmio_read32():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:78
     sec_mmio_ctx.values[i] = UINT32_MAX;
@@ -2070,125 +1982,125 @@ sec_mmio_read32():
 }
 
 uint32_t sec_mmio_read32(uint32_t addr) {
-e00003c6:           1101                        addi    sp,sp,-32
-e00003c8:           ce06                        sw      ra,28(sp)
-e00003ca:           cc22                        sw      s0,24(sp)
-e00003cc:           ca26                        sw      s1,20(sp)
-e00003ce:           c84a                        sw      s2,16(sp)
-e00003d0:           c64e                        sw      s3,12(sp)
-e00003d2:           842a                        mv      s0,a0
+e0000376:           1101                        addi    sp,sp,-32
+e0000378:           ce06                        sw      ra,28(sp)
+e000037a:           cc22                        sw      s0,24(sp)
+e000037c:           ca26                        sw      s1,20(sp)
+e000037e:           c84a                        sw      s2,16(sp)
+e0000380:           c64e                        sw      s3,12(sp)
+e0000382:           842a                        mv      s0,a0
 abs_mmio_read32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:73
-e00003d4:           00052903            lw      s2,0(a0)
-e00003d8:           21692537            lui     a0,0x21692
-e00003dc:           43650993            addi    s3,a0,1078 # 21692436 <tohost+0x2167242e>
+e0000384:           00052903            lw      s2,0(a0)
+e0000388:           21692537            lui     a0,0x21692
+e000038c:           43650993            addi    s3,a0,1078 # 21692436 <tohost+0x2167242e>
 sec_mmio_read32():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:80
   uint32_t value = abs_mmio_read32(addr);
   uint32_t masked_value = value ^ kSecMmioMaskVal;
-e00003e0:           013944b3            xor     s1,s2,s3
+e0000390:           013944b3            xor     s1,s2,s3
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:82
   barrier32(masked_value);
   upsert_register(addr, masked_value);
-e00003e4:           8522                        mv      a0,s0
-e00003e6:           85a6                        mv      a1,s1
-e00003e8:           2015                        jal     e000040c <upsert_register>
+e0000394:           8522                        mv      a0,s0
+e0000396:           85a6                        mv      a1,s1
+e0000398:           2015                        jal     e00003bc <upsert_register>
 abs_mmio_read32():
 /proc/self/cwd/./sw/device/lib/base/abs_mmio.h:73
-e00003ea:           4008                        lw      a0,0(s0)
+e000039a:           4008                        lw      a0,0(s0)
 sec_mmio_read32():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:83
   HARDENED_CHECK_EQ((abs_mmio_read32(addr) ^ kSecMmioMaskVal), masked_value);
-e00003ec:           01354533            xor     a0,a0,s3
-e00003f0:       /-- 00950663            beq     a0,s1,e00003fc <sec_mmio_read32+0x36>
-e00003f4:       |   0000                        unimp
-e00003f6:       |   0000                        unimp
-e00003f8:       |   0000                        unimp
-e00003fa:       |   0000                        unimp
+e000039c:           01354533            xor     a0,a0,s3
+e00003a0:       /-- 00950663            beq     a0,s1,e00003ac <sec_mmio_read32+0x36>
+e00003a4:       |   0000                        unimp
+e00003a6:       |   0000                        unimp
+e00003a8:       |   0000                        unimp
+e00003aa:       |   0000                        unimp
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:85
 
   return value;
-e00003fc:       \-> 854a                        mv      a0,s2
-e00003fe:           49b2                        lw      s3,12(sp)
-e0000400:           4942                        lw      s2,16(sp)
-e0000402:           44d2                        lw      s1,20(sp)
-e0000404:           4462                        lw      s0,24(sp)
-e0000406:           40f2                        lw      ra,28(sp)
-e0000408:           6105                        addi    sp,sp,32
-e000040a:           8082                        ret
+e00003ac:       \-> 854a                        mv      a0,s2
+e00003ae:           49b2                        lw      s3,12(sp)
+e00003b0:           4942                        lw      s2,16(sp)
+e00003b2:           44d2                        lw      s1,20(sp)
+e00003b4:           4462                        lw      s0,24(sp)
+e00003b6:           40f2                        lw      ra,28(sp)
+e00003b8:           6105                        addi    sp,sp,32
+e00003ba:           8082                        ret
 
-e000040c <upsert_register>:
+e00003bc <upsert_register>:
 upsert_register():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:34
   const size_t last_index = sec_mmio_ctx.last_index;
-e000040c:                 00000817              auipc   a6,0x0
-e0000410:                 09480813              addi    a6,a6,148 # e00004a0 <sec_mmio_ctx>
-e0000414:                 00082703              lw      a4,0(a6)
+e00003bc:                 00000817              auipc   a6,0x0
+e00003c0:                 08880813              addi    a6,a6,136 # e0000444 <sec_mmio_ctx>
+e00003c4:                 00082703              lw      a4,0(a6)
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
-e0000418:                 4781                  li      a5,0
-e000041a:                 4681                  li      a3,0
+e00003c8:                 4781                  li      a5,0
+e00003ca:                 4681                  li      a3,0
 upsert_register():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:36
   for (; launder32(i) < last_index; ++i) {
-e000041c:       /-------- 02e7f163              bgeu    a5,a4,e000043e <upsert_register+0x32>
-e0000420:       |         4681                  li      a3,0
-e0000422:       |         87c2                  mv      a5,a6
+e00003cc:       /-------- 02e7f163              bgeu    a5,a4,e00003ee <upsert_register+0x32>
+e00003d0:       |         4681                  li      a3,0
+e00003d2:       |         87c2                  mv      a5,a6
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:37
     if (sec_mmio_ctx.addrs[i] == addr) {
-e0000424:       |  /----> 7d878613              addi    a2,a5,2008
-e0000428:       |  |      7d862603              lw      a2,2008(a2)
-e000042c:       |  |  /-- 00a60863              beq     a2,a0,e000043c <upsert_register+0x30>
+e00003d4:       |  /----> 7d878613              addi    a2,a5,2008
+e00003d8:       |  |      7d862603              lw      a2,2008(a2)
+e00003dc:       |  |  /-- 00a60863              beq     a2,a0,e00003ec <upsert_register+0x30>
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:36
   for (; launder32(i) < last_index; ++i) {
-e0000430:       |  |  |   0685                  addi    a3,a3,1
+e00003e0:       |  |  |   0685                  addi    a3,a3,1
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
-e0000432:       |  |  |   8636                  mv      a2,a3
+e00003e2:       |  |  |   8636                  mv      a2,a3
 upsert_register():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:36
-e0000434:       |  |  |   0791                  addi    a5,a5,4
-e0000436:       |  \--|-- fee667e3              bltu    a2,a4,e0000424 <upsert_register+0x18>
-e000043a:       +-----|-- a011                  j       e000043e <upsert_register+0x32>
+e00003e4:       |  |  |   0791                  addi    a5,a5,4
+e00003e6:       |  \--|-- fee667e3              bltu    a2,a4,e00003d4 <upsert_register+0x18>
+e00003ea:       +-----|-- a011                  j       e00003ee <upsert_register+0x32>
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:38
       sec_mmio_ctx.values[i] = value;
-e000043c:       |     \-> cb8c                  sw      a1,16(a5)
+e00003ec:       |     \-> cb8c                  sw      a1,16(a5)
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
-e000043e:       \-------> 8636                  mv      a2,a3
+e00003ee:       \-------> 8636                  mv      a2,a3
 upsert_register():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:42
   if (launder32(i) == last_index && launder32(i) < kSecMmioRegFileSize) {
-e0000440:             /-- 02e61463              bne     a2,a4,e0000468 <upsert_register+0x5c>
+e00003f0:             /-- 02e61463              bne     a2,a4,e0000418 <upsert_register+0x5c>
 launder32():
 /proc/self/cwd/./sw/device/lib/base/hardened.h:244
-e0000444:             |   8636                  mv      a2,a3
-e0000446:             |   3e700713              li      a4,999
+e00003f4:             |   8636                  mv      a2,a3
+e00003f6:             |   3e700713              li      a4,999
 upsert_register():
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:42
-e000044a:             +-- 00c76f63              bltu    a4,a2,e0000468 <upsert_register+0x5c>
+e00003fa:             +-- 00c76f63              bltu    a4,a2,e0000418 <upsert_register+0x5c>
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:43
     sec_mmio_ctx.addrs[i] = addr;
-e000044e:             |   00269613              slli    a2,a3,0x2
-e0000452:             |   9642                  add     a2,a2,a6
-e0000454:             |   7d860713              addi    a4,a2,2008
-e0000458:             |   7ca72c23              sw      a0,2008(a4)
+e00003fe:             |   00269613              slli    a2,a3,0x2
+e0000402:             |   9642                  add     a2,a2,a6
+e0000404:             |   7d860713              addi    a4,a2,2008
+e0000408:             |   7ca72c23              sw      a0,2008(a4)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:44
     sec_mmio_ctx.values[i] = value;
-e000045c:             |   ca0c                  sw      a1,16(a2)
+e000040c:             |   ca0c                  sw      a1,16(a2)
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:45
     ++sec_mmio_ctx.last_index;
-e000045e:             |   00082503              lw      a0,0(a6)
-e0000462:             |   0505                  addi    a0,a0,1
-e0000464:             |   00a82023              sw      a0,0(a6)
-e0000468:             \-> 3e800513              li      a0,1000
+e000040e:             |   00082503              lw      a0,0(a6)
+e0000412:             |   0505                  addi    a0,a0,1
+e0000414:             |   00a82023              sw      a0,0(a6)
+e0000418:             \-> 3e800513              li      a0,1000
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:49
   HARDENED_CHECK_LT(i, kSecMmioRegFileSize);
-e000046c:             /-- 00a6e663              bltu    a3,a0,e0000478 <upsert_register+0x6c>
-e0000470:             |   0000                  unimp
-e0000472:             |   0000                  unimp
-e0000474:             |   0000                  unimp
-e0000476:             |   0000                  unimp
+e000041c:             /-- 00a6e663              bltu    a3,a0,e0000428 <upsert_register+0x6c>
+e0000420:             |   0000                  unimp
+e0000422:             |   0000                  unimp
+e0000424:             |   0000                  unimp
+e0000426:             |   0000                  unimp
 /proc/self/cwd/sw/device/silicon_creator/lib/base/sec_mmio.c:50
 }
-e0000478:             \-> 8082                  ret
+e0000428:             \-> 8082                  ret

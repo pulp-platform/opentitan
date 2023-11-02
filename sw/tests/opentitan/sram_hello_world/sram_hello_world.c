@@ -62,23 +62,7 @@ int main(int argc, char **argv) {
   pinmux_init();
   uart_init(kUartNCOValue);
   
-  rom_printf("Hello World!\r\n");
-  
-  uart_putchar('h');
-  uart_putchar('e');
-  uart_putchar('l');
-  uart_putchar('l');
-  uart_putchar('o');
-  uart_putchar(' ');
-  uart_putchar('w');
-  uart_putchar('o');
-  uart_putchar('r');
-  uart_putchar('l');
-  uart_putchar('d');
-  uart_putchar('!');
-  uart_putchar('\r');
-  uart_putchar('\n');
-
+  rom_printf("HW\n");
   return 0;
   
 }
