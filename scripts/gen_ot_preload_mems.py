@@ -19,17 +19,32 @@ if __name__ == "__main__":
     # Get the current working directory
     current_directory = os.getcwd()
 
+    # Original file with 2048 words of 76 bits each
     filename_2048 = os.path.join(current_directory, "rand_preload_2048.vmem")
     num_words_2048 = 2048
     word_length_2048 = 19  # 76 bits (19 hex digits)
     generate_vmem_file(filename_2048, num_words_2048, word_length_2048)
 
+    # File with 512 words of 76 bits each
     filename_512 = os.path.join(current_directory, "rand_preload_512.vmem")
     num_words_512 = 512
     word_length_512 = 19  # 76 bits (19 hex digits)
     generate_vmem_file(filename_512, num_words_512, word_length_512)
 
+    # File with 4096 words of 76 bits each
     filename_4096 = os.path.join(current_directory, "rand_preload_4096.vmem")
     num_words_4096 = 4096
     word_length_4096 = 19  # 76 bits (19 hex digits)
     generate_vmem_file(filename_4096, num_words_4096, word_length_4096)
+
+    # New file with 256 words of 28 bits each
+    filename_256_28 = os.path.join(current_directory, "rand_preload_256_28.vmem")
+    num_words_256_28 = 256
+    word_length_256_28 = 7  # 28 bits (7 hex digits)
+    generate_vmem_file(filename_256_28, num_words_256_28, word_length_256_28)
+
+    # New file with 256 words of 78 bits each
+    filename_256_78 = os.path.join(current_directory, "rand_preload_256_78.vmem")
+    num_words_256_78 = 256
+    word_length_256_78 = 19  # 78 bits (19 hex digits)
+    generate_vmem_file(filename_256_78, num_words_256_78, word_length_256_78)
