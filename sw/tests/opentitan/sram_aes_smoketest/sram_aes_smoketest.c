@@ -48,19 +48,8 @@ int main(int argc, char **argv) {
   dif_aes_t aes;
   int * edn_enable;
 
-  #ifdef TARGET_SYNTHESIS
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  //set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
-  printf("Init Entropy, RNG and EDN\r\n");
   entropy_init();
-  printf("Init the AES\r\n");
+
   // Initialise AES.
   CHECK_DIF_OK(
       dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
@@ -77,7 +66,6 @@ int main(int argc, char **argv) {
   dif_aes_key_share_t key;
   memcpy(key.share0, key_share0, sizeof(key.share0));
   memcpy(key.share1, kKeyShare1, sizeof(key.share1));
-  printf("Setup ECB\r\n");
   // Setup ECB encryption transaction.
   dif_aes_transaction_t transaction = {
       .operation = kDifAesOperationEncrypt,
@@ -129,7 +117,5 @@ int main(int argc, char **argv) {
 
   CHECK_ARRAYS_EQ((uint8_t *)out_data.data, kAesModesPlainText,
                   sizeof(out_data.data));
-
-  printf("Succeed!\r\n");
   return 1;
 }
