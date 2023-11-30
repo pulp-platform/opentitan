@@ -3442,7 +3442,7 @@ e0000102:       \-- bff5                        j       e00000fe <sleep_loop>
 
 e0000104 <main>:
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:47
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:45
     0x0f, 0x1f, 0x2f, 0x3F, 0x4f, 0x5f, 0x6f, 0x7f, 0x8f, 0x9f, 0xaf,
     0xbf, 0xcf, 0xdf, 0xef, 0xff, 0x0a, 0x1a, 0x2a, 0x3a, 0x4a, 0x5a,
     0x6a, 0x7a, 0x8a, 0x9a, 0xaa, 0xba, 0xca, 0xda, 0xea, 0xfa,
@@ -3467,26 +3467,26 @@ e0000128:                          00909537             lui     a0,0x909
 e000012c:                          09950513             addi    a0,a0,153 # 909099 <tohost+0x8e9091>
 e0000130:                          c11605b7             lui     a1,0xc1160
 entropy_init():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:24
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:22
  *entropy_src_enable = 0x00909099;
 e0000134:                          d1c8                 sw      a0,36(a1)
 e0000136:                          4519                 li      a0,6
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:27
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:25
  *entropy_src_enable = 0x6;
 e0000138:                          d188                 sw      a0,32(a1)
 e000013a:                          c1150537             lui     a0,0xc1150
 e000013e:                          66600593             li      a1,1638
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:30
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:28
  *csrng_enable = 0x666;
 e0000142:                          c94c                 sw      a1,20(a0)
 e0000144:                          6529                 lui     a0,0xa
 e0000146:                          96650513             addi    a0,a0,-1690 # 9966 <_stack_len+0x1966>
 e000014a:                          c11705b7             lui     a1,0xc1170
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:33
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:31
  *edn_enable = 0x9966;
 e000014e:                          c9c8                 sw      a0,20(a1)
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:54
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:52
   int * edn_enable;
 
   entropy_init();
@@ -3519,7 +3519,7 @@ e0000190:                |  |      433000ef             jal     ra,e0000dc2 <bas
 e0000194:                |  \----> 6531                 lui     a0,0xc
 e0000196:                |         aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e000019a:                |         375000ef             jal     ra,e0000d0e <test_status_set>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:56
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:54
       dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
   CHECK_DIF_OK(dif_aes_reset(&aes));
 e000019e:                \-------> 1928                 addi    a0,sp,184
@@ -3552,7 +3552,7 @@ e00001ea:                          00002617             auipc   a2,0x2
 e00001ee:                          aba60613             addi    a2,a2,-1350 # e0001ca4 <kKeyShare1>
 e00001f2:                          0934                 addi    a3,sp,152
 e00001f4:                          02000713             li      a4,32
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:62
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:60
 
   // Mask the key. Note that this should not be done manually. Software is
   // expected to get the key in two shares right from the beginning.
@@ -3565,16 +3565,16 @@ e0000200:                      |   00c50433             add     s0,a0,a2
 e0000204:                      |   00040403             lb      s0,0(s0)
 e0000208:                      |   8fa1                 xor     a5,a5,s0
 e000020a:                      |   00a68433             add     s0,a3,a0
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:61
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:59
   for (int i = 0; i < sizeof(kAesModesKey256); ++i) {
 e000020e:                      |   0505                 addi    a0,a0,1
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:62
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:60
     key_share0[i] = kAesModesKey256[i] ^ kKeyShare1[i];
 e0000210:                      |   00f40023             sb      a5,0(s0)
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:61
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:59
   for (int i = 0; i < sizeof(kAesModesKey256); ++i) {
 e0000214:                      \-- fee512e3             bne     a0,a4,e00001f8 <main+0xf4>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:67
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:65
   }
 
   // "Convert" key share byte arrays to `dif_aes_key_share_t`.
@@ -3584,14 +3584,14 @@ e0000218:                          08a8                 addi    a0,sp,88
 e000021a:                          092c                 addi    a1,sp,152
 e000021c:                          02000613             li      a2,32
 e0000220:                          3da010ef             jal     ra,e00015fa <memcpy>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:68
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:66
   memcpy(key.share1, kKeyShare1, sizeof(key.share1));
 e0000224:                          18a8                 addi    a0,sp,120
 e0000226:                          00002597             auipc   a1,0x2
 e000022a:                          a7e58593             addi    a1,a1,-1410 # e0001ca4 <kKeyShare1>
 e000022e:                          02000613             li      a2,32
 e0000232:                          3c8010ef             jal     ra,e00015fa <memcpy>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:70
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:68
   // Setup ECB encryption transaction.
   dif_aes_transaction_t transaction = {
 e0000236:                          00002597             auipc   a1,0x2
@@ -3599,7 +3599,7 @@ e000023a:                          a8e58593             addi    a1,a1,-1394 # e0
 e000023e:                          1828                 addi    a0,sp,56
 e0000240:                          4671                 li      a2,28
 e0000242:                          3b8010ef             jal     ra,e00015fa <memcpy>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:80
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:78
       .mask_reseeding = kDifAesReseedPerBlock,
       .manual_operation = kDifAesManualOperationAuto,
       .reseed_on_key_change = false,
@@ -3632,7 +3632,7 @@ e0000284:                |  |      33f000ef             jal     ra,e0000dc2 <bas
 e0000288:                |  \----> 6531                 lui     a0,0xc
 e000028a:                |         aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e000028e:                |         281000ef             jal     ra,e0000d0e <test_status_set>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:84
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:82
 
   // "Convert" plain data byte arrays to `dif_aes_data_t`.
   dif_aes_data_t in_data_plain;
@@ -3725,7 +3725,7 @@ e0000352:             |  |         1bd000ef             jal     ra,e0000d0e <tes
   return status;
 e0000356:             |  \-------> 01814503             lbu     a0,24(sp)
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:87
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:85
 
   // Load the plain text to trigger the encryption operation.
   AES_TESTUTILS_WAIT_FOR_STATUS(&aes, kDifAesStatusInputReady, true, TIMEOUT);
@@ -3756,7 +3756,7 @@ e000037a:             |  |  |      00b4b533             sltu    a0,s1,a1
 e000037e:             |  |  |  /-- a019                 j       e0000384 <main+0x280>
 e0000380:             |  |  \--|-> 00abb533             sltu    a0,s7,a0
 e0000384:             |  |     \-> 00154513             xori    a0,a0,1
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:87
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:85
 e0000388:             +--|-------- fd41                 bnez    a0,e0000320 <main+0x21c>
 e000038a:             |  |     /-- 000a1963             bnez    s4,e000039c <main+0x298>
 e000038e:             |  |     |   4589                 li      a1,2
@@ -3776,7 +3776,7 @@ e00003ac:             |  |  |      217000ef             jal     ra,e0000dc2 <bas
 e00003b0:             |  |  \----> 856e                 mv      a0,s11
 e00003b2:             |  |         15d000ef             jal     ra,e0000d0e <test_status_set>
 e00003b6:             \--|-------- b7ad                 j       e0000320 <main+0x21c>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:88
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:86
   CHECK_DIF_OK(dif_aes_load_data(&aes, in_data_plain));
 e00003b8:                \-------> 5552                 lw      a0,52(sp)
 e00003ba:                          55c2                 lw      a1,48(sp)
@@ -3875,7 +3875,7 @@ e00004a0:             |  |         06f000ef             jal     ra,e0000d0e <tes
   return status;
 e00004a4:             |  \-------> 01814503             lbu     a0,24(sp)
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:93
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:91
 
   // Read out the produced cipher text.
   dif_aes_data_t out_data;
@@ -3904,7 +3904,7 @@ e00004c8:             |  |  |      00b93533             sltu    a0,s2,a1
 e00004cc:             |  |  |  /-- a019                 j       e00004d2 <main+0x3ce>
 e00004ce:             |  |  \--|-> 00abb533             sltu    a0,s7,a0
 e00004d2:             |  |     \-> 00154513             xori    a0,a0,1
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:93
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:91
 e00004d6:             +--|-------- fd41                 bnez    a0,e000046e <main+0x36a>
 e00004d8:             |  |     /-- 000a1963             bnez    s4,e00004ea <main+0x3e6>
 e00004dc:             |  |     |   4589                 li      a1,2
@@ -3924,7 +3924,7 @@ e00004fa:             |  |  |      0c9000ef             jal     ra,e0000dc2 <bas
 e00004fe:             |  |  \----> 856e                 mv      a0,s11
 e0000500:             |  |         00f000ef             jal     ra,e0000d0e <test_status_set>
 e0000504:             \--|-------- b7ad                 j       e000046e <main+0x36a>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:95
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:93
 
   CHECK_DIF_OK(dif_aes_read_output(&aes, &out_data));
 e0000506:                \-------> 1928                 addi    a0,sp,184
@@ -3950,7 +3950,7 @@ e000053c:                |  |      087000ef             jal     ra,e0000dc2 <bas
 e0000540:                |  \----> 6531                 lui     a0,0xc
 e0000542:                |         aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e0000546:                |         7c8000ef             jal     ra,e0000d0e <test_status_set>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:98
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:96
 
   // Finish the ECB encryption transaction.
   CHECK_DIF_OK(dif_aes_end(&aes));
@@ -3990,7 +3990,7 @@ e00005ae:                          00002b17             auipc   s6,0x2
 e00005b2:                          82ab0b13             addi    s6,s6,-2006 # e0001dd8 <kAesModesCipherTextEcb256+0x40>
 e00005b6:                          00002b97             auipc   s7,0x2
 e00005ba:                          d7ab8b93             addi    s7,s7,-646 # e0002330 <main.kLogFields.23>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:100
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:98
 
   CHECK_ARRAYS_EQ((uint8_t *)out_data.data, kAesModesCipherTextEcb256,
 e00005be:       /----------------> 008904b3             add     s1,s2,s0
@@ -4038,13 +4038,13 @@ e0000630:                      |   6531                 lui     a0,0xc
 e0000632:                      |   aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e0000636:                      |   6d8000ef             jal     ra,e0000d0e <test_status_set>
 e000063a:                      \-> 4509                 li      a0,2
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:104
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:102
                   sizeof(out_data.data));
 
   // Setup ECB decryption transaction.
   transaction.operation = kDifAesOperationDecrypt;
 e000063c:                          dc2a                 sw      a0,56(sp)
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:105
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:103
   CHECK_DIF_OK(dif_aes_start(&aes, &transaction, &key, NULL));
 e000063e:                          1928                 addi    a0,sp,184
 e0000640:                          182c                 addi    a1,sp,56
@@ -4137,7 +4137,7 @@ e0000718:             |  |         2bdd                 jal     e0000d0e <test_s
   return status;
 e000071a:             |  \-------> 0db14503             lbu     a0,219(sp)
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:108
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:106
 
   // Load the previously produced cipher text to start the decryption operation.
   AES_TESTUTILS_WAIT_FOR_STATUS(&aes, kDifAesStatusInputReady, true, TIMEOUT);
@@ -4164,7 +4164,7 @@ e000073e:             |  |  |      00b93533             sltu    a0,s2,a1
 e0000742:             |  |  |  /-- a019                 j       e0000748 <main+0x644>
 e0000744:             |  |  \--|-> 00abb533             sltu    a0,s7,a0
 e0000748:             |  |     \-> 00154513             xori    a0,a0,1
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:108
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:106
 e000074c:             +--|-------- fd49                 bnez    a0,e00006e6 <main+0x5e2>
 e000074e:             |  |     /-- 000a1963             bnez    s4,e0000760 <main+0x65c>
 e0000752:             |  |     |   4589                 li      a1,2
@@ -4184,7 +4184,7 @@ e0000770:             |  |  |      652000ef             jal     ra,e0000dc2 <bas
 e0000774:             |  |  \----> 856e                 mv      a0,s11
 e0000776:             |  |         2b61                 jal     e0000d0e <test_status_set>
 e0000778:             \--|-------- b7bd                 j       e00006e6 <main+0x5e2>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:109
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:107
   CHECK_DIF_OK(dif_aes_load_data(&aes, out_data));
 e000077a:                \-------> 5512                 lw      a0,36(sp)
 e000077c:                          5582                 lw      a1,32(sp)
@@ -4283,7 +4283,7 @@ e000085c:             |  |         294d                 jal     e0000d0e <test_s
   return status;
 e000085e:             |  \-------> 0db14503             lbu     a0,219(sp)
 main():
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:112
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:110
 
   // Read out the produced plain text.
   AES_TESTUTILS_WAIT_FOR_STATUS(&aes, kDifAesStatusOutputValid, true, TIMEOUT);
@@ -4310,7 +4310,7 @@ e0000882:             |  |  |      00bd3533             sltu    a0,s10,a1
 e0000886:             |  |  |  /-- a019                 j       e000088c <main+0x788>
 e0000888:             |  |  \--|-> 00a9b533             sltu    a0,s3,a0
 e000088c:             |  |     \-> 00154513             xori    a0,a0,1
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:112
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:110
 e0000890:             +--|-------- fd51                 bnez    a0,e000082c <main+0x728>
 e0000892:             |  |     /-- 000a1863             bnez    s4,e00008a2 <main+0x79e>
 e0000896:             |  |     |   4589                 li      a1,2
@@ -4330,7 +4330,7 @@ e00008b2:             |  |  |      2b01                 jal     e0000dc2 <base_l
 e00008b4:             |  |  \----> 8566                 mv      a0,s9
 e00008b6:             |  |         29a1                 jal     e0000d0e <test_status_set>
 e00008b8:             \--|-------- bf95                 j       e000082c <main+0x728>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:113
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:111
   CHECK_DIF_OK(dif_aes_read_output(&aes, &out_data));
 e00008ba:                \-------> 1928                 addi    a0,sp,184
 e00008bc:                          082c                 addi    a1,sp,24
@@ -4356,7 +4356,7 @@ e00008ee:                |  |      29d1                 jal     e0000dc2 <base_l
 e00008f0:                |  \----> 6531                 lui     a0,0xc
 e00008f2:                |         aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e00008f6:                |         2921                 jal     e0000d0e <test_status_set>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:116
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:114
 
   // Finish the ECB encryption transaction.
   CHECK_DIF_OK(dif_aes_end(&aes));
@@ -4394,7 +4394,7 @@ e000094c:                          00001997             auipc   s3,0x1
 e0000950:                          52c98993             addi    s3,s3,1324 # e0001e78 <kAesModesCipherTextEcb256+0xe0>
 e0000954:                          00002a97             auipc   s5,0x2
 e0000958:                          a7ca8a93             addi    s5,s5,-1412 # e00023d0 <main.kLogFields.42>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:118
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:116
 
   CHECK_ARRAYS_EQ((uint8_t *)out_data.data, kAesModesPlainText,
 e000095c:       /----------------> 008c04b3             add     s1,s8,s0
@@ -4441,10 +4441,10 @@ e00009c4:                      /-- c509                 beqz    a0,e00009ce <mai
 e00009c6:                      |   6531                 lui     a0,0xc
 e00009c8:                      |   aad50513             addi    a0,a0,-1363 # baad <_stack_len+0x3aad>
 e00009cc:                      |   2689                 jal     e0000d0e <test_status_set>
-/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:120
+/proc/self/cwd/sw/tests/opentitan/sram_aes_smoketest/sram_aes_smoketest.c:118
                   sizeof(out_data.data));
-  return 1;
-e00009ce:                      \-> 4505                 li      a0,1
+  return 0;
+e00009ce:                      \-> 4501                 li      a0,0
 e00009d0:                          4dfe                 lw      s11,220(sp)
 e00009d2:                          5d0e                 lw      s10,224(sp)
 e00009d4:                          5c9e                 lw      s9,228(sp)

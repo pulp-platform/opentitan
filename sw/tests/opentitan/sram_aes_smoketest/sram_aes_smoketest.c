@@ -9,8 +9,6 @@
 #include "sw/device/lib/runtime/log.h"
 #include "sw/device/lib/testing/aes_testutils.h"
 #include "sw/device/lib/testing/test_framework/check.h"
-#include "sw/device/silicon_creator/rom/uart.h"
-#include "sw/device/silicon_creator/rom/string_lib.h"
 
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 
@@ -117,5 +115,5 @@ int main(int argc, char **argv) {
 
   CHECK_ARRAYS_EQ((uint8_t *)out_data.data, kAesModesPlainText,
                   sizeof(out_data.data));
-  return 1;
+  return 0;
 }
