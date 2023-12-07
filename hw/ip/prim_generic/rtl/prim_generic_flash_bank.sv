@@ -425,12 +425,19 @@ module prim_flash_bank #(
   assign debug_flash_addr  = datapath_i ?  debug_flash_addr_i  : mem_addr          ;
   assign debug_flash_wdata = datapath_i ?  debug_flash_wdata_i : mem_wdata         ;
   assign debug_flash_wmask = datapath_i ?  debug_flash_wmask_i : {DataWidth{1'b1}} ; 
-  
+
+// Use ultraram when available
+`ifdef TARGET_VCU128
+  `define USE_ULTRARAM
+`endif
 
   prim_ram_1p #(
     .Width(DataWidth),
     .Depth(WordsPerBank),
     .DataBitsPerMask(DataWidth),
+`ifdef USE_ULTRARAM
+    .FPGAMemMacro("ultra"),
+`endif
     .MemInitFile(MemInitFile)
   ) u_mem (
     .clk_i,
@@ -456,6 +463,9 @@ module prim_flash_bank #(
     prim_ram_1p #(
       .Width(DataWidth),
       .Depth(WordsPerInfoBank),
+`ifdef USE_ULTRARAM
+      .FPGAMemMacro("ultra"),
+`endif
       .DataBitsPerMask(DataWidth)
     ) u_info_mem (
       .clk_i,
