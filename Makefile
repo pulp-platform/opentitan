@@ -41,6 +41,10 @@ flash_bazel_output_dis := $(BAZEL_OUT)/$(test_path)/$(test_name)_prog_sim_verila
 sram_bazel_output_bin := $(BAZEL_OUT)/$(test_path)/$(test_name)_sim_verilator.elf
 sram_bazel_output_dis := $(BAZEL_OUT)/$(test_path)/$(test_name)_sim_verilator.dis
 
+xbar_hjson := $(OT_ROOT)/hw/top_earlgrey/ip/crossbar/xbar_main/xbar_main.hjson
+xbar_out := $(OT_ROOT)/hw/top_earlgrey/ip/crossbar/xbar_main/
+
+
 include opentitan.mk
 
 .PHONY: clean-sram  
@@ -89,3 +93,6 @@ flash-all: compile-bazel-flash
 
 build_bootrom:
 	$(shell python3 scripts/vmem_scripts/rom/gen_sec_bootrom.py  $(rom_dest)/$(rom_vmem) $(bootrom_sv))
+
+generate_xbar:
+	$(shell util/tlgen.py -t  $(xbar_hjson) -o $(xbar_out))

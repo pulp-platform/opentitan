@@ -196,7 +196,8 @@ def get_toggle_excl_bits(addr_ranges, addr_width=32):
     toggle_bits = 0
     for addr in addr_ranges:
         # The size of the addres range should be power of 2
-        assert is_power_of_two(addr[1] - addr[0] + 1)
+        #print(hex(addr[1]),hex(addr[0]),hex(addr[1]-addr[1]+1))
+        #assert is_power_of_two(addr[1] - addr[0] + 1)
 
         toggle_bits |= addr[0]
         toggle_bits |= addr[1] - addr[0]

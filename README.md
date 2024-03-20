@@ -25,13 +25,25 @@ across partners participating in the OpenTitan project.
 The project contains comprehensive documentation of all IPs and tools. You can
 access it [online at docs.opentitan.org](https://docs.opentitan.org/).
 
-## How to contribute
+## Using the repository
+The repository is provided with a top-level wrapper of the Earlgrey architecture, whichc an be found at "opentitan/hw/top_earlgrey/top/secure_subsystem_asynch_synth_wrap.sv". A testbench can be found at "opentitan/hw/tb/testbench_asynch.sv".
 
-Have a look at [CONTRIBUTING](https://github.com/lowRISC/opentitan/blob/master/CONTRIBUTING.md) and our [documentation on
-project organization and processes](https://docs.opentitan.org/doc/project/)
-for guidelines on how to contribute code to this repository.
+The repository is automatically configured when running a test, so to configure and run the repo:
+```
+git clone -b workshop git@github.com/pulp-platform/opentitan.git
+cd opentitan/
+make clean sim SRAM=sw/tests/opentitan/idma_test/idma_test.elf
+```
+After cloning the repo it is possible to just run the test, the scripts will donwload and configure the Bender deps and install all the verification IPs, before running the test.
 
-## Licensing
+In general, to execute an arbitrary test, provide the path to the binary with the "SRAM=" flag.
 
-Unless otherwise noted, everything in this repository is covered by the Apache
-License, Version 2.0 (see [LICENSE](https://github.com/lowRISC/opentitan/blob/master/LICENSE) for full text).
+It is possible to run the secure boot (both preloading via JTAG or via SPI the embedded emulated flash) with:
+
+```
+make secure_boot_spi
+
+make secure_boot_jtag
+```
+
+These tests are very slow, requiring about one hour to run in the stand alone repository.
