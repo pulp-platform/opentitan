@@ -103,7 +103,7 @@ module secure_subsystem_synth_wrap
    input logic  [LogDepth:0]              async_idma_axi_out_r_wptr_i,
    output logic [LogDepth:0]              async_idma_axi_out_r_rptr_o,
    // Axi Isolate
-   input  logic [1:0]                    axi_isolate_i,
+   input  logic                          axi_isolate_i,
    output logic [1:0]                    axi_isolated_o,
    // Interrupt signal
    input logic                           irq_ibex_i,
@@ -165,6 +165,8 @@ module secure_subsystem_synth_wrap
    wire [1:0] flash_testmode_tieoff;
    wire otp_ext_tieoff, flash_testvolt_tieoff;
 
+   logic unused = clk_ref_i & test_enable_i;
+
    assign flash_testmode_tieoff = '0;
    assign otp_ext_tieoff = '0;
    assign flash_testvolt_tieoff = '0;
@@ -218,15 +220,7 @@ module secure_subsystem_synth_wrap
    assign jtag_tdo_o     = jtag_o.tdo;
    assign jtag_tdo_oe_o  = jtag_o.tdo_oe;
 
-   assign test_en_tieoff = test_enable_i;
-
-   rstgen rstgen_i (
-     .clk_i      ( clk_i         ),
-     .rst_ni     ( rst_ni        ),
-     .test_mode_i( test_enable_i ),
-     .rst_no     ( s_rst_n       ),
-     .init_no    ( s_init_n      )
-   );
+   assign s_rst_n = rst_ni;
 
    sync #(
      .STAGES     ( SyncStages ),
@@ -254,7 +248,7 @@ module secure_subsystem_synth_wrap
    ) i_isolate_sync_tlul2axi (
      .clk_i,
      .rst_ni   ( pwr_on_rst_ni       ),
-     .serial_i ( axi_isolate_i[0]    ),
+     .serial_i ( axi_isolate_i       ),
      .serial_o ( axi_isolate_sync[0] )
    );
 
@@ -264,7 +258,7 @@ module secure_subsystem_synth_wrap
    ) i_isolate_sync_idma (
      .clk_i,
      .rst_ni   ( pwr_on_rst_ni       ),
-     .serial_i ( axi_isolate_i[1]    ),
+     .serial_i ( axi_isolate_i       ),
      .serial_o ( axi_isolate_sync[1] )
    );
 
@@ -435,7 +429,11 @@ module secure_subsystem_synth_wrap
    top_earlgrey #(
       .HartIdOffs(HartIdOffs),
       .axi_req_t(axi_ot_out_req_t),
-      .axi_rsp_t(axi_ot_out_resp_t)
+      .axi_rsp_t(axi_ot_out_resp_t),
+      .AxiAddrWidth(AxiOtAddrWidth),
+      .AxiDataWidth(AxiOtDataWidth),
+      .AxiIdWidth(AxiOtOutIdWidth),
+      .AxiUserWidth(AxiOtUserWidth)
    ) u_RoT (
       .mio_attr_o                   (                       ),
       .dio_attr_o                   (                       ),
@@ -526,7 +524,7 @@ module secure_subsystem_synth_wrap
       .rst_ni         ( s_rst_n               ),
       .clk_ast_rng_i  ( clk_i                 ),
       .rst_ast_rng_ni ( s_rst_n               ),
-      .rng_en_i       ( '1                    ), //es_rng_req.rng_enable ),
+      .rng_en_i       ( es_rng_req.rng_enable ),
       .rng_fips_i     ( es_rng_fips           ),
       .scan_mode_i    ( '0                    ),
       .rng_b_o        ( es_rng_rsp.rng_b      ),

@@ -310,7 +310,7 @@ module testbench_asynch ();
 /////////////////////////////// DUT ///////////////////////////////
 
 
-   security_island dut (
+   secure_subsystem_synth_wrap dut (
        .clk_i            ( clk_sys       ),
        .clk_ref_i        ( clk_sys       ),
        .rst_ni           ( rst_sys_n     ),
