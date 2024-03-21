@@ -15,7 +15,7 @@ BENDER ?= ./bender
 VSIM ?= vsim
 DPI-LIB ?= work-dpi
 run_script := scripts/opentitan_start.tcl
-SRAM ?= ""
+SRAM ?= 
 BOOTMODE ?= 0
 QUESTA = questa-2022.3-bt
 IDMA_ROOT ?= $(shell $(BENDER) path idma)
@@ -41,7 +41,11 @@ else
 compile_script := scripts/compile_opentitan.tcl
 endif
 
-VLOG_ARGS += -incr -64 -nologo -quiet -suppress vlog-2583 -suppress vlog-13314  +acc +nospecify +notimingchecks  -timescale \"1 ns / 1 ps\" 
+ifdef nogui
+	nogui=-c
+endif
+
+VLOG_ARGS += -incr -64 -nologo -quiet -suppress vlog-2583 -suppress vlog-13314  +acc=p+testbench_asynch +nospecify +notimingchecks  -timescale \"1 ns / 1 ps\" 
 XVLOG_ARGS += -64bit -compile -vtimescale 1ns/1ns -quiet +nospecify +notimingchecks
 
 define generate_vsim
@@ -56,7 +60,7 @@ build: scripts/compile_opentitan.tcl scripts/compile_opentitan_vip.tcl $(OT_ROOT
 	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 
 sim: build
-	$(QUESTA) vsim -do 'set SRAM $(SRAM); set BOOTMODE $(BOOTMODE); source $(run_script)'
+	$(QUESTA) vsim  $(nogui) -do 'set SRAM $(SRAM); set BOOTMODE $(BOOTMODE); source $(run_script)'
 
 update:
 	bender update
