@@ -6,6 +6,9 @@
 //
 // Accepts all csrng commands
 
+`include "prim_assert.sv"
+`include "prim_flop_macros.sv"
+
 module csrng_ctr_drbg_cmd import csrng_pkg::*; #(
   parameter int Cmd = 3,
   parameter int StateId = 4,

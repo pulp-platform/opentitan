@@ -5,6 +5,7 @@
 // Description: entropy_src top level wrapper file
 
 `include "prim_assert.sv"
+`include "prim_flop_macros.sv"
 
 
 module entropy_src

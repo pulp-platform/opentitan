@@ -5,6 +5,9 @@
 // Description: entropy_src core module
 //
 
+`include "prim_assert.sv"
+`include "prim_flop_macros.sv"
+
 module entropy_src_core import entropy_src_pkg::*; #(
   parameter int EsFifoDepth = 4,
   parameter int DistrFifoDepth = 2

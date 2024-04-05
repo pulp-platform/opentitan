@@ -4,6 +4,9 @@
 //
 // Description: sysrst_ctrl combo action Module
 //
+
+`include "prim_assert.sv"
+
 module sysrst_ctrl_comboact
   import sysrst_ctrl_reg_pkg::*;
 (

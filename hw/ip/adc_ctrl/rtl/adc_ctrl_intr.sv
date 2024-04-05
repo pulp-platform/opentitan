@@ -4,6 +4,9 @@
 //
 // Description: adc_ctrl interrupt Module
 //
+
+`include "prim_assert.sv"
+
 module adc_ctrl_intr
   import adc_ctrl_reg_pkg::*;
 #(

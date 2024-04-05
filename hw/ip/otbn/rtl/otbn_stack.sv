@@ -19,6 +19,9 @@
  * `commit_i` is set. This is to enable users to extend the stack in case where it's not a simple
  * matter of adding extra data bits (e.g. where this is a prim_count instance per stack entry).
  */
+
+`include "prim_assert.sv"
+
 module otbn_stack
   import otbn_pkg::*;
 #(

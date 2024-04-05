@@ -5,6 +5,8 @@
 // Core Implemenation module for Serial Peripheral Interface (SPI) Host IP.
 //
 
+`include "prim_assert.sv"
+
 module spi_host_core #(
   parameter  int NumCS     = 1
 ) (

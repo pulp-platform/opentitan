@@ -5,6 +5,8 @@
 // Life cycle state transition function. Checks whether a transition is valid
 // and computes the target state. This module is purely combinational.
 
+`include "prim_assert.sv"
+
 module lc_ctrl_state_transition
   import lc_ctrl_pkg::*;
   import lc_ctrl_state_pkg::*;

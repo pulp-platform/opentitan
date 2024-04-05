@@ -17,6 +17,9 @@
  * This register file is designed to make FPGA synthesis tools infer RAM primitives. For Xilinx
  * FPGA architectures, it will produce RAM32M primitives. Other vendors have not yet been tested.
  */
+
+`include "prim_assert.sv"
+
 module otbn_rf_base_fpga
   import otbn_pkg::*;
 #(

@@ -5,6 +5,7 @@
 // Description: csrng top level wrapper file
 
 `include "prim_assert.sv"
+`include "prim_flop_macros.sv"
 
 module csrng
  import csrng_pkg::*;

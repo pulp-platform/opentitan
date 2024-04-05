@@ -4,6 +4,9 @@
 //
 // Byte-select module for dispensing words in SPI Host IP
 //
+
+`include "prim_assert.sv"
+
 module spi_host_byte_select (
   input               clk_i,
   input               rst_ni,

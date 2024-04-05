@@ -7,6 +7,8 @@
 // Muxes the USB IO signals between the override CSRs and the USB engine. The
 // incoming signals are also synchronized to the corresponding clock domain.
 
+`include "prim_assert.sv"
+
 module usbdev_iomux
   import usbdev_reg_pkg::*;
 (

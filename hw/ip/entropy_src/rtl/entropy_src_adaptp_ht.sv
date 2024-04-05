@@ -5,6 +5,9 @@
 // Description: entropy_src adaptive proportion health test module
 //
 
+`include "prim_assert.sv"
+`include "prim_flop_macros.sv"
+
 module entropy_src_adaptp_ht #(
   parameter int RegWidth = 16,
   parameter int RngBusWidth = 4

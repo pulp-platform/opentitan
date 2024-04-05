@@ -5,6 +5,8 @@
 // Description: UART Transmit Module
 //
 
+`include "prim_assert.sv"
+
 module uart_tx (
   input               clk_i,
   input               rst_ni,

@@ -5,6 +5,9 @@
 // Description: entropy_src high or how watermark register module
 //
 
+`include "prim_assert.sv"
+`include "prim_flop_macros.sv"
+
 module entropy_src_watermark_reg #(
   parameter int RegWidth = 16,
   parameter bit HighWatermark = 1

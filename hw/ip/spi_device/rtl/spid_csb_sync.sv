@@ -15,6 +15,8 @@
 // For example, this can be used to trigger a pulse only when there is a new
 // uploaded command.
 
+`include "prim_assert.sv"
+
 module spid_csb_sync (
   input clk_i,
   input rst_ni,

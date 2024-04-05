@@ -13,6 +13,8 @@
 //
 // The counter value saturates at its maximum and may be reset by software at any point.
 
+`include "prim_assert.sv"
+
 module usbdev_counter
 #(
   parameter int unsigned NEndpoints = 12, // Number of endpoints supported.

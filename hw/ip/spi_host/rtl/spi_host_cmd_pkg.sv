@@ -5,6 +5,8 @@
 // Command & Configuration Options structure for SPI HOST.
 //
 
+`include "prim_assert.sv"
+
 package spi_host_cmd_pkg;
 
   parameter int CSW = prim_util_pkg::vbits(spi_host_reg_pkg::NumCS);

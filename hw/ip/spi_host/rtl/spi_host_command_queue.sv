@@ -5,6 +5,8 @@
 // Queue for SPI_HOST commands
 //
 
+`include "prim_assert.sv"
+
 module spi_host_command_queue #(
   parameter int CmdDepth = 4
 ) (

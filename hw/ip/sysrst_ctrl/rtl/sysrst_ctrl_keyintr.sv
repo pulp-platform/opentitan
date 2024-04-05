@@ -4,6 +4,9 @@
 //
 // Description: sysrst_ctrl key-triggered interrupt Module
 //
+
+`include "prim_assert.sv"
+
 module sysrst_ctrl_keyintr
   import sysrst_ctrl_pkg::*;
   import sysrst_ctrl_reg_pkg::*;

@@ -11,6 +11,8 @@
 //
 // SPI ports don't check addresses, as the behavior is fixed in hardware.
 
+`include "prim_assert.sv"
+
 module spid_dpram
   import prim_ram_2p_pkg::*;
   import spi_device_pkg::*;

@@ -4,6 +4,8 @@
 //
 // Description sysrst_ctrl ULP module
 
+`include "prim_assert.sv"
+
 module sysrst_ctrl_ulp
   import sysrst_ctrl_pkg::*;
   import sysrst_ctrl_reg_pkg::*;

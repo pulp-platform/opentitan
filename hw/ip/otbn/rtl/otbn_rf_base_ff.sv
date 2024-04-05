@@ -12,6 +12,10 @@
  * - 2 read ports
  * - 1 write port
  */
+
+
+`include "prim_assert.sv"
+
 module otbn_rf_base_ff
   import otbn_pkg::*;
 #(

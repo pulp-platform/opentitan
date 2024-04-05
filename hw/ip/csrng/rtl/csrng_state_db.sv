@@ -7,7 +7,9 @@
 // This is the container for accessing the current
 //    working state for a given drbg instance.
 
+
 `include "prim_assert.sv"
+`include "prim_flop_macros.sv"
 
 module csrng_state_db import csrng_pkg::*; #(
   parameter int NApps = 4,

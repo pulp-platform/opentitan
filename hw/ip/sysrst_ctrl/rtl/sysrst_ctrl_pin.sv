@@ -5,6 +5,8 @@
 // Description: sysrst_ctrl pin visibility and override Module
 //
 
+`include "prim_assert.sv"
+
 module sysrst_ctrl_pin
   import sysrst_ctrl_reg_pkg::*;
 (

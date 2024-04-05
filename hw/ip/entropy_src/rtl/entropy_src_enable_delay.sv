@@ -30,6 +30,9 @@
 //    2b. One clock after the SHA engine completes,
 //    Whichever comes later.
 
+`include "prim_assert.sv"
+`include "prim_flop_macros.sv"
+
 module entropy_src_enable_delay import prim_mubi_pkg::*; (
   input logic  clk_i,
   input logic  rst_ni,

@@ -4,6 +4,9 @@
 //
 // Description: sysrst_ctrl interrupt Module
 //
+
+`include "prim_assert.sv"
+
 module sysrst_ctrl_intr
   import sysrst_ctrl_reg_pkg::*;
 (

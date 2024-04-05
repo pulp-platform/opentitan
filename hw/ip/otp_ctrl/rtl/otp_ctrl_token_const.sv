@@ -6,6 +6,8 @@
 // This implementation relies on constant propagation to precompute these constants from the
 // random netlist constants at compile time, and hence does not contain any "real" logic.
 
+`include "prim_assert.sv"
+
 module otp_ctrl_token_const import otp_ctrl_pkg::*; #(
   // Compile time random constants, to be overriden by topgen.
   parameter digest_const_array_t    RndCnstDigestConst    = RndCnstDigestConstDefault,

@@ -4,6 +4,8 @@
 //
 // Description sysrst_ctrl PWRB autoblock module
 
+`include "prim_assert.sv"
+
 module sysrst_ctrl_autoblock
   import sysrst_ctrl_pkg::*;
   import sysrst_ctrl_reg_pkg::*;

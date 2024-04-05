@@ -21,6 +21,8 @@
 // necessary guarantees required for the various uses of random numbers in OTBN software.         //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+`include "prim_assert.sv"
+
 module otbn_rnd import otbn_pkg::*;
 #(
   parameter urnd_prng_seed_t       RndCnstUrndPrngSeed      = RndCnstUrndPrngSeedDefault
