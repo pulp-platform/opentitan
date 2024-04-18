@@ -38,6 +38,9 @@ for m in top['memory']:
     has_toplevel_rom = True
 
 %>\
+
+`include "prim_assert.sv"
+
 module top_${top["name"]} #(
   // Manually defined parameters
 % if not lib.is_rom_ctrl(top["module"]):

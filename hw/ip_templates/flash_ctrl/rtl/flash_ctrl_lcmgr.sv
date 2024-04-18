@@ -5,6 +5,9 @@
 // Flash Controller for life cycle / key management handling
 //
 
+`include "prim_flop_macros.sv"
+`include "prim_assert.sv"
+
 module flash_ctrl_lcmgr
   import flash_ctrl_pkg::*;
   import lc_ctrl_pkg::lc_tx_t;

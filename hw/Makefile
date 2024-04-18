@@ -30,6 +30,7 @@ IPS ?= aes           \
        otp_ctrl      \
        pattgen       \
        pwm           \
+       tlul2axi      \
        rom_ctrl      \
        rv_core_ibex  \
        rv_dm         \
@@ -66,6 +67,8 @@ local_ips := \
 ips_reg        = $(addsuffix _reg, $(local_ips))
 
 # Per-top targets (all phonies)
+tops_gen_pulp = pulp_earlgrey_gen
+tops_reg_pulp = pulp_earlgrey_reg
 tops_gen = $(addsuffix _gen,$(TOPS))
 tops_reg = $(addsuffix _reg,$(TOPS))
 tops_rust_gen = $(addsuffix _gen,$(TOPS))
@@ -79,7 +82,7 @@ $(tock_rust_destdir):
 	mkdir -p $@
 endif
 
-.PHONY: $(ips_reg) $(tops_gen) $(tops_reg)
+.PHONY: $(ips_reg) $(tops_gen) $(tops_reg) $(tops_gen_pulp) $(tops_reg_pulp)
 
 all: $(ips_reg) $(tops_gen) $(tops_reg)
 
@@ -113,6 +116,7 @@ lc-state-enc:
 	cd ${PRJ_DIR} && ./util/design/gen-lc-state-enc.py ${LC_BUFFER}
 
 top-hjson = $(PRJ_DIR)/hw/$*/data/$*.hjson
+top-hjson-pulp = $(PRJ_DIR)/hw/pulp_earlgrey/data/pulp_earlgrey.hjson
 version_out_dir = $(PRJ_DIR)/build
 version_path = $(version_out_dir)/workspace_status.txt
 top_chip_hjson = $(PRJ_DIR)/hw/$(TOPS)/data/$(TOPS).hjson
@@ -132,11 +136,23 @@ topgen_rust_pkg: topgen_rust
 
 top: $(tops_gen) $(tops_reg)
 $(tops_gen): %_gen:
-	${PRJ_DIR}/util/topgen.py -t $(top-hjson) -o ${PRJ_DIR}/hw/$*/ ${toolflags}
+	${PRJ_DIR}/util/topgen.py -t $(top-hjson) -o ${PRJ_DIR}/hw/pulp_earlgrey/ ${toolflags}
 
 $(tops_reg): %_reg:
 	mkdir -p ${REG_OUTPUT_DV_DIR}/$*
-	${PRJ_DIR}/util/topgen.py -t $(top-hjson) -r -o ${REG_OUTPUT_DV_DIR}/$* ${toolflags}
+	${PRJ_DIR}/util/topgen.py -t $(top-hjson) -r -o ${REG_OUTPUT_DV_DIR}/pulp$* ${toolflags}
+
+pulp: $(tops_gen_pulp) $(tops_reg_pulp)
+	$(shell grep -rl "output logic       axi_req_req_o" ./pulp_earlgrey/* | xargs sed -i 's/output logic       axi_req_req_o/output Tlul2axiaxi_req_t       axi_req_req_o/g')
+	$(shell grep -rl "input  logic       axi_req_rsp_i" ./pulp_earlgrey/* | xargs sed -i 's/input  logic       axi_req_rsp_i/input  Tlul2axiaxi_rsp_t       axi_req_rsp_i/g')
+	$(shell grep -rl "0000000f" ./pulp_earlgrey/* | xargs sed -i 's/0000000f/9fffffff/g')
+
+$(tops_gen_pulp): %_gen:
+	${PRJ_DIR}/util/topgen.py -t $(top-hjson-pulp) -o ${PRJ_DIR}/hw/pulp_earlgrey/ ${toolflags}
+
+$(tops_reg_pulp): %_reg:
+	mkdir -p ${REG_OUTPUT_DV_DIR}/pulp_earlgrey
+	${PRJ_DIR}/util/topgen.py -t $(top-hjson-pulp) -r -o ${REG_OUTPUT_DV_DIR}/pulp_earlgrey ${toolflags}
 
 
 .PHONY: all
