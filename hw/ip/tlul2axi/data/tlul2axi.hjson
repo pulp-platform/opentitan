@@ -1,0 +1,57 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+// TODO: This module is only a draft implementation that covers most of the clkmgr
+// functionality but is incomplete
+
+#
+{
+  name: "tlul2axi",
+  clocking: [{clock: "clk_i", reset: "rst_ni"}],
+  cip_id:  "2"
+  version: "1.2.3",
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+  regwidth: "32",
+  interrupt_list: [
+    { name: "mbox_irq",
+      desc: "raised if AlSaqr mbox"
+    },
+  ],
+  inter_signal_list: [
+    { struct:  "axi_req"
+      name:    "axi_req",
+      type:    "req_rsp",
+      act:     "req",
+    },
+    { name:    "intr_mbox_irq",
+      type:    "uni"
+      act:     "rcv",
+      struct:  "logic",
+      package: "",
+      width:   "1"
+    },
+  ],
+  registers: [],
+
+  ////////////////
+  // Parameters //
+  ////////////////
+  param_list: [
+      { name:      "axi_req_t",
+        desc:      "AXI4 request",
+        local:     "false"
+        type:      "type",
+        default:   "logic"
+        expose:    "true"
+      }
+      { name:      "axi_rsp_t",
+        desc:      "AXI4 response",
+        local:     "false"
+        type:      "type"
+        default:   "logic"
+        expose:     "true"
+      }
+   ]
+}
