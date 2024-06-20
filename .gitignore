@@ -93,3 +93,11 @@ book
 
 # Hugo Lock
 .hugo_build.lock
+
+.bender/
+modelsim.ini
+tcl_stacktrace.txt
+transcript
+uart
+vsim.wlf
+work/
