@@ -64,6 +64,7 @@ package(default_visibility = ["//visibility:public"])
             "//sw/device/lib/dif:spi_device",
             "//sw/device/lib/dif:spi_host",
             "//sw/device/lib/dif:sysrst_ctrl",
+            "//sw/device/lib/dif:tlul2axi",
             "//sw/device/lib/dif:uart",
             "//sw/device/lib/dif:usbdev",
             "//sw/device/lib/runtime:irq",
@@ -72,7 +73,7 @@ package(default_visibility = ["//visibility:public"])
             "//sw/device/lib/testing/test_framework:ottf_main",
         ],
     )
-    for min in range(0, 23, 10)
+    for min in range(0, 24, 10)
 ]
 
 test_suite(

@@ -11,7 +11,7 @@
  * `top_earlgrey_plic_peripheral_t`.
  */
 const top_earlgrey_plic_peripheral_t
-    top_earlgrey_plic_interrupt_for_peripheral[182] = {
+    top_earlgrey_plic_interrupt_for_peripheral[183] = {
   [kTopEarlgreyPlicIrqIdNone] = kTopEarlgreyPlicPeripheralUnknown,
   [kTopEarlgreyPlicIrqIdUart0TxWatermark] = kTopEarlgreyPlicPeripheralUart0,
   [kTopEarlgreyPlicIrqIdUart0RxWatermark] = kTopEarlgreyPlicPeripheralUart0,
@@ -168,6 +168,7 @@ const top_earlgrey_plic_peripheral_t
   [kTopEarlgreyPlicIrqIdAonTimerAonWdogTimerBark] = kTopEarlgreyPlicPeripheralAonTimerAon,
   [kTopEarlgreyPlicIrqIdSensorCtrlAonIoStatusChange] = kTopEarlgreyPlicPeripheralSensorCtrlAon,
   [kTopEarlgreyPlicIrqIdSensorCtrlAonInitStatusChange] = kTopEarlgreyPlicPeripheralSensorCtrlAon,
+  [kTopEarlgreyPlicIrqIdTlul2axiMboxIrq] = kTopEarlgreyPlicPeripheralTlul2axi,
   [kTopEarlgreyPlicIrqIdFlashCtrlProgEmpty] = kTopEarlgreyPlicPeripheralFlashCtrl,
   [kTopEarlgreyPlicIrqIdFlashCtrlProgLvl] = kTopEarlgreyPlicPeripheralFlashCtrl,
   [kTopEarlgreyPlicIrqIdFlashCtrlRdFull] = kTopEarlgreyPlicPeripheralFlashCtrl,

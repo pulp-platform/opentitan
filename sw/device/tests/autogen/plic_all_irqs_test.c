@@ -22,7 +22,7 @@
 #endif
 
 #ifndef TEST_MAX_IRQ_PERIPHERAL
-#define TEST_MAX_IRQ_PERIPHERAL 23
+#define TEST_MAX_IRQ_PERIPHERAL 24
 #endif
 
 #include "sw/device/lib/arch/boot_stage.h"
@@ -50,6 +50,7 @@
 #include "sw/device/lib/dif/dif_spi_device.h"
 #include "sw/device/lib/dif/dif_spi_host.h"
 #include "sw/device/lib/dif/dif_sysrst_ctrl.h"
+#include "sw/device/lib/dif/dif_tlul2axi.h"
 #include "sw/device/lib/dif/dif_uart.h"
 #include "sw/device/lib/dif/dif_usbdev.h"
 #include "sw/device/lib/runtime/ibex.h"
@@ -162,22 +163,26 @@ static dif_sysrst_ctrl_t sysrst_ctrl_aon;
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-static dif_uart_t uart0;
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-static dif_uart_t uart1;
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-static dif_uart_t uart2;
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-static dif_uart_t uart3;
+static dif_tlul2axi_t tlul2axi;
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+static dif_uart_t uart0;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+static dif_uart_t uart1;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+static dif_uart_t uart2;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+static dif_uart_t uart3;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
 static dif_usbdev_t usbdev;
 #endif
 
@@ -306,11 +311,16 @@ static volatile dif_sysrst_ctrl_irq_t sysrst_ctrl_irq_serviced;
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+static volatile dif_tlul2axi_irq_t tlul2axi_irq_expected;
+static volatile dif_tlul2axi_irq_t tlul2axi_irq_serviced;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
 static volatile dif_uart_irq_t uart_irq_expected;
 static volatile dif_uart_irq_t uart_irq_serviced;
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
 static volatile dif_usbdev_irq_t usbdev_irq_expected;
 static volatile dif_usbdev_irq_t usbdev_irq_serviced;
 #endif
@@ -1025,6 +1035,27 @@ void ottf_external_isr(uint32_t *exc_info) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+      case kTopEarlgreyPlicPeripheralTlul2axi: {
+        dif_tlul2axi_irq_t irq = (dif_tlul2axi_irq_t)(
+            plic_irq_id -
+            (dif_rv_plic_irq_id_t)kTopEarlgreyPlicIrqIdTlul2axiMboxIrq);
+        CHECK(irq == tlul2axi_irq_expected,
+              "Incorrect tlul2axi IRQ triggered: exp = %d, obs = %d",
+              tlul2axi_irq_expected, irq);
+        tlul2axi_irq_serviced = irq;
+
+        dif_tlul2axi_irq_state_snapshot_t snapshot;
+        CHECK_DIF_OK(dif_tlul2axi_irq_get_state(&tlul2axi, &snapshot));
+        CHECK(snapshot == (dif_tlul2axi_irq_state_snapshot_t)(1 << irq),
+              "Only tlul2axi IRQ %d expected to fire. Actual interrupt "
+              "status = %x", irq, snapshot);
+
+        CHECK_DIF_OK(dif_tlul2axi_irq_acknowledge(&tlul2axi, irq));
+        break;
+      }
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
       case kTopEarlgreyPlicPeripheralUart0: {
         dif_uart_irq_t irq = (dif_uart_irq_t)(
             plic_irq_id -
@@ -1057,7 +1088,7 @@ void ottf_external_isr(uint32_t *exc_info) {
       }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
       case kTopEarlgreyPlicPeripheralUart1: {
         dif_uart_irq_t irq = (dif_uart_irq_t)(
             plic_irq_id -
@@ -1090,7 +1121,7 @@ void ottf_external_isr(uint32_t *exc_info) {
       }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
       case kTopEarlgreyPlicPeripheralUart2: {
         dif_uart_irq_t irq = (dif_uart_irq_t)(
             plic_irq_id -
@@ -1123,7 +1154,7 @@ void ottf_external_isr(uint32_t *exc_info) {
       }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
       case kTopEarlgreyPlicPeripheralUart3: {
         dif_uart_irq_t irq = (dif_uart_irq_t)(
             plic_irq_id -
@@ -1156,7 +1187,7 @@ void ottf_external_isr(uint32_t *exc_info) {
       }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
       case kTopEarlgreyPlicPeripheralUsbdev: {
         dif_usbdev_irq_t irq = (dif_usbdev_irq_t)(
             plic_irq_id -
@@ -1330,26 +1361,31 @@ static void peripherals_init(void) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+  base_addr = mmio_region_from_addr(TOP_EARLGREY_TLUL2AXI_BASE_ADDR);
+  CHECK_DIF_OK(dif_tlul2axi_init(base_addr, &tlul2axi));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   base_addr = mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR);
   CHECK_DIF_OK(dif_uart_init(base_addr, &uart0));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   base_addr = mmio_region_from_addr(TOP_EARLGREY_UART1_BASE_ADDR);
   CHECK_DIF_OK(dif_uart_init(base_addr, &uart1));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   base_addr = mmio_region_from_addr(TOP_EARLGREY_UART2_BASE_ADDR);
   CHECK_DIF_OK(dif_uart_init(base_addr, &uart2));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   base_addr = mmio_region_from_addr(TOP_EARLGREY_UART3_BASE_ADDR);
   CHECK_DIF_OK(dif_uart_init(base_addr, &uart3));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
   base_addr = mmio_region_from_addr(TOP_EARLGREY_USBDEV_BASE_ADDR);
   CHECK_DIF_OK(dif_usbdev_init(base_addr, &usbdev));
 #endif
@@ -1465,22 +1501,26 @@ static void peripheral_irqs_clear(void) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart0));
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart1));
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart2));
-#endif
-
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
-  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart3));
+  CHECK_DIF_OK(dif_tlul2axi_irq_acknowledge_all(&tlul2axi));
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart0));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart1));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart2));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+  CHECK_DIF_OK(dif_uart_irq_acknowledge_all(&uart3));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
   CHECK_DIF_OK(dif_usbdev_irq_acknowledge_all(&usbdev));
 #endif
 }
@@ -1594,6 +1634,11 @@ static void peripheral_irqs_enable(void) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+  dif_tlul2axi_irq_state_snapshot_t tlul2axi_irqs =
+      (dif_tlul2axi_irq_state_snapshot_t)0xffffffff;
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   // Note: this peripheral contains status interrupts that are asserted by
   // default. Therefore, not all interrupts are enabled here, since that
   // would interfere with this test. Instead, these interrupts are enabled on
@@ -1602,7 +1647,7 @@ static void peripheral_irqs_enable(void) {
       (dif_uart_irq_state_snapshot_t)0xfffffffe;
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
   dif_usbdev_irq_state_snapshot_t usbdev_irqs =
       (dif_usbdev_irq_state_snapshot_t)0xffffffff;
 #endif
@@ -1730,6 +1775,11 @@ static void peripheral_irqs_enable(void) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+  CHECK_DIF_OK(
+      dif_tlul2axi_irq_restore_all(&tlul2axi, &tlul2axi_irqs));
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   // lowrisc/opentitan#8656: Skip UART0 in non-DV setups due to interference
   // from the logging facility.
   if (kDeviceType == kDeviceSimDV) {
@@ -1738,22 +1788,22 @@ static void peripheral_irqs_enable(void) {
   }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   CHECK_DIF_OK(
       dif_uart_irq_restore_all(&uart1, &uart_irqs));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   CHECK_DIF_OK(
       dif_uart_irq_restore_all(&uart2, &uart_irqs));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   CHECK_DIF_OK(
       dif_uart_irq_restore_all(&uart3, &uart_irqs));
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
   CHECK_DIF_OK(
       dif_usbdev_irq_restore_all(&usbdev, &usbdev_irqs));
 #endif
@@ -2285,6 +2335,22 @@ static void peripheral_irqs_trigger(void) {
 #endif
 
 #if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+  peripheral_expected = kTopEarlgreyPlicPeripheralTlul2axi;
+  for (dif_tlul2axi_irq_t irq = kDifTlul2axiIrqMboxIrq;
+       irq <= kDifTlul2axiIrqMboxIrq; ++irq) {
+
+    tlul2axi_irq_expected = irq;
+    LOG_INFO("Triggering tlul2axi IRQ %d.", irq);
+    CHECK_DIF_OK(dif_tlul2axi_irq_force(&tlul2axi, irq, true));
+
+    // This avoids a race where *irq_serviced is read before
+    // entering the ISR.
+    IBEX_SPIN_FOR(tlul2axi_irq_serviced == irq, 1);
+    LOG_INFO("IRQ %d from tlul2axi is serviced.", irq);
+  }
+#endif
+
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   // lowrisc/opentitan#8656: Skip UART0 in non-DV setups due to interference
   // from the logging facility.
   // aon_timer may generate a NMI instead of a PLIC IRQ depending on the ROM.
@@ -2316,7 +2382,7 @@ static void peripheral_irqs_trigger(void) {
   }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   peripheral_expected = kTopEarlgreyPlicPeripheralUart1;
   status_default_mask = 0x1;
   for (dif_uart_irq_t irq = kDifUartIrqTxWatermark;
@@ -2341,7 +2407,7 @@ static void peripheral_irqs_trigger(void) {
   }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   peripheral_expected = kTopEarlgreyPlicPeripheralUart2;
   status_default_mask = 0x1;
   for (dif_uart_irq_t irq = kDifUartIrqTxWatermark;
@@ -2366,7 +2432,7 @@ static void peripheral_irqs_trigger(void) {
   }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 21 && 21 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
   peripheral_expected = kTopEarlgreyPlicPeripheralUart3;
   status_default_mask = 0x1;
   for (dif_uart_irq_t irq = kDifUartIrqTxWatermark;
@@ -2391,7 +2457,7 @@ static void peripheral_irqs_trigger(void) {
   }
 #endif
 
-#if TEST_MIN_IRQ_PERIPHERAL <= 22 && 22 < TEST_MAX_IRQ_PERIPHERAL
+#if TEST_MIN_IRQ_PERIPHERAL <= 23 && 23 < TEST_MAX_IRQ_PERIPHERAL
   peripheral_expected = kTopEarlgreyPlicPeripheralUsbdev;
   status_default_mask = 0x0;
   for (dif_usbdev_irq_t irq = kDifUsbdevIrqPktReceived;
