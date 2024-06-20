@@ -4,7 +4,7 @@
 
 `include "prim_assert.sv"
 
-module prim_generic_otp
+module prim_otp
   import prim_otp_pkg::*;
 #(
   // Native OTP word size. This determines the size_i granule.
@@ -367,12 +367,13 @@ module prim_generic_otp
     rdata_o = rdata_reshaped;
   end
 
-  prim_ram_1p_adv #(
+  prim_otp_wrap_adv #(
     .Depth                (Depth),
     .Width                (Width + EccWidth),
     .MemInitFile          (MemInitFile),
     .EnableInputPipeline  (1),
-    .EnableOutputPipeline (1)
+    .EnableOutputPipeline (1),
+    .Otp                  (1)
   ) u_prim_ram_1p_adv (
     .clk_i,
     .rst_ni,
@@ -386,6 +387,7 @@ module prim_generic_otp
     .rerror_o (                        ),
     .cfg_i    ( '0                     )
   );
+
 
   // Currently it is assumed that no wrap arounds can occur.
   `ASSERT(NoWrapArounds_A, req |-> (addr >= addr_q))
@@ -432,4 +434,4 @@ module prim_generic_otp
       |-> cmd_i inside {Read, ReadRaw, Write, WriteRaw})
 
 
-endmodule : prim_generic_otp
+endmodule : prim_otp
