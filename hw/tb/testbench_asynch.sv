@@ -513,6 +513,7 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
       if (sbcs.sberror | sbcs.sbbusyerror) $fatal(1, "[JTAG] System bus error!");
     end while (sbcs.sbbusy);
     // Repoint execution
+    $display("boot at : %h", binary_entry);
     jtag_write(dm::Data0, binary_entry);
     jtag_write(dm::Command, 32'h0033_07b1, 0, 1);
     // Resume hart 0
