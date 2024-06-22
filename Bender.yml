@@ -774,10 +774,10 @@ sources:
 
 ##### tlul crossbar
 
-      - hw/pulp_earlgrey/ip/xbar_peri/rtl/autogen/tl_peri_pkg.sv
-      - hw/pulp_earlgrey/ip/xbar_peri/rtl/autogen/xbar_peri.sv
-      - hw/pulp_earlgrey/ip/xbar_main/rtl/autogen/tl_main_pkg.sv
-      - hw/pulp_earlgrey/ip/xbar_main/rtl/autogen/xbar_main.sv
+      - hw/pulp_earlgrey/ip_custom/xbar_peri/rtl/autogen/tl_peri_pkg.sv
+      - hw/pulp_earlgrey/ip_custom/xbar_peri/rtl/autogen/xbar_peri.sv
+      - hw/pulp_earlgrey/ip_custom/xbar_main/rtl/autogen/tl_main_pkg.sv
+      - hw/pulp_earlgrey/ip_custom/xbar_main/rtl/autogen/xbar_main.sv
 
 ##### tlul2axi
 
@@ -807,9 +807,9 @@ sources:
 ##### top module
 
       - hw/pulp_earlgrey/rtl/autogen/top_earlgrey_pkg.sv
-      - hw/pulp_earlgrey/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv    
+      - hw/pulp_earlgrey/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv
       - hw/pulp_earlgrey/rtl/jtag_id_pkg.sv
-      - hw/pulp_earlgrey/rtl/autogen/top_earlgrey.sv
+      - hw/pulp_earlgrey/top/top_earlgrey.sv
       - hw/pulp_earlgrey/top/secure_subsystem_synth_pkg.sv
       - hw/pulp_earlgrey/top/secure_subsystem_asynch_synth_wrap.sv
 
