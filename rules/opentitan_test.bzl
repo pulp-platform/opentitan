@@ -50,7 +50,7 @@ FPGA_DEFAULT_TARGETS = [
 VALID_TARGETS = ["dv", "verilator"] + FPGA_TARGETS
 
 # By default, only build CW310 targets to avoid overloading the CI
-DEFAULT_TARGETS = ["dv", "verilator"] + FPGA_DEFAULT_TARGETS
+DEFAULT_TARGETS = ["dv", "verilator"]
 
 OTTF_SUCCESS_MSG = r"PASS.*\n"
 OTTF_FAILURE_MSG = r"(FAIL|FAULT).*\n"

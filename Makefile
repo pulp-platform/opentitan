@@ -34,7 +34,7 @@ rom_dis      := boot_rom.dis
 rom_vmem     := boot_rom.vmem
 bootrom_sv   := $(OT_ROOT)/hw/ip/rom_ctrl/rtl/boot_rom.sv
 
-flash_bazel_output_vmem := $(BAZEL_OUT)/$(test_path)/$(test_name)_prog_sim_verilator.fake_test_key_0.signed.64.scr.vmem
+flash_bazel_output_vmem := $(BAZEL_OUT)/$(test_path)/$(test_name)_prog_sim_verilator.fake_rsa_test_key_0.signed.64.scr.vmem
 flash_bazel_output_dis := $(BAZEL_OUT)/$(test_path)/$(test_name)_prog_sim_verilator.dis
 
 sram_bazel_output_bin := $(BAZEL_OUT)/$(test_path)/$(test_name)_sim_verilator.elf
