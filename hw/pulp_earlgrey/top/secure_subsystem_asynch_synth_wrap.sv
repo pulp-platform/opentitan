@@ -403,9 +403,9 @@ module secure_subsystem_synth_wrap
       .axi_req_rsp_i                ( ot_axi_rsp            ),
       .irq_ibex_i                   ( irq_ibex_sync         ),
       .jtag_req_i                   ( jtag_i                ),
-      .jtag_rsp_o                   ( jtag_o                )
-      //.fetch_en_i                   ( fetch_en_sync         ),
-      //.bootmode_i                   ( bootmode_i            )
+      .jtag_rsp_o                   ( jtag_o                ),
+      .fetch_en_i                   ( fetch_en_sync         ),
+      .bootmode_i                   ( bootmode_i            )
    );
 
    rng #(

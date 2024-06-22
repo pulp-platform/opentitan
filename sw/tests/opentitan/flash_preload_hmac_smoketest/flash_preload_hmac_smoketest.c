@@ -18,6 +18,7 @@
 
 int main(int argc, char **argv) {
 
+  uint32_t addr = 0xd0008080;
   volatile int * datapath, * sw_bootmode;
   volatile int * payload_1, * payload_2, * payload_3, * address, * start;
 
@@ -46,7 +47,13 @@ int main(int argc, char **argv) {
 
   *datapath = 0x0;
   *sw_bootmode = 0x1;
-  
+
+    // Jump to the specified address using inline assembly
+  asm volatile (
+      "jalr %0"   // Jump and link register to address in %0
+      :           // No output operands
+      : "r"(addr) // Input operand: use the address in register %0
+      : "a0"      // Clobbers: list the registers that are modified
+                );
   return 0;
-  
 }

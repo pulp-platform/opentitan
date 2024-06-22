@@ -41,7 +41,14 @@ module prim_flash #(
   output tlul_pkg::tl_d2h_t tl_o,
   // Observability
   input ast_pkg::ast_obs_ctrl_t obs_ctrl_i,
-  output logic [7:0] fla_obs_o
+  output logic [7:0] fla_obs_o,
+  // Debug Mode Interface
+  input logic        debug_flash_write_i,
+  input logic        debug_flash_req_i,
+  input logic [15:0] debug_flash_addr_i,
+  input logic [75:0] debug_flash_wdata_i,
+  input logic [75:0] debug_flash_wmask_i,
+  input logic        datapath_i
 );
 
   // convert this into a tlul write later
@@ -50,6 +57,27 @@ module prim_flash #(
 
   logic [NumBanks-1:0] init_busy;
   assign init_busy_o = |init_busy;
+
+  logic [NumBanks-1:0]       datapath;
+  logic [NumBanks-1:0]       debug_flash_write;
+  logic [NumBanks-1:0]       debug_flash_req;
+  logic [NumBanks-1:0][15:0] debug_flash_addr;
+  logic [NumBanks-1:0][75:0] debug_flash_wdata;
+  logic [NumBanks-1:0][75:0] debug_flash_wmask;
+
+  assign datapath[0]          = datapath_i;
+  assign debug_flash_write[0] = debug_flash_write_i;
+  assign debug_flash_req[0]   = debug_flash_req_i;
+  assign debug_flash_addr[0]  = debug_flash_addr_i;
+  assign debug_flash_wdata[0] = debug_flash_wdata_i;
+  assign debug_flash_wmask[0] = debug_flash_wmask_i;
+
+  assign datapath[1]          = datapath_i;
+  assign debug_flash_write[1] = debug_flash_write_i;
+  assign debug_flash_req[1]   = debug_flash_req_i;
+  assign debug_flash_addr[1]  = debug_flash_addr_i;
+  assign debug_flash_wdata[1] = debug_flash_wdata_i;
+  assign debug_flash_wmask[1] = debug_flash_wmask_i;
 
   // this represents the type of program operations that are supported
   assign prog_type_avail_o[flash_ctrl_pkg::FlashProgNormal] = 1'b1;
@@ -84,6 +112,13 @@ module prim_flash #(
       .rd_data_o(flash_rsp_o[bank].rdata),
       .init_i(init),
       .init_busy_o(init_busy[bank]),
+      // Debug mode Interface
+      .debug_flash_write_i(debug_flash_write[bank]),
+      .debug_flash_req_i(debug_flash_req[bank]),  
+      .debug_flash_addr_i(debug_flash_addr[bank]),  
+      .debug_flash_wdata_i(debug_flash_wdata[bank]),
+      .debug_flash_wmask_i(debug_flash_wmask[bank]), 
+      .datapath_i(datapath[bank]),
       .flash_power_ready_h_i,
       .flash_power_down_h_i
     );

@@ -39,7 +39,14 @@ module prim_flash_bank #(
   input                              init_i,
   output logic                       init_busy_o,
   input                              flash_power_ready_h_i,
-  input                              flash_power_down_h_i
+  input                              flash_power_down_h_i,
+  // Debug mode Interface
+  input logic                  debug_flash_write_i,
+  input logic                  debug_flash_req_i,
+  input logic [15:0]           debug_flash_addr_i,
+  input logic [75:0]           debug_flash_wdata_i,
+  input logic [75:0]           debug_flash_wmask_i,
+  input logic                  datapath_i
 );
 
   `ifdef SYNTHESIS
@@ -403,17 +410,32 @@ module prim_flash_bank #(
                         (mem_part == flash_ctrl_pkg::FlashPartData |
                          mem_bk_erase);
 
+
+  logic             debug_flash_write;
+  logic             debug_flash_req;
+  logic [AddrW-1:0] debug_flash_addr;
+  logic [75:0]      debug_flash_wdata;
+  logic [75:0]      debug_flash_wmask;
+
+
+  assign debug_flash_write = datapath_i ?  debug_flash_write_i : mem_wr            ;
+  assign debug_flash_req   = datapath_i ?  debug_flash_req_i   : data_mem_req      ;
+  assign debug_flash_addr  = datapath_i ?  debug_flash_addr_i  : mem_addr          ;
+  assign debug_flash_wdata = datapath_i ?  debug_flash_wdata_i : mem_wdata         ;
+  assign debug_flash_wmask = datapath_i ?  debug_flash_wmask_i : {DataWidth{1'b1}} ;
+
   prim_ram_1p #(
     .Width(DataWidth),
     .Depth(WordsPerBank),
     .DataBitsPerMask(DataWidth)
   ) u_mem (
     .clk_i,
-    .req_i    (data_mem_req),
-    .write_i  (mem_wr),
-    .addr_i   (mem_addr),
-    .wdata_i  (mem_wdata),
-    .wmask_i  ({DataWidth{1'b1}}),
+    .rst_ni,
+    .req_i    (debug_flash_req),   //data_mem_req),
+    .write_i  (debug_flash_write), //mem_wr),
+    .addr_i   (debug_flash_addr),  //mem_addr),
+    .wdata_i  (debug_flash_wdata), //mem_wdata),
+    .wmask_i  (debug_flash_wmask), //{DataWidth{1'b1}}),
     .rdata_o  (rd_data_main),
     .cfg_i    ('0)
   );
@@ -433,6 +455,7 @@ module prim_flash_bank #(
       .DataBitsPerMask(DataWidth)
     ) u_info_mem (
       .clk_i,
+      .rst_ni,
       .req_i    (info_mem_req),
       .write_i  (mem_wr),
       .addr_i   (mem_addr[0 +: InfoAddrW]),

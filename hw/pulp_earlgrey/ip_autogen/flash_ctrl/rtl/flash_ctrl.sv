@@ -87,7 +87,15 @@ module flash_ctrl
   input flash_power_down_h_i,
   input flash_power_ready_h_i,
   inout [1:0] flash_test_mode_a_io,
-  inout flash_test_voltage_h_io
+  inout flash_test_voltage_h_io,
+
+  input logic        debug_flash_write,
+  input logic        debug_flash_req,
+  input logic [15:0] debug_flash_addr,
+  input logic [75:0] debug_flash_wdata,
+  input logic [75:0] debug_flash_wmask,
+
+  input logic        datapath_i
 );
 
   //////////////////////////////////////////////////////////
@@ -1319,6 +1327,13 @@ module flash_ctrl
     .flash_ctrl_o      (flash_phy_rsp),
     .tl_i              (prim_tl_i),
     .tl_o              (prim_tl_o),
+    //Debug mode interface
+    .debug_flash_write_i (debug_flash_write),
+    .debug_flash_req_i   (debug_flash_req),
+    .debug_flash_addr_i  (debug_flash_addr),
+    .debug_flash_wdata_i (debug_flash_wdata),
+    .debug_flash_wmask_i (debug_flash_wmask),
+    .datapath_i,
     .obs_ctrl_i,
     .fla_obs_o,
     .lc_nvm_debug_en_i,
@@ -1445,10 +1460,10 @@ module flash_ctrl
 
   // Alert assertions for reg_we onehot check
   `ASSERT_PRIM_REG_WE_ONEHOT_ERROR_TRIGGER_ALERT(RegWeOnehotCheck_A, u_reg_core, alert_tx_o[1])
-
+/*
   // Assertions for countermeasures inside prim_flash
   `ifndef PRIM_DEFAULT_IMPL
     `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric
   `endif
-
+*/
 endmodule

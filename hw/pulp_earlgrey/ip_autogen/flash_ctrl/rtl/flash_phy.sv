@@ -41,7 +41,14 @@ module flash_phy
   input ast_pkg::ast_obs_ctrl_t obs_ctrl_i,
   output logic [7:0] fla_obs_o,
   output logic fatal_prim_flash_alert_o,
-  output logic recov_prim_flash_alert_o
+  output logic recov_prim_flash_alert_o,
+  // Debug mode interface
+  input logic        debug_flash_write_i,
+  input logic        debug_flash_req_i,
+  input logic [15:0] debug_flash_addr_i,
+  input logic [75:0] debug_flash_wdata_i,
+  input logic [75:0] debug_flash_wmask_i,
+  input logic        datapath_i
 );
 
   import prim_mubi_pkg::MuBi4False;
@@ -381,7 +388,14 @@ module flash_phy
     .flash_test_voltage_h_io,
     .flash_err_o(flash_ctrl_o.macro_err),
     .fatal_alert_o(fatal_prim_flash_alert_o),
-    .recov_alert_o(recov_prim_flash_alert_o)
+    .recov_alert_o(recov_prim_flash_alert_o),
+    // Debug Mode Interface
+    .debug_flash_write_i,
+    .debug_flash_req_i,
+    .debug_flash_addr_i,
+    .debug_flash_wdata_i,
+    .debug_flash_wmask_i,
+    .datapath_i
   );
   logic unused_alert;
   assign unused_alert = flash_ctrl_i.alert_trig & flash_ctrl_i.alert_ack;

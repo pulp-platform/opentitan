@@ -24,13 +24,11 @@ module testbench_asynch ();
    import "DPI-C" function byte get_section(output longint address, output longint len);
    import "DPI-C" context function byte read_section(input longint address, inout byte buffer[]);
 
-
  ////////////////////////////  Defines ////////////////////////////
- 
+
    localparam AxiWideBeWidth    = 4;
    localparam AxiWideByteOffset = $clog2(AxiWideBeWidth);
 
-   
    localparam int unsigned AxiAddrWidth          = SynthAxiAddrWidth;
    localparam int unsigned AxiDataWidth          = SynthAxiDataWidth;
    localparam int unsigned AxiUserWidth          = SynthAxiUserWidth;
@@ -40,7 +38,7 @@ module testbench_asynch ();
    localparam int unsigned AxiOtDataWidth        = SynthOtAxiDataWidth;
    localparam int unsigned AxiOtUserWidth        = SynthOtAxiUserWidth;
    localparam int unsigned AxiOtOutIdWidth       = SynthOtAxiOutIdWidth;
- 
+
    localparam int unsigned AsyncAxiOutAwWidth    = SynthAsyncAxiOutAwWidth;
    localparam int unsigned AsyncAxiOutWWidth     = SynthAsyncAxiOutWWidth;
    localparam int unsigned AsyncAxiOutBWidth     = SynthAsyncAxiOutBWidth;
@@ -65,22 +63,22 @@ module testbench_asynch ();
 
    localparam int  unsigned LogDepth             = SynthLogDepth;
    localparam int  unsigned CdcSyncStages        = SynthCdcSyncStages;
-   
-   localparam bit  RAND_RESP = 0; 
-   localparam int  AX_MIN_WAIT_CYCLES = 0;   
-   localparam int  AX_MAX_WAIT_CYCLES = 1;   
-   localparam int  R_MIN_WAIT_CYCLES = 0;   
-   localparam int  R_MAX_WAIT_CYCLES = 1;   
+
+   localparam bit  RAND_RESP = 0;
+   localparam int  AX_MIN_WAIT_CYCLES = 0;
+   localparam int  AX_MAX_WAIT_CYCLES = 1;
+   localparam int  R_MIN_WAIT_CYCLES = 0;
+   localparam int  R_MAX_WAIT_CYCLES = 1;
    localparam int  RESP_MIN_WAIT_CYCLES = 0;
    localparam int  RESP_MAX_WAIT_CYCLES = 1;
    localparam int  NUM_BEATS = 100;
 
-   parameter  TOHOST              = 32'h1C000000;
+   parameter  TOHOST              = 32'hC11C001C;
    logic [31:0] binary_entry;
    bit [31:0]  exit_code;
 
-   localparam int unsigned JTAG_CLOCK_PERIOD = 40ns;
-   localparam int unsigned RTC_CLOCK_PERIOD = 20ns;
+   localparam int unsigned JTAG_CLOCK_PERIOD = 10ns;
+   localparam int unsigned RTC_CLOCK_PERIOD = 10ns;
 
    localparam time TA   = 5ns;
    localparam time TT   = 10ns;
@@ -98,18 +96,14 @@ module testbench_asynch ();
 
    logic [1:0]  bootmode;
 
-   logic aon_clk = 1'b0;
-   logic io_clk = 1'b0;
-   logic usb_clk = 1'b0;
    logic rst_sys_n;
    logic es_rng_fips;
    logic SCK, CSNeg;
    logic [3:0] SPIdata_i, SPIdata_o, SPIdata_oe_o;
-   
+
    wire  I0, I1, I2, I3, WPNeg, RESETNeg;
    wire  PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
    wire  ibex_uart_rx, ibex_uart_tx;
-
 
    logic [AsyncAxiOutAwWidth-1:0] async_axi_out_aw_data_o;
    logic             [LogDepth:0] async_axi_out_aw_wptr_o;
@@ -126,10 +120,10 @@ module testbench_asynch ();
    logic [ AsyncAxiOutRWidth-1:0] async_axi_out_r_data_i;
    logic             [LogDepth:0] async_axi_out_r_wptr_i;
    logic             [LogDepth:0] async_axi_out_r_rptr_o;
-  
+
    uart_bus #(.BAUD_RATE(1250000), .PARITY_EN(0)) i_uart0_bus (.rx(ibex_uart_tx), .tx(ibex_uart_rx), .rx_en(1'b1)); //1470588
-   
-   typedef axi_test::axi_rand_slave #(  
+
+   typedef axi_test::axi_rand_slave #(
      .AW( AxiAddrWidth  ),
      .DW( AxiDataWidth  ),
      .IW( AxiOutIdWidth ),
@@ -144,7 +138,7 @@ module testbench_asynch ();
      .RESP_MIN_WAIT_CYCLES(RESP_MIN_WAIT_CYCLES),
      .RESP_MAX_WAIT_CYCLES(RESP_MAX_WAIT_CYCLES)
    ) axi_ran_slave;
-      
+
    AXI_BUS #(
     .AXI_ADDR_WIDTH ( AxiAddrWidth  ),
     .AXI_DATA_WIDTH ( AxiDataWidth  ),
@@ -158,7 +152,7 @@ module testbench_asynch ();
     .AXI_ID_WIDTH   ( AxiOutIdWidth ),
     .AXI_USER_WIDTH ( AxiUserWidth  )
    ) axi (clk_sys);
-   
+
    typedef jtag_test::riscv_dbg #(
       .IrLength       (5                   ),
       .TA             (TA                   ),
@@ -308,7 +302,7 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
        .async_axi_out_ar_rptr_i,
        .async_axi_out_r_data_i,
        .async_axi_out_r_wptr_i,
-       .async_axi_out_r_rptr_o,      
+       .async_axi_out_r_rptr_o,
     // Uart
        .ibex_uart_rx_i   ( ibex_uart_rx  ),
        .ibex_uart_tx_o   ( ibex_uart_tx  ),
@@ -320,7 +314,7 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
        .spi_host_CSB_en_o(               ),
        .spi_host_SD_o    ( SPIdata_o     ),
        .spi_host_SD_i    ( SPIdata_i     ),
-       .spi_host_SD_en_o ( SPIdata_oe_o  ),            
+       .spi_host_SD_en_o ( SPIdata_oe_o  ),
  `else
        .spi_host_SCK_o   (               ),
        .spi_host_SCK_en_o(               ),
@@ -332,22 +326,23 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
  `endif
        .axi_isolated_o   (               ),
        .axi_isolate_i    ( '0            ),
-       .gpio_0_i         ( '0            ), 
+       .gpio_0_i         ( '0            ),
        .gpio_1_i         ( '0            ),
-       .gpio_0_o         (               ), 
+       .gpio_0_o         (               ),
        .gpio_1_o         (               ),
-       .gpio_0_oe_o      (               ), 
+       .gpio_0_oe_o      (               ),
        .gpio_1_oe_o      (               )
    );
- 
+
 ///////////////////////// Processes ///////////////////////////////
 
   initial begin  : axi_slave_process
 
     @(posedge rst_sys_n);
     axi_rand_slave.reset();
-    repeat (4)  @(posedge clk_sys);
-     axi_rand_slave.run();
+    repeat (4)
+       @(posedge clk_sys);
+    axi_rand_slave.run();
 
   end
 
@@ -366,7 +361,7 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
        sram="";
        $display("Loading to SRAM: %s", sram);
     end
-     
+
     case(boot_mode)
         0:begin
           bootmode = 2'b00;
@@ -377,11 +372,12 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
                jtag_init();
                jtag_elf_load(sram, binary_entry);
                jtag_elf_run(32'h e0000080); //preload the flashif
-          `ifdef JTAG_SEC_BOOT
+         /* `ifdef JTAG_SEC_BOOT
                repeat(250000)
                  @(posedge clk_sys);
+               jtag_init();
                jtag_elf_run(32'h d0008080); //secure boot
-          `endif
+          `endif*/
                jtag_wait_for_eoc(TOHOST);
           end
         end
@@ -393,8 +389,8 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
         default:begin
           $fatal("Unsupported bootmode");
         end
-    endcase // case (boot_mode)
-  end // block: bootmodes
+    endcase
+  end
 
 ///////////////////////////// Tasks ///////////////////////////////
 
