@@ -28,9 +28,9 @@ bazel        := ./bazelisk.sh --output_user_root=~/Desktop/temp/bazel build $(de
 bazel_tests  := $(common_test_path)/$(test_name)
 rom_path     := sw/device/silicon_creator/rom
 rom_out_vmem :=$(BAZEL_OUT)/$(rom_path)/rom_with_fake_keys_sim_verilator.39.scr.vmem
-rom_out_dis  :=$(BAZEL_OUT)/$(rom_path)/rom_epmp_test_sim_verilator.dis
+rom_out_elf  :=$(BAZEL_OUT)/$(rom_path)/rom_with_fake_keys_sim_verilator.elf
 rom_dest     :=$(OT_ROOT)/$(common_test_path)/bootrom/
-rom_dis      := boot_rom.dis
+rom_elf      := boot_rom.elf
 rom_vmem     := boot_rom.vmem
 bootrom_sv   := $(OT_ROOT)/hw/ip/rom_ctrl/rtl/boot_rom.sv
 
@@ -77,7 +77,7 @@ compile-bazel-sram:  bazel-compile-test clean-sram
 .PHONY: compile-bazel-rom
 compile-bazel-rom:   bazel-compile-rom clean-rom
 	$(shell cp -r $(rom_out_vmem) $(rom_dest)/$(rom_vmem))
-	$(shell cp -r $(rom_out_dis)  $(rom_dest)/$(rom_dis))
+	$(shell cp -r $(rom_out_elf)  $(rom_dest)/$(rom_elf))
 	$(shell python3 scripts/vmem_scripts/rom/gen_sec_bootrom.py  $(rom_dest)/$(rom_vmem) $(bootrom_sv))
 	$(shell python3 scripts/vmem_scripts/rom/vmem2coe_rom.py  $(rom_dest)/$(rom_vmem) $(rom_dest)/boot_rom.coe)
 
