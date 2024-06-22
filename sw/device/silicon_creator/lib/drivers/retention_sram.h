@@ -33,8 +33,8 @@ typedef struct retention_sram_creator {
    */
   boot_svc_msg_t boot_svc_msg;
 
-  /**
-   * Space reserved for future allocation by the silicon creator.
+  /** 
+  * Space reserved for future allocation by the silicon creator.
    *
    * The first half of the retention SRAM is reserved for the silicon creator
    * except for the first word that stores the format version. Hence the total
@@ -127,7 +127,7 @@ enum {
   /**
    * Base address of retention SRAM storage area.
    */
-  kRetentionSramBase = 0x40600000,
+  kRetentionSramBase = 0xC0600000,
   /**
    * Engineering sample version.
    */

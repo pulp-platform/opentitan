@@ -24,12 +24,11 @@ test_name   ?=
 test_path   := $(common_test_path)/$(test_name)
 destination := $(OT_ROOT)/$(test_path)/bazel-out/
 
-bazel        := ./bazelisk.sh --output_user_root=/scratch2/$(whoami)/.local/bazel build $(defines)
+bazel        := ./bazelisk.sh --output_user_root=~/Desktop/temp/bazel build $(defines)
 bazel_tests  := $(common_test_path)/$(test_name)
-
 rom_path     := sw/device/silicon_creator/rom
-rom_out_vmem :=$(BAZEL_OUT)/$(rom_path)/rom_with_fake_keys_sim_verilator.39.scr.vmem 
-rom_out_dis  :=$(BAZEL_OUT)/$(rom_path)/rom_with_fake_keys_sim_verilator.dis
+rom_out_vmem :=$(BAZEL_OUT)/$(rom_path)/rom_with_fake_keys_sim_verilator.39.scr.vmem
+rom_out_dis  :=$(BAZEL_OUT)/$(rom_path)/rom_epmp_test_sim_verilator.dis
 rom_dest     :=$(OT_ROOT)/$(common_test_path)/bootrom/
 rom_dis      := boot_rom.dis
 rom_vmem     := boot_rom.vmem

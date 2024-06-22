@@ -16,7 +16,7 @@ from util.design.prince import prince, sbox  # type: ignore
 from util.design.secded_gen import ecc_encode_some  # type: ignore
 from util.design.secded_gen import load_secded_config
 
-ROM_BASE_WORD = 0x8000 // 4
+ROM_BASE_WORD = 0xD0008000 // 4
 ROM_SIZE_WORDS = 8192
 
 PRESENT_SBOX4 = [

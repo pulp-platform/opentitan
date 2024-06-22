@@ -151,7 +151,12 @@ cc_library(
         "//sw/device/silicon_creator/lib/drivers:uart",
         "//sw/device/silicon_creator/lib/drivers:watchdog",
         "//sw/device/silicon_creator/lib/sigverify",
-    ],
+        "//sw/device/lib/dif:spi_host",
+        "//sw/device/lib/runtime:log",
+        "//sw/device/lib/runtime:print",
+        "//sw/device/lib/testing/test_framework:ottf_main",
+      	"//sw/device/lib/testing:rand_testutils"
+      ],
 )
 
 _ROM_DEVICES = [
