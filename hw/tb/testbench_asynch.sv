@@ -515,7 +515,7 @@ localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
     // Repoint execution
     $display("boot at : %h", binary_entry);
     jtag_write(dm::Data0, binary_entry);
-    jtag_write(dm::Command, 32'h0033_07b1, 0, 1);
+    jtag_write(dm::Command, {8'h0,1'b0,3'h2,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
     // Resume hart 0
     jtag_write(dm::DMControl, dm::dmcontrol_t'{resumereq: 1, dmactive: 1, default: '0});
   endtask
