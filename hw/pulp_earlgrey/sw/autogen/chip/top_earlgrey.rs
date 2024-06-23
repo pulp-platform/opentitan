@@ -495,7 +495,7 @@ pub const FLASH_CTRL_MEM_BASE_ADDR: usize = 0xF0000000;
 /// memory-mapped registers associated with this peripheral should have an
 /// address between #FLASH_CTRL_MEM_BASE_ADDR and
 /// `FLASH_CTRL_MEM_BASE_ADDR + FLASH_CTRL_MEM_SIZE_BYTES`.
-pub const FLASH_CTRL_MEM_SIZE_BYTES: usize = 0x100000;
+pub const FLASH_CTRL_MEM_SIZE_BYTES: usize = 0x10000;
 
 /// Peripheral base address for regs device on rv_dm in top earlgrey.
 ///
@@ -745,7 +745,7 @@ pub const RAM_RET_AON_SIZE_BYTES: usize = 0x1000;
 pub const EFLASH_BASE_ADDR: usize = 0xF0000000;
 
 /// Memory size for eflash in top earlgrey.
-pub const EFLASH_SIZE_BYTES: usize = 0x100000;
+pub const EFLASH_SIZE_BYTES: usize = 0x10000;
 
 /// Memory base address for ram_main in top earlgrey.
 pub const RAM_MAIN_BASE_ADDR: usize = 0xE0000000;
