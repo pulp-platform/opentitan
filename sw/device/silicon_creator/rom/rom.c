@@ -49,9 +49,9 @@
 #include "sw/device/lib/testing/test_framework/check.h"
 #include "sw/device/lib/base/mmio.h"
 #include "sw/device/lib/testing/rand_testutils.h"
-#include "sw/device/silicon_creator/rom/alsaqr-padframe/bitfield.h"
-#include "sw/device/silicon_creator/rom/alsaqr-padframe/alsaqr_periph_padframe_periphs_regs.h"
-#include "sw/device/silicon_creator/rom/alsaqr-padframe/alsaqr_periph_padframe.h"
+//#include "sw/device/silicon_creator/rom/alsaqr-padframe/bitfield.h"
+//#include "sw/device/silicon_creator/rom/alsaqr-padframe/alsaqr_periph_padframe_periphs_regs.h"
+//#include "sw/device/silicon_creator/rom/alsaqr-padframe/alsaqr_periph_padframe.h"
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 #include "otp_ctrl_regs.h"
 
@@ -83,8 +83,6 @@
   X(kCfiRomBoot,         0x2e2)
 // clang-format
 
-#define TARGET_SYNTHESIS
-
 // Define counters and constant values required by the CFI counter macros.
 CFI_DEFINE_COUNTERS(rom_counters, ROM_CFI_FUNC_COUNTERS_TABLE);
 
@@ -115,16 +113,11 @@ static rom_error_t rom_irq_error(void) {
 /**
  * Prints a status message indicating that the ROM is entering bootstrap mode.
  */
-/*
-static void rom_bootstrap_message(void) {
-  rom_printf("Bootin some fresh cochina!\r\n");
-  printf("Bootin some fresh cochina!\r\n");
-}
-*/
+
 void init_spi_host(dif_spi_host_t *spi_host,
                    uint32_t peripheral_clock_freq_hz) {
   dif_spi_host_config_t config = {
-      .spi_clock = peripheral_clock_freq_hz / 8,// consider 50MHz default ot freq, 6.25MHz after /8
+      .spi_clock = peripheral_clock_freq_hz / 2,// 50MHz, 100MHz boot clock divided by 2
       .peripheral_clock_freq_hz = peripheral_clock_freq_hz,
       .chip_select = {.idle = 2, .trail = 2, .lead = 2},
       .full_cycle = true,
@@ -133,7 +126,7 @@ void init_spi_host(dif_spi_host_t *spi_host,
   };
   CHECK_DIF_OK(dif_spi_host_configure(spi_host, config));
   CHECK_DIF_OK(dif_spi_host_output_set_enabled(spi_host, /*enabled=*/true));
-}
+}/*
 void flash_info_part_init(void){
   volatile int * payload_1, * payload_2, * payload_3, * address, * start, * info_init;
   int info_size = 2560;
@@ -159,11 +152,11 @@ void flash_info_part_init(void){
 
   *info_init = 0x0;
   return;
-}
+  }*/
 void spi_flash_load_data(void){
 
   volatile int * datapath;
-  volatile int * address, * start, * payload_1, * payload_2, * payload_3, * test; 
+  volatile int * address, * start, * payload_1, * payload_2, * payload_3;
 
   int num_iter = 195;
   int buf_size = 63;
@@ -173,7 +166,7 @@ void spi_flash_load_data(void){
   uint32_t addr_swap = 0;
   int index = 0;
   uintptr_t base_addr = TOP_EARLGREY_SPI_HOST0_BASE_ADDR;
-  uint64_t clkHz = 50000000;
+  uint64_t clkHz = 100000000;
   
   payload_1  = (int *) 0xff000000;
   payload_2  = (int *) 0xff000004;
@@ -181,12 +174,12 @@ void spi_flash_load_data(void){
   address    = (int *) 0xff00000C;
   start      = (int *) 0xff000010;
   datapath   = (int *) 0xff00001C;
-
+  /*
   alsaqr_periph_padframe_periphs_ot_spi_00_mux_set( 1 );
   alsaqr_periph_padframe_periphs_ot_spi_01_mux_set( 1 );
   alsaqr_periph_padframe_periphs_ot_spi_02_mux_set( 1 );
   alsaqr_periph_padframe_periphs_ot_spi_03_mux_set( 1 );
-
+  */
   CHECK_DIF_OK(dif_spi_host_init(mmio_region_from_addr(base_addr), &spi_host));
   init_spi_host(&spi_host, (uint32_t)clkHz);
 
@@ -194,7 +187,7 @@ void spi_flash_load_data(void){
   *address = 0;
   // load data from SPI flash
   for(int j=0;j<num_iter;j++){
-     addr = j*sizeof(buf);
+    addr = (uint32_t)j*sizeof(buf);
      addr_swap = bitfield_byteswap32(addr);
      segments[0] = (dif_spi_host_segment_t) {
                    .type = kDifSpiHostSegmentTypeOpcode,
@@ -224,22 +217,17 @@ void spi_flash_load_data(void){
      // write data to embdedded emulated flash
      for(int i = 0; i < buf_size; i += 3) {
        if(i + 2 < buf_size) {
-         *payload_1 = buf[i];
-         *payload_2 = buf[i+1];
-         *payload_3 = buf[i+2];
+         *payload_1 = (int)buf[i];
+         *payload_2 = (int)buf[i+1];
+         *payload_3 = (int)buf[i+2];
 	       *address   = index;
          *start = 0x1;
 	 index++;
        }
      }
   }
-
-  *datapath = 0;
-  test = (int *) 0xf0000000;
-
-  if(*test == 0x01010101)
-    *test= 0x0;
   
+  *datapath = 0;  
   CHECK_DIF_OK(dif_spi_host_output_set_enabled(&spi_host, false));
 }
   
@@ -253,16 +241,7 @@ static rom_error_t rom_init(void) {
   pinmux_init();
   // Configure UART0 as stdout.
   uart_init(kUartNCOValue);
-  #ifdef TARGET_SYNTHESIS                
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  //set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
+  
   // There are no conditional checks before writing to this CSR because it is
   // expected that if relevant Ibex countermeasures are disabled, this will
   // result in a nop.
@@ -288,7 +267,7 @@ static rom_error_t rom_init(void) {
   // Initialize the shutdown policy.
   HARDENED_RETURN_IF_ERROR(shutdown_init(lc_state));
 
-  flash_info_part_init();
+  //flash_info_part_init();
   flash_ctrl_init();
   SEC_MMIO_WRITE_INCREMENT(kFlashCtrlSecMmioInit);
 
@@ -312,7 +291,7 @@ static rom_error_t rom_init(void) {
   rstmgr_reason_clear(reset_reasons);
 
   // This function is a NOP unless ROM is built for an fpga.
-  device_fpga_version_print();
+  // device_fpga_version_print();
 
   sec_mmio_check_values(rnd_uint32());
   sec_mmio_check_counters(/*expected_check_count=*/1);
