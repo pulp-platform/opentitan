@@ -126,36 +126,11 @@ void init_spi_host(dif_spi_host_t *spi_host,
   };
   CHECK_DIF_OK(dif_spi_host_configure(spi_host, config));
   CHECK_DIF_OK(dif_spi_host_output_set_enabled(spi_host, /*enabled=*/true));
-}/*
-void flash_info_part_init(void){
-  volatile int * payload_1, * payload_2, * payload_3, * address, * start, * info_init;
-  int info_size = 2560;
-  
-  payload_1   = (int *) 0xff000000;
-  payload_2   = (int *) 0xff000004;
-  payload_3   = (int *) 0xff000008;
-  address     = (int *) 0xff00000C;
-  start       = (int *) 0xff000010;
-  info_init   = (int *) 0xff000020;
+}
 
-  *info_init = 0x1;
-  
-  for(int i = 0; i < info_size; i++) {
-     if(i + 2 < info_size) {
-        *payload_1 = 0x0;
-        *payload_2 = 0x0;
-        *payload_3 = 0x0;
-        *address = i/3;
-        *start = 0x1;
-     }
-  }
-
-  *info_init = 0x0;
-  return;
-  }*/
 void spi_flash_load_data(void){
 
-  volatile int * datapath;
+  volatile int * datapath, * padframe;
   volatile int * address, * start, * payload_1, * payload_2, * payload_3;
 
   int num_iter = 195;
@@ -167,19 +142,24 @@ void spi_flash_load_data(void){
   int index = 0;
   uintptr_t base_addr = TOP_EARLGREY_SPI_HOST0_BASE_ADDR;
   uint64_t clkHz = 100000000;
-  
+
   payload_1  = (int *) 0xff000000;
   payload_2  = (int *) 0xff000004;
   payload_3  = (int *) 0xff000008;
   address    = (int *) 0xff00000C;
   start      = (int *) 0xff000010;
   datapath   = (int *) 0xff00001C;
-  /*
-  alsaqr_periph_padframe_periphs_ot_spi_00_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_ot_spi_01_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_ot_spi_02_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_ot_spi_03_mux_set( 1 );
-  */
+
+  padframe = (int *) 0x21000000 + 0x8;
+  *padframe = 5;
+  padframe = (int *) 0x21000000 + 0x10;
+  *padframe = 5;
+  padframe = (int *) 0x21000000 + 0x18;
+  *padframe = 3;
+  padframe = (int *) 0x21000000 + 0x20;
+  *padframe = 3;
+
+
   CHECK_DIF_OK(dif_spi_host_init(mmio_region_from_addr(base_addr), &spi_host));
   init_spi_host(&spi_host, (uint32_t)clkHz);
 
