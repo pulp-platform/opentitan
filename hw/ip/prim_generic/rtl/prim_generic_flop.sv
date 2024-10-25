@@ -26,17 +26,17 @@ module prim_flop #(
   for (genvar i=0; i<Width; i++) begin
     if (ResetValue[i] == 1'b0) begin
       tc_flop_async_low_reset i_flop_reset (
-        .CK (clk_i ),
-        .D  (d_i[i]),
-        .RN (rst_ni),
-        .op (q_o[i])
+        .clk_i  (clk_i ),
+        .d_i    (d_i[i]),
+        .rst_ni (rst_ni),
+        .q_o    (q_o[i])
       );
     end else begin
       tc_flop_async_low_set i_flop_set (
-        .CK (clk_i ),
-        .D  (d_i[i]),
-        .RN (rst_ni),
-        .op (q_o[i])
+        .clk_i  (clk_i ),
+        .d_i    (d_i[i]),
+        .rst_ni (rst_ni),
+        .q_o    (q_o[i])
       );
     end
   end
