@@ -35,7 +35,7 @@ module prim_flop #(
       tc_flop_async_low_set i_flop_set (
         .clk_i  (clk_i ),
         .d_i    (d_i[i]),
-        .rst_ni (rst_ni),
+        .set_ni (rst_ni),
         .q_o    (q_o[i])
       );
     end
