@@ -73,8 +73,7 @@ module prim_ram_2p import prim_ram_2p_pkg::*; #(
      .DataWidth(Width),
      .NumPorts(32'd2),
      .PrintSimCfg(1),
-     .ByteWidth(1),
-     .SimInit("zeros")
+     .ByteWidth(1)
   ) ram_primitive (
      .clk_i(clk_a_i),
      .rst_ni,
