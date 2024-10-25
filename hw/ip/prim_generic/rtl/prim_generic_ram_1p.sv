@@ -36,8 +36,7 @@ module prim_ram_1p import prim_ram_1p_pkg::*; #(
     .NumWords(Depth),
     .DataWidth(Width),
     .ByteWidth(1),
-    .NumPorts(1),
-    .SimInit("zeros")
+    .NumPorts(1)
  ) ram_primitive (
     .clk_i,
     .rst_ni,
