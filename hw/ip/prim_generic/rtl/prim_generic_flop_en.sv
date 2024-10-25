@@ -28,11 +28,30 @@ module prim_ot_flop_en #(
     assign en = en_i;
   end
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin
-    if (!rst_ni) begin
-      q_o <= ResetValue;
-    end else if (en) begin
-      q_o <= d_i;
+  // always_ff @(posedge clk_i or negedge rst_ni) begin
+  //   if (!rst_ni) begin
+  //     q_o <= ResetValue;
+  //   end else if (en) begin
+  //     q_o <= d_i;
+  //   end
+  // end
+
+  // Replacing with tech specific cell reference
+  for (genvar i=0; i<Width; i++) begin
+    if (ResetValue[i] == 1'b0) begin
+      tc_flop_async_low_reset i_flop_reset (
+        .CK (clk_i ),
+        .D  (d_i[i]),
+        .RN (rst_ni),
+        .op (q_o[i])
+      );
+    end else begin
+      tc_flop_async_low_set i_flop_set (
+        .CK (clk_i ),
+        .D  (d_i[i]),
+        .RN (rst_ni),
+        .op (q_o[i])
+      );
     end
   end
 

@@ -12,6 +12,15 @@ module prim_xnor2 #(
   output logic [Width-1:0] out_o
 );
 
-  assign out_o = !(in0_i ^ in1_i);
+  // assign out_o = !(in0_i ^ in1_i);
+
+  // Replacing with tech specific cell reference
+  for (genvar i=0; i<Width; i++) begin : p_xnor2_gen
+    tc_xnor2 i_xnor2 (
+      .inp_a (in0_i[i]),
+      .inp_b (in1_i[i]),
+      .op_c  (out_o[i])
+      );
+  end
 
 endmodule
