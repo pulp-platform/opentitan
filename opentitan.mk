@@ -46,20 +46,20 @@ XVLOG_ARGS += -64bit -compile -vtimescale 1ns/1ns -quiet +nospecify +notimingche
 
 define generate_vsim
 	echo 'set ROOT [file normalize [file dirname [info script]]/$3]' > $1
-	bender script $(VSIM) --vlog-arg="$(VLOG_ARGS)" $2 | grep -v "set ROOT" >> $1
+	$(BENDER) script $(VSIM) --vlog-arg="$(VLOG_ARGS)" $2 | grep -v "set ROOT" >> $1
 	echo >> $1
 endef
 
 .PHONY: init build sim update clean secure_boot_jtag secure_boot_spi
 
-build: scripts/compile_opentitan.tcl scripts/compile_opentitan_vip.tcl $(OT_ROOT)/hw/tb/vips
+build: scripts/compile_opentitan.tcl scripts/compile_opentitan_vip.tcl $(OT_ROOT)/hw/tb/vips/s25fs256s.v
 	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 
 sim: build
 	$(QUESTA) vsim -do 'set SRAM $(SRAM); set BOOTMODE $(BOOTMODE); source $(run_script)'
 
 update:
-	bender update
+	$(BENDER) update
 
 clean:
 	rm -rf scripts/compile*
@@ -83,21 +83,9 @@ secure_boot_spi:
 	make clean sim BOOTMODE=1 vip=1
 
 bender:
-	wget "https://github.com/pulp-platform/bender/releases/download/v0.22.0/bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz"
-	tar -xvzf bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
-	rm bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
-	./bender --version | grep -q "bender 0.22.0"
+	curl --proto '=https' --tlsv1.2 https://pulp-platform.github.io/bender/init -sSf | sh -s -- 0.28.2
 
-$(OT_ROOT)/hw/tb/vips:
-	rm -rf $@
-	mkdir $@
-	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
-	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
-	cd model_tmp; unzip model.zip
-	cd model_tmp; mv 'S25fs256s' exe_folder
-	cd model_tmp/exe_folder; unzip S25fs256s.exe
-	cp model_tmp/exe_folder/S25fs256s/model/s25fs256s.v model_tmp/exe_folder/S25fs256s/model/s25fs256s_verilog.sdf $@
-	rm -rf model_tmp
+$(OT_ROOT)/hw/tb/vips/s25fs256s.v:
+	wget --no-check-certificate https://freemodelfoundry.com/fmf_vlog_models/flash/s25fs256s.v -o $@
 
-init: bender update scripts/compile_opentitan.tcl scripts/compile_opentitan_vip.tcl $(OT_ROOT)/hw/tb/vips
+init: $(OT_ROOT)/hw/tb/vips/s25fs256s.v bender update scripts/compile_opentitan.tcl scripts/compile_opentitan_vip.tcl
