@@ -310,7 +310,7 @@ module testbench_asynch_astral ();
 /////////////////////////////// DUT ///////////////////////////////
 
 
-   security_island #(.HartIdOffs(0)) dut (
+   security_island #(.HartIdOffs(4)) dut (
        .clk_i            ( clk_sys       ),
        .clk_ref_i        ( clk_sys       ),
        .rst_ni           ( rst_sys_n     ),
