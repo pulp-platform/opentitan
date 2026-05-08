@@ -24,8 +24,8 @@ packages:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
   tech_cells_generic:
-    revision: a9cae21902e75b1434328ecf36f85327ba5717de
-    version: 0.2.11
+    revision: 7e92d7aae3af501b7f0d96bf902ee84b50e1b5c6
+    version: 0.2.13
     source:
       Git: "https://github.com/pulp-platform/tech_cells_generic.git"
     dependencies:
